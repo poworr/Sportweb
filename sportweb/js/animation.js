@@ -145,10 +145,10 @@
   var shadowEl = mk('ellipse');
   shadowEl.setAttribute('fill', 'rgba(43,21,17,.22)'); shadowEl.setAttribute('stroke', 'none');
   shadowEl.setAttribute('cx', '0'); shadowEl.setAttribute('cy', '0'); shadowEl.setAttribute('rx', '26'); shadowEl.setAttribute('ry', '4');
-  var legB = mk('polyline'), armB = mk('polyline'), torso = mk('line'), legF = mk('polyline'), armF = mk('polyline');
+  var legB = mk('polyline'), armS = mk('polyline'), torso = mk('line'), legF = mk('polyline'), armG = mk('polyline');
   var head = mk('circle');
   head.setAttribute('r', '8.5'); head.setAttribute('fill', '#2b1511');
-  armB.setAttribute('stroke-opacity', '.7'); legB.setAttribute('stroke-opacity', '.7');
+  armS.setAttribute('stroke-opacity', '.72'); legB.setAttribute('stroke-opacity', '.72');
   sg.appendChild(grp);
   shooter.appendChild(sg);
   document.body.appendChild(shooter);
@@ -200,8 +200,8 @@
     legF.setAttribute('points', pts(leg(hip, [12, p.j])));
     var e1 = add(sh, dir(p.u1), 24), h1 = add(e1, dir(p.f1), 22), w1 = add(h1, dir(p.f1 + p.wr), 6);
     var e2 = add(sh, dir(p.u2), 24), h2 = add(e2, dir(p.f2), 22);
-    armF.setAttribute('points', pts([sh, e1, h1, w1]));
-    armB.setAttribute('points', pts([sh, e2, h2]));
+    armS.setAttribute('points', pts([sh, e1, h1, w1]));   // right (shooting) arm: far side
+    armG.setAttribute('points', pts([sh, e2, h2]));       // left (guide) arm: near side
     shadowEl.setAttribute('cx', 0);
     return { hand: w1, aim: dir(p.f1 + p.wr * 0.6) };
   }
@@ -282,7 +282,7 @@
     setTimeout(function () { draw(poseAt(0)); shooter.classList.add('is-visible'); }, 120);
 
     // the second part: he catches the ball, shoots, it goes in
-    var TA = 280, FL = 540, DROP = 190;
+    var TA = 280, FL = 720, DROP = 190;
     var fired = { drop: false, swish: false };
     setTimeout(function () {
       shape.style.transition = 'none';
@@ -304,7 +304,8 @@
             var tf = (ts - REL) / FL;
             if (!P0) {
               P0 = ballAt(hd);
-              C = [rimX - 120, Math.min(P0[1], rimY) - Math.max(110, h * 0.16)];
+              var apex = Math.max(40, rimY - Math.max(170, h * 0.24));   // top of the arc: well above the rim
+              C = [rimX - 110, (4 * apex - P0[1] - rimY) / 2];
             }
             if (tf < 1) {                                          // flight along a curve
               var q = 1 - tf;
