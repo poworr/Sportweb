@@ -145,10 +145,10 @@
   var shadowEl = mk('ellipse');
   shadowEl.setAttribute('fill', 'rgba(43,21,17,.22)'); shadowEl.setAttribute('stroke', 'none');
   shadowEl.setAttribute('cx', '0'); shadowEl.setAttribute('cy', '0'); shadowEl.setAttribute('rx', '26'); shadowEl.setAttribute('ry', '4');
-  var legB = mk('polyline'), armS = mk('polyline'), torso = mk('line'), legF = mk('polyline'), armG = mk('polyline');
+  var legB = mk('polyline'), armG = mk('polyline'), torso = mk('line'), legF = mk('polyline'), armS = mk('polyline');   // right (shooting) arm is the near arm, drawn last
   var head = mk('circle');
   head.setAttribute('r', '8.5'); head.setAttribute('fill', '#2b1511');
-  armS.setAttribute('stroke-opacity', '.72'); legB.setAttribute('stroke-opacity', '.72');
+  armG.setAttribute('stroke-opacity', '.72'); legB.setAttribute('stroke-opacity', '.72');
   sg.appendChild(grp);
   shooter.appendChild(sg);
   document.body.appendChild(shooter);
@@ -156,12 +156,12 @@
   // key poses of a jump shot (t in ms from the moment he starts to shoot)
   // h = hip height, j = jump height, lean = torso lean, u/f = upper arm / forearm angle, wr = wrist flick
   var KEYS = [
-    { t: 0,   h: 58, j: 0,  lean: 6,  u1: 150, f1: 20, u2: 150, f2: 15, wr: 0 },   // ball held at the chest
-    { t: 240, h: 42, j: 0,  lean: 18, u1: 158, f1: 38, u2: 158, f2: 32, wr: 0 },   // dip
-    { t: 420, h: 56, j: 5,  lean: 8,  u1: 85,  f1: 5,  u2: 100, f2: 25, wr: 0 },   // rise, ball to the set point
-    { t: 540, h: 62, j: 15, lean: 0,  u1: 25,  f1: 38, u2: 85,  f2: 60, wr: 35 },  // release at the top of the jump
-    { t: 800, h: 61, j: 12, lean: -2, u1: 28,  f1: 70, u2: 100, f2: 80, wr: 55 },  // follow-through
-    { t: 1100, h: 58, j: 0, lean: 2,  u1: 30,  f1: 75, u2: 110, f2: 85, wr: 55 }   // land
+    { t: 0,   h: 58, j: 0,  lean: 6,  u1: 150, f1: 20, u2: 150, f2: 15, wr: 0 },    // ball held at the chest
+    { t: 230, h: 34, j: 0,  lean: 22, u1: 160, f1: 45, u2: 160, f2: 38, wr: 0 },    // deep dip, knees bent
+    { t: 400, h: 54, j: 6,  lean: 8,  u1: 80,  f1: -12, u2: 95, f2: 30, wr: -30 },  // rise, ball cocked above the head, wrist back
+    { t: 540, h: 64, j: 24, lean: -2, u1: 22,  f1: 20, u2: 70, f2: 50, wr: 50 },    // release at the top of the jump
+    { t: 760, h: 63, j: 20, lean: -4, u1: 15,  f1: 40, u2: 120, f2: 85, wr: 80 },   // arm fully extended, wrist snapped (goose-neck)
+    { t: 1100, h: 58, j: 0, lean: 2,  u1: 28,  f1: 70, u2: 130, f2: 90, wr: 80 }    // land, holding the follow-through
   ];
   var REL = 540;                                   // release time within the shot
   var FIELDS = ['h', 'j', 'lean', 'u1', 'f1', 'u2', 'f2', 'wr'];
