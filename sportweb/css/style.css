@@ -76,21 +76,17 @@ input, textarea { color-scheme: light; font: inherit; }
 /* 4. Header ------------------------------------------------ */
 .site-header { position: sticky; top: 0; z-index: 20; background: var(--bg); }
 .header-inner {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
-  gap: 4px 24px;
+  justify-content: space-between;   /* logo and links spread evenly across the page */
+  gap: 4px 12px;
   padding: 12px 20px;
 }
 .logo { justify-self: start; font-size: 13px; font-weight: 700; letter-spacing: -0.01em; }
-.main-nav { grid-column: 2; justify-self: center; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 24px; }
+.main-nav { display: contents; }
 .main-nav a { padding: 4px 0; font-size: 12px; color: var(--muted); transition: color 160ms ease; }
 .main-nav a:hover,
 .main-nav a[aria-current='page'] { color: var(--text); }
-@media (max-width: 700px) {
-  .header-inner { grid-template-columns: 1fr auto; }
-  .main-nav { grid-column: 1 / -1; justify-self: center; justify-content: center; }
-}
 
 /* 5. Buttons ----------------------------------------------- */
 .btn {
@@ -151,7 +147,6 @@ h4 { line-height: 1.4; letter-spacing: 0; }
 .logo, .main-nav a { letter-spacing: 0.02em; }
 .main-nav a { white-space: nowrap; }
 @media (max-width: 700px) {
-  .main-nav { gap: 4px 14px; }
   .main-nav a { font-size: 12px; }
 }
 

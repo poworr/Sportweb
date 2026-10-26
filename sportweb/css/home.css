@@ -72,8 +72,7 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 .p-home .page { position: relative; }
 .p-home .site-header, .p-home .page > main, .p-home .pager { position: relative; z-index: 1; }
 .p-home .site-header { position: relative; background: none; }
-.p-home .header-inner { position: relative; display: flex; align-items: center; gap: 8px 24px; padding: clamp(12px, 2.4dvh, 22px) clamp(14px, 2vw, 28px); }
-.p-home .main-nav { position: absolute; left: 50%; transform: translateX(-50%); display: flex; flex-wrap: wrap; justify-content: center; gap: 4px clamp(16px, 2.4vw, 36px); }
+.p-home .header-inner { display: flex; justify-content: space-between; align-items: center; padding: clamp(12px, 2.4dvh, 22px) clamp(14px, 2vw, 28px); }
 .p-home .logo, .p-home .main-nav a, .p-home .wordmark { color: var(--text); }
 .p-home .main-nav a { opacity: 0.8; font-size: 13px; }
 .p-home .main-nav a:hover { opacity: 1; }
