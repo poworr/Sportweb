@@ -49,17 +49,26 @@
 
           <div class="steps" id="steps">
           <div class="card" data-step="1">
-            <div class="card-head">
-              <div>
-                <h3>1. あなたの数字</h3>
-                <p class="card-sub">チームや草バスケでの平均を使ってください。目安で構いません。</p>
-              </div>
-              <div class="field name-field">
-                <label for="playerName">あなたの名前</label>
-                <input id="playerName" type="text" placeholder="あなた">
+            <div class="build-layout">
+              <figure class="figure-panel">
+                <svg id="bodySvg" viewBox="0 0 290 420" role="img" aria-label="身長と体重に合わせて変わるスティックマン"></svg>
+                <figcaption class="figure-cap"><b id="bodyType"></b><span id="bodyVs"></span></figcaption>
+              </figure>
+              <div class="build-fields">
+                <div class="card-head">
+                  <div>
+                    <h3>1. あなたの数字</h3>
+                    <p class="card-sub">身長と体重を動かすと、左のスティックマンが変わります。成績はチームや草バスケでの平均を使ってください。</p>
+                  </div>
+                  <div class="field name-field">
+                    <label for="playerName">あなたの名前</label>
+                    <input id="playerName" type="text" placeholder="あなた">
+                  </div>
+                </div>
+                <div class="sliders sliders--body" id="bodySliders"></div>
+                <div class="sliders" id="sliders"></div>
               </div>
             </div>
-            <div class="sliders" id="sliders"></div>
           </div>
 
           <div class="card card--soft" data-step="2">

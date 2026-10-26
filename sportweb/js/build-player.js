@@ -10,7 +10,8 @@
   var state = {
     stats: { pts: 12, fg: 42, tp: 30, ft: 70, reb: 4, ast: 3, stl: 0.8, blk: 0.3 },
     tab: 'all',        // 'now' (ESPN top 10) or 'all' (all-time greats)
-    fav: 'curry'       // id of the player we compare with
+    fav: 'curry',      // id of the player we compare with
+    body: { h: 178, w: 72 }   // height (cm) and weight (kg) of the stick man
   };
 
   var $ = function (id) { return document.getElementById(id); };
@@ -59,6 +60,126 @@
   }
   function showSliderValue(stat) {
     $('val-' + stat.key).textContent = fmt(stat, state.stats[stat.key]);
+  }
+
+  /* ---------- 1b. height / weight and the stick man ---------- */
+  var NS = 'http://www.w3.org/2000/svg';
+  var BODY = [
+    { key: 'h', label: '身長', min: 150, max: 230, step: 1, unit: 'cm' },
+    { key: 'w', label: '体重', min: 40, max: 150, step: 1, unit: 'kg' }
+  ];
+  var CURRY = { h: 188, w: 84 };            // Stephen Curry: 6 ft 2 in, 185 lb
+  var GROUND = 392, PX = 1.55;              // ground line (y) and pixels per cm
+  var shown = { h: state.body.h, w: state.body.w };   // what is drawn now (eases toward state.body)
+  var svg, you, ref, rulerBuilt = false;
+
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    Object.keys(attrs || {}).forEach(function (k) { e.setAttribute(k, attrs[k]); });
+    if (parent) { parent.appendChild(e); }
+    return e;
+  }
+  function makeFigure(parent, cls) {
+    var g = el('g', { 'class': cls }, parent);
+    return {
+      g: g,
+      legL: el('polyline', {}, g), legR: el('polyline', {}, g),
+      armL: el('polyline', {}, g), armR: el('polyline', {}, g),
+      sh: el('line', {}, g), body: el('line', {}, g), neck: el('line', {}, g), head: el('circle', {}, g)
+    };
+  }
+  function pts(a) { return a.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' '); }
+  function poseFigure(f, cx, hcm, wkg) {
+    var H = hcm * PX, bmi = wkg / Math.pow(hcm / 100, 2);
+    var t = Math.max(0, Math.min(1, (bmi - 17) / 19));            // 0 = very lean, 1 = heavy
+    var r = H * 0.062, headY = GROUND - H + r;
+    var shY = GROUND - H * 0.815, hipY = GROUND - H * 0.5;
+    var sw = H * (0.105 + 0.035 * t);
+    var lw = H * (0.02 + 0.028 * t);                               // limb thickness
+    var tw = H * (0.05 + 0.17 * t);                                // torso thickness
+    f.g.setAttribute('stroke-width', lw.toFixed(1));
+    f.head.setAttribute('cx', cx); f.head.setAttribute('cy', headY.toFixed(1)); f.head.setAttribute('r', r.toFixed(1));
+    f.neck.setAttribute('x1', cx); f.neck.setAttribute('y1', (headY + r).toFixed(1));
+    f.neck.setAttribute('x2', cx); f.neck.setAttribute('y2', shY.toFixed(1));
+    f.sh.setAttribute('x1', cx - sw); f.sh.setAttribute('x2', cx + sw);
+    f.sh.setAttribute('y1', shY.toFixed(1)); f.sh.setAttribute('y2', shY.toFixed(1));
+    f.body.setAttribute('stroke-width', tw.toFixed(1));
+    f.body.setAttribute('x1', cx); f.body.setAttribute('x2', cx);
+    f.body.setAttribute('y1', (shY + tw * 0.5 + 2).toFixed(1)); f.body.setAttribute('y2', (hipY - tw * 0.3).toFixed(1));
+    [[f.armL, -1], [f.armR, 1]].forEach(function (a) {
+      var s = a[1];
+      a[0].setAttribute('points', pts([[cx + s * sw, shY], [cx + s * (sw + H * 0.035 + tw * 0.3), shY + H * 0.15], [cx + s * (sw + H * 0.05 + tw * 0.34), shY + H * 0.29]]));
+    });
+    [[f.legL, -1], [f.legR, 1]].forEach(function (l) {
+      var s = l[1];
+      l[0].setAttribute('points', pts([[cx + s * H * 0.035, hipY], [cx + s * (H * 0.05 + tw * 0.14), (hipY + GROUND) / 2], [cx + s * (H * 0.06 + tw * 0.2), GROUND - lw / 2]]));
+    });
+  }
+  function buildFigureSvg() {
+    svg = $('bodySvg');
+    // ruler: faint lines every 20 cm
+    var ruler = el('g', { 'class': 'ruler' }, svg);
+    for (var cm = 0; cm <= 230; cm += 10) {
+      if (cm < 150 && cm % 50) { continue; }
+      var y = GROUND - cm * PX;
+      el('line', { x1: 36, x2: 282, y1: y, y2: y, 'class': cm % 50 === 0 ? 'ruler-line ruler-line--major' : 'ruler-line' }, ruler);
+      if (cm % 50 === 0 || cm % 20 === 0 && cm >= 150) { el('text', { x: 30, y: y + 4, 'class': 'ruler-text', 'text-anchor': 'end' }, ruler).textContent = cm; }
+    }
+    el('line', { x1: 36, x2: 282, y1: GROUND, y2: GROUND, 'class': 'ground' }, svg);
+    el('ellipse', { cx: 110, cy: GROUND + 2, rx: 44, ry: 5, 'class': 'figure-shadow', id: 'bodyShadow' }, svg);
+    ref = makeFigure(svg, 'figure figure--ref');
+    you = makeFigure(svg, 'figure figure--you');
+    var tag = el('text', { x: 226, y: GROUND - CURRY.h * PX - 8, 'class': 'ref-tag', 'text-anchor': 'middle' }, svg);
+    tag.textContent = 'カリー ' + CURRY.h + 'cm';
+    poseFigure(ref, 226, CURRY.h, CURRY.w);
+    drawBody();
+  }
+  function drawBody() {
+    poseFigure(you, 112, shown.h, shown.w);
+    var bmi = shown.w / Math.pow(shown.h / 100, 2);
+    $('bodyShadow').setAttribute('rx', (28 + Math.max(0, Math.min(1, (bmi - 17) / 19)) * 26).toFixed(1));
+  }
+  var raf = 0;
+  function easeBody() {
+    cancelAnimationFrame(raf);
+    (function tick() {
+      shown.h += (state.body.h - shown.h) * 0.22;
+      shown.w += (state.body.w - shown.w) * 0.22;
+      var done = Math.abs(state.body.h - shown.h) < 0.05 && Math.abs(state.body.w - shown.w) < 0.05;
+      if (done) { shown.h = state.body.h; shown.w = state.body.w; }
+      drawBody();
+      if (!done) { raf = requestAnimationFrame(tick); }
+    })();
+  }
+  function bodyText() {
+    var h = state.body.h, w = state.body.w, bmi = w / Math.pow(h / 100, 2);
+    var kind = h < 185 ? 'ガード体型' : h < 198 ? 'ウイング体型' : h < 208 ? 'フォワード体型' : 'ビッグマン体型';
+    var build = bmi < 19 ? '細身' : bmi < 25 ? '標準' : bmi < 30 ? 'がっしり' : 'かなり重め';
+    $('bodyType').textContent = kind + '・' + build;
+    var d = h - CURRY.h;
+    $('bodyVs').textContent = 'BMI ' + bmi.toFixed(1) + ' ・ カリーより ' + (d === 0 ? '同じ身長' : Math.abs(d) + 'cm ' + (d > 0 ? '高い' : '低い'));
+  }
+  function buildBodySliders() {
+    var box = $('bodySliders');
+    BODY.forEach(function (b) {
+      var wrap = document.createElement('div');
+      wrap.className = 'slider';
+      wrap.innerHTML =
+        '<div class="slider-head"><label for="in-body-' + b.key + '">' + b.label + '</label>' +
+        '<span class="slider-value" id="val-body-' + b.key + '"></span></div>' +
+        '<input id="in-body-' + b.key + '" type="range" min="' + b.min + '" max="' + b.max + '" step="' + b.step + '">';
+      var input = wrap.querySelector('input');
+      input.value = state.body[b.key];
+      function show() { $('val-body-' + b.key).textContent = state.body[b.key] + b.unit; }
+      input.addEventListener('input', function () {
+        state.body[b.key] = parseFloat(input.value);
+        show(); bodyText(); easeBody();
+      });
+      box.appendChild(wrap);
+      show();
+    });
+    buildFigureSvg();
+    bodyText();
   }
 
   /* ---------- 2. compare-with tabs and player list ---------- */
@@ -267,6 +388,7 @@
   /* ---------- start ---------- */
   function update() { renderPool(); renderResults(); renderPlan(); }
 
+  buildBodySliders();
   buildSliders();
   $('tabNow').addEventListener('click', function () { pickTab('now', 'jokic'); });
   $('tabAll').addEventListener('click', function () { pickTab('all', 'curry'); });

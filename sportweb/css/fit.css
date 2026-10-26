@@ -73,7 +73,13 @@
   .p-player .steps-nav { margin-top: 10px; }
   .p-player .steps { flex: 1 1 0; min-height: 0; margin-top: 12px; }
   .p-player .steps > .card { height: 100%; overflow: auto; padding: 24px 32px; }
-  .p-player .sliders { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 36px; margin-top: 28px; }
+  .p-player .build-layout { display: grid; grid-template-columns: minmax(220px, 26%) minmax(0, 1fr); gap: 32px; margin-top: 0; align-items: stretch; height: 100%; }
+  .p-player .figure-panel { height: 100%; min-height: 0; display: flex; flex-direction: column; padding: 10px 12px 12px; }
+  .p-player .figure-panel svg { flex: 1 1 0; min-height: 0; max-height: none; }
+  .p-player .sliders { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px 32px; margin-top: 20px; }
+  .p-player .sliders--body { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 0; }
+  .p-player .sliders:not(.sliders--body) .slider-head label { font-size: 13px; line-height: 1.3; }
+  .p-player .sliders:not(.sliders--body) .slider-value { font-size: 18px; white-space: nowrap; }
   .p-player .pool { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
   .p-player .player-btn { min-width: 0; }
   .p-player .card--result { display: grid; grid-template-columns: 320px minmax(0, 1fr) 230px; grid-template-rows: auto auto minmax(0, 1fr); gap: 0 32px; }

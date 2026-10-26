@@ -119,3 +119,31 @@
 .words .tag { font-size: 13px; font-weight: 600; color: var(--muted); }
 .words p { font-size: 16px; line-height: 1.5; }
 [hidden] { display: none !important; }
+
+/* stick man that follows your height and weight */
+.build-layout { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 24px 40px; margin-top: 24px; }
+.figure-panel { flex: 0 1 300px; min-width: 220px; margin: 0; padding: 12px 12px 14px; border-radius: 16px; background: var(--card); text-align: center; }
+.figure-panel svg { display: block; width: 100%; height: auto; max-height: 440px; }
+.figure { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.figure--you { stroke: var(--text); }
+.figure--you .head { fill: var(--text); }
+.figure--you circle { fill: var(--text); stroke: none; }
+.figure--ref { stroke: var(--text); stroke-opacity: .28; stroke-dasharray: 1 7; }
+.figure--ref circle { fill: none; stroke-dasharray: none; stroke-opacity: .28; }
+.figure-shadow { fill: rgba(43, 21, 17, .18); }
+.ground { stroke: var(--text); stroke-opacity: .5; stroke-width: 2; }
+.ruler-line { stroke: var(--text); stroke-opacity: .12; stroke-width: 1; }
+.ruler-line--major { stroke-opacity: .24; }
+.ruler-text { font: 600 9px var(--body); fill: var(--muted); }
+.ref-tag { font: 700 10px var(--body); fill: var(--soft); }
+.figure-cap { display: flex; flex-direction: column; gap: 2px; margin-top: 8px; }
+.figure-cap b { font-size: 16px; }
+.figure-cap span { font-size: 12px; color: var(--muted); }
+.build-fields { flex: 1 1 360px; min-width: 0; }
+.sliders--body { margin-top: 0; }
+.sliders--body .slider-value { font-size: 28px; }
+.build-fields .sliders + .sliders { margin-top: 24px; }
+
+.build-fields .card-head { margin-bottom: 6px; }
+.build-layout { margin-top: 0; }
+.build-fields .sliders { margin-top: 20px; }
