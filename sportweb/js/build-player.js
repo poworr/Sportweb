@@ -11,7 +11,7 @@
     stats: { pts: 12, fg: 42, tp: 30, ft: 70, reb: 4, ast: 3, stl: 0.8, blk: 0.3 },
     tab: 'all',        // 'now' (ESPN top 10) or 'all' (all-time greats)
     fav: 'curry',      // id of the player we compare with
-    body: { h: 178, w: 72 }   // height (cm) and weight (kg) of the stick man
+    body: { h: 178, w: 72, s: 183 }   // height (cm) and weight (kg) of the stick man
   };
 
   var $ = function (id) { return document.getElementById(id); };
@@ -65,12 +65,13 @@
   /* ---------- 1b. height / weight and the stick man ---------- */
   var NS = 'http://www.w3.org/2000/svg';
   var BODY = [
-    { key: 'h', label: '身長', min: 150, max: 230, step: 1, unit: 'cm' },
-    { key: 'w', label: '体重', min: 40, max: 150, step: 1, unit: 'kg' }
+    { key: 'h', label: '身長', min: 150, max: 235, step: 1, unit: 'cm' },
+    { key: 'w', label: '体重', min: 40, max: 150, step: 1, unit: 'kg' },
+    { key: 's', label: 'ウイングスパン', min: 150, max: 250, step: 1, unit: 'cm' }
   ];
-  var CURRY = { h: 188, w: 84 };            // Stephen Curry: 6 ft 2 in, 185 lb
+  var CURRY = { h: 188, w: 84, s: 190 };    // Stephen Curry: 6 ft 2 in, 185 lb, wingspan about 6 ft 3 in
   var GROUND = 392, PX = 1.55;              // ground line (y) and pixels per cm
-  var shown = { h: state.body.h, w: state.body.w };   // what is drawn now (eases toward state.body)
+  var shown = { h: state.body.h, w: state.body.w, s: state.body.s };   // what is drawn now (eases toward state.body)
   var svg, you, ref, rulerBuilt = false;
 
   function el(tag, attrs, parent) {
@@ -89,7 +90,7 @@
     };
   }
   function pts(a) { return a.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' '); }
-  function poseFigure(f, cx, hcm, wkg) {
+  function poseFigure(f, cx, hcm, wkg, span) {
     var H = hcm * PX, bmi = wkg / Math.pow(hcm / 100, 2);
     var t = Math.max(0, Math.min(1, (bmi - 17) / 19));            // 0 = very lean, 1 = heavy
     var r = H * 0.062, headY = GROUND - H + r;
@@ -106,9 +107,10 @@
     f.body.setAttribute('stroke-width', tw.toFixed(1));
     f.body.setAttribute('x1', cx); f.body.setAttribute('x2', cx);
     f.body.setAttribute('y1', (shY + tw * 0.5 + 2).toFixed(1)); f.body.setAttribute('y2', (hipY - tw * 0.3).toFixed(1));
+    var armLen = Math.max(H * 0.2, span * PX / 2 - sw), ang = 22 * Math.PI / 180;   // wingspan = shoulders + two arms
     [[f.armL, -1], [f.armR, 1]].forEach(function (a) {
-      var s = a[1];
-      a[0].setAttribute('points', pts([[cx + s * sw, shY], [cx + s * (sw + H * 0.035 + tw * 0.3), shY + H * 0.15], [cx + s * (sw + H * 0.05 + tw * 0.34), shY + H * 0.29]]));
+      var s = a[1], dx = Math.sin(ang) * armLen, dy = Math.cos(ang) * armLen;
+      a[0].setAttribute('points', pts([[cx + s * sw, shY], [cx + s * (sw + dx * 0.5 + tw * 0.1), shY + dy * 0.5], [cx + s * (sw + dx + tw * 0.12), shY + dy]]));
     });
     [[f.legL, -1], [f.legR, 1]].forEach(function (l) {
       var s = l[1];
@@ -119,23 +121,23 @@
     svg = $('bodySvg');
     // ruler: faint lines every 20 cm
     var ruler = el('g', { 'class': 'ruler' }, svg);
-    for (var cm = 0; cm <= 230; cm += 10) {
+    for (var cm = 0; cm <= 240; cm += 10) {
       if (cm < 150 && cm % 50) { continue; }
       var y = GROUND - cm * PX;
-      el('line', { x1: 36, x2: 282, y1: y, y2: y, 'class': cm % 50 === 0 ? 'ruler-line ruler-line--major' : 'ruler-line' }, ruler);
+      el('line', { x1: 36, x2: 352, y1: y, y2: y, 'class': cm % 50 === 0 ? 'ruler-line ruler-line--major' : 'ruler-line' }, ruler);
       if (cm % 50 === 0 || cm % 20 === 0 && cm >= 150) { el('text', { x: 30, y: y + 4, 'class': 'ruler-text', 'text-anchor': 'end' }, ruler).textContent = cm; }
     }
-    el('line', { x1: 36, x2: 282, y1: GROUND, y2: GROUND, 'class': 'ground' }, svg);
-    el('ellipse', { cx: 110, cy: GROUND + 2, rx: 44, ry: 5, 'class': 'figure-shadow', id: 'bodyShadow' }, svg);
+    el('line', { x1: 36, x2: 352, y1: GROUND, y2: GROUND, 'class': 'ground' }, svg);
+    el('ellipse', { cx: 122, cy: GROUND + 2, rx: 44, ry: 5, 'class': 'figure-shadow', id: 'bodyShadow' }, svg);
     ref = makeFigure(svg, 'figure figure--ref');
     you = makeFigure(svg, 'figure figure--you');
-    var tag = el('text', { x: 226, y: GROUND - CURRY.h * PX - 8, 'class': 'ref-tag', 'text-anchor': 'middle' }, svg);
+    var tag = el('text', { x: 274, y: GROUND - CURRY.h * PX - 8, 'class': 'ref-tag', 'text-anchor': 'middle' }, svg);
     tag.textContent = 'カリー ' + CURRY.h + 'cm';
-    poseFigure(ref, 226, CURRY.h, CURRY.w);
+    poseFigure(ref, 274, CURRY.h, CURRY.w, CURRY.s);
     drawBody();
   }
   function drawBody() {
-    poseFigure(you, 112, shown.h, shown.w);
+    poseFigure(you, 122, shown.h, shown.w, shown.s);
     var bmi = shown.w / Math.pow(shown.h / 100, 2);
     $('bodyShadow').setAttribute('rx', (28 + Math.max(0, Math.min(1, (bmi - 17) / 19)) * 26).toFixed(1));
   }
@@ -145,8 +147,9 @@
     (function tick() {
       shown.h += (state.body.h - shown.h) * 0.22;
       shown.w += (state.body.w - shown.w) * 0.22;
-      var done = Math.abs(state.body.h - shown.h) < 0.05 && Math.abs(state.body.w - shown.w) < 0.05;
-      if (done) { shown.h = state.body.h; shown.w = state.body.w; }
+      shown.s += (state.body.s - shown.s) * 0.22;
+      var done = Math.abs(state.body.h - shown.h) < 0.05 && Math.abs(state.body.w - shown.w) < 0.05 && Math.abs(state.body.s - shown.s) < 0.05;
+      if (done) { shown.h = state.body.h; shown.w = state.body.w; shown.s = state.body.s; }
       drawBody();
       if (!done) { raf = requestAnimationFrame(tick); }
     })();
@@ -157,7 +160,7 @@
     var build = bmi < 19 ? '細身' : bmi < 25 ? '標準' : bmi < 30 ? 'がっしり' : 'かなり重め';
     $('bodyType').textContent = kind + '・' + build;
     var d = h - CURRY.h;
-    $('bodyVs').textContent = 'BMI ' + bmi.toFixed(1) + ' ・ カリーより ' + (d === 0 ? '同じ身長' : Math.abs(d) + 'cm ' + (d > 0 ? '高い' : '低い'));
+    $('bodyVs').textContent = 'BMI ' + bmi.toFixed(1) + ' ・ カリーより ' + (d === 0 ? '同じ身長' : Math.abs(d) + 'cm ' + (d > 0 ? '高い' : '低い')) + ' ・ 腕は身長' + (state.body.s - h >= 0 ? '+' : '') + (state.body.s - h) + 'cm';
   }
   function buildBodySliders() {
     var box = $('bodySliders');
