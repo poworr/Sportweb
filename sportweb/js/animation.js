@@ -70,10 +70,10 @@
         '<svg viewBox="0 0 240 220">' +
         '<rect x="113" y="194" width="14" height="26" fill="#b9bcc2"/>' +
         '<rect x="106" y="98" width="28" height="15" rx="2" fill="#4a4d55"/>' +
-        '<rect x="38" y="3" width="164" height="96" rx="4" fill="#e3eef5" stroke="#2b1511" stroke-width="3"/>' +
-        '<rect x="43" y="8" width="154" height="86" fill="none" stroke="#ffffff" stroke-width="5"/>' +
-        '<text x="120" y="31" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="800" letter-spacing="3" fill="#2b1511" fill-opacity=".75">RANGE</text>' +
-        '<rect x="92" y="46" width="56" height="44" fill="none" stroke="#e2452a" stroke-width="4.5"/>' +
+        '<rect x="2" y="-46" width="236" height="146" rx="5" fill="#e3eef5" stroke="#2b1511" stroke-width="3"/>' +
+        '<rect x="8" y="-40" width="224" height="134" fill="none" stroke="#ffffff" stroke-width="6"/>' +
+        '<text x="120" y="-6" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="17" font-weight="800" letter-spacing="4" fill="#2b1511" fill-opacity=".75">RANGE</text>' +
+        '<rect x="82" y="34" width="76" height="58" fill="none" stroke="#e2452a" stroke-width="5"/>' +
         rimBack + '</svg>';
     } else {
       box.innerHTML =
