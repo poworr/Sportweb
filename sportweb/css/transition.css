@@ -24,8 +24,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 36% 30%, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 42%),
-    radial-gradient(circle at 68% 76%, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0) 62%);
+    radial-gradient(ellipse at 36% 30%, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 42%),
+    radial-gradient(ellipse at 68% 76%, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0) 62%);
 }
 
 /* The basket: back half sits behind the ball, net sits in front */

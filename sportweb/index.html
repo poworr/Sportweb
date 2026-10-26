@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Range: a Stephen Curry shooting atlas</title>
+<title>Range: Stephen Curry shooting atlas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -16,10 +16,6 @@
     <header class="site-header">
       <div class="header-inner">
         <a class="logo" href="index.html">Range</a>
-        <div class="view-toggle" role="group" aria-label="View">
-          <button type="button" data-view="list">List</button>
-          <button type="button" data-view="grid" class="is-active">Grid</button>
-        </div>
         <nav class="main-nav" aria-label="Main">
           <a href="index.html" aria-current="page">Home</a>
           <a href="shot-map.html">Shot map</a>
@@ -30,7 +26,7 @@
       </div>
     </header>
 
-    <main class="home" data-view="grid">
+    <main class="home">
       <div class="grid-view">
         <h1 class="wordmark">range</h1>
         <div class="tiles">
@@ -78,44 +74,9 @@
             </a>
         </div>
       </div>
-      <div class="list-view">
-          <a class="list-item" href="shot-map.html">
-            <span class="list-media">
-              <span class="tile tile--dark" style="--t: oklch(0.12 0 0)"><span class="tile-ph">photo: curry release</span></span>
-              <span class="tile" style="--t: oklch(0.85 0.03 140)"><span class="tile-ph">photo: court from above</span></span>
-            </span>
-            <span class="list-title">Shot map</span>
-            <span class="list-sub">Every three, by season</span>
-          </a>
-          <a class="list-item" href="arenas.html">
-            <span class="list-media">
-              <span class="tile tile--dark" style="--t: oklch(0.34 0.01 250)"><span class="tile-ph">photo: arena exterior</span></span>
-              <span class="tile" style="--t: oklch(0.93 0.005 90)"><span class="tile-ph">photo: city skyline</span></span>
-            </span>
-            <span class="list-title">Arenas</span>
-            <span class="list-sub">Every NBA building</span>
-          </a>
-          <a class="list-item" href="record-night.html">
-            <span class="list-media">
-              <span class="tile tile--dark" style="--t: oklch(0.55 0.15 25)"><span class="tile-ph">photo: msg celebration</span></span>
-              <span class="tile tile--dark" style="--t: oklch(0.32 0.005 250)"><span class="tile-ph">photo: the 2,974th three</span></span>
-            </span>
-            <span class="list-title">Record night</span>
-            <span class="list-sub">December 14, 2021</span>
-          </a>
-          <a class="list-item" href="build-player.html">
-            <span class="list-media">
-              <span class="tile tile--dark" style="--t: oklch(0.58 0.05 170)"><span class="tile-ph">photo: player silhouette</span></span>
-              <span class="tile" style="--t: oklch(0.88 0.03 300)"><span class="tile-ph">photo: training</span></span>
-            </span>
-            <span class="list-title">Build your player</span>
-            <span class="list-sub">Find your NBA match</span>
-          </a>
-      </div>
     </main>
   </div>
 
 <script src="js/animation.js"></script>
-<script src="js/home.js"></script>
 </body>
 </html>

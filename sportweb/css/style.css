@@ -83,9 +83,6 @@ input, textarea { color-scheme: light; font: inherit; }
   padding: 12px 20px;
 }
 .logo { justify-self: start; font-size: 13px; font-weight: 700; letter-spacing: -0.01em; }
-.view-toggle { grid-column: 2; display: flex; gap: 10px; }
-.view-toggle button { padding: 4px 0; border: 0; background: none; font-size: 12px; color: var(--muted); }
-.view-toggle button.is-active, .view-toggle button:hover { color: var(--text); }
 .main-nav { grid-column: 3; justify-self: end; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px 16px; }
 .main-nav a { padding: 4px 0; font-size: 12px; color: var(--muted); transition: color 160ms ease; }
 .main-nav a:hover,

@@ -1,12 +1,12 @@
 /* ==========================================================
    Page-change animation
    Click a link to another page -> the page you are reading is
-   crushed into a paper ball, thrown into a basket, and then the
+   squeezed into a round paper ball, thrown into a basket, and then the
    next page loads and rises in.
 
    Timeline (milliseconds):
      0     cover   page becomes a fixed sheet
-     40    crush   sheet shrinks and crumples into a ball
+     40    crush   sheet is squeezed into a round, crumpled ball
      600   up      ball is tossed up
      870   down    ball falls toward the hoop
      1210  drop    ball drops through the net
@@ -95,24 +95,21 @@
   } catch (e) { /* storage blocked: just skip the fade-in */ }
 
   /* ---------- 3. ball geometry (depends on the window size) ---------- */
-  var POINTS = [[0, 0], [25, 0], [50, 0], [75, 0], [100, 0], [100, 33], [100, 66],
-                [100, 100], [75, 100], [50, 100], [25, 100], [0, 100], [0, 66], [0, 33]];
-  var JITTER = [1, 0.9, 1, 0.88, 1, 0.92, 1, 0.9, 1, 0.87, 1, 0.93, 1, 0.9];
-
+  /* The whole page is squeezed (width and height shrink by different amounts)
+     and clipped to an ellipse of the page box, so on screen it is a round ball
+     made of the page itself. */
   function measure() {
     var w = window.innerWidth;
     var h = window.innerHeight;
-    var ball = Math.min(w * 0.5, h * 0.46);           // ball size while it is crushed
-    var rx = 49 * Math.min(1, h / w);                  // keeps the ball round on wide screens
+    var ball = Math.min(w * 0.5, h * 0.46);           // ball diameter while it is squeezed
+    var hoop = Math.min(130, ball * 0.45);            // ball diameter when it reaches the hoop
     return {
       h: h,
-      big: ball / (h * 0.98),                          // scale of the ball in the middle
-      small: Math.min(130, ball * 0.45) / (h * 0.98),  // scale when it reaches the hoop
-      rect: 'polygon(' + POINTS.map(function (p) { return p[0] + '% ' + p[1] + '%'; }).join(',') + ')',
-      blob: 'polygon(' + POINTS.map(function (p, i) {
-        var a = Math.atan2(p[1] - 50, p[0] - 50);
-        return (50 + rx * JITTER[i] * Math.cos(a)).toFixed(2) + '% ' + (50 + 49 * JITTER[i] * Math.sin(a)).toFixed(2) + '%';
-      }).join(',') + ')'
+      big: ball / w + ', ' + ball / h,                // scale (x, y) of the ball in the middle
+      small: hoop / w + ', ' + hoop / h,              // scale (x, y) when it reaches the hoop
+      smaller: (hoop * 0.9) / w + ', ' + (hoop * 0.9) / h,
+      rect: 'inset(0px round 0%)',                    // the full page
+      blob: 'inset(0px round 50%)'                    // an ellipse that becomes a circle once squeezed
     };
   }
 
@@ -151,7 +148,7 @@
       }],
       [1210, function () {                                // drop
         shape.style.transition = 'transform 170ms ease-in';
-        shape.style.transform = 'rotate(600deg) scale(' + (m.small * 0.9) + ')';
+        shape.style.transform = 'rotate(600deg) scale(' + m.smaller + ')';
         fly.style.transition = 'transform 170ms ease-in, opacity 150ms ease 30ms';
         fly.style.transform = 'translateY(calc(50vh - 88px))';
         fly.style.opacity = '0';
