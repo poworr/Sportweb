@@ -63,8 +63,8 @@
   opacity: 0; pointer-events: none;
   font: 800 clamp(48px, 9vw, 84px)/1 var(--display);
   letter-spacing: -0.03em;
-  color: #fff;
-  text-shadow: 0 4px 14px rgba(43, 21, 17, 0.35);
+  color: #e4622a;
+  text-shadow: 0 4px 14px rgba(228, 98, 42, 0.25);
 }
 .plus3.is-on { animation: plus3-pop 720ms cubic-bezier(.2, .9, .3, 1) both; }
 @keyframes plus3-pop {
@@ -83,3 +83,6 @@
 .court-floor { position: fixed; left: 0; right: 0; bottom: 0; height: 112px; z-index: 20; pointer-events: none; visibility: hidden; opacity: 0; transition: opacity 260ms ease, visibility 0s linear 260ms; }
 .court-floor.is-visible { visibility: visible; opacity: 1; transition: opacity 260ms ease, visibility 0s; }
 .court-floor svg { display: block; }
+
+/* While the page is being thrown away, the court scene stands on a white background */
+html.is-leaving, html.is-leaving body { background: #ffffff !important; }

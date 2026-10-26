@@ -247,6 +247,7 @@
 
   function play(url) {
     busy = true;
+    document.documentElement.classList.add('is-leaving');
     var m = measure();
     var scrolled = window.scrollY || 0;
     var w = window.innerWidth, h = window.innerHeight;
@@ -359,6 +360,7 @@
   /* put everything back (needed when the browser's back button restores this page) */
   function reset() {
     busy = false;
+    document.documentElement.classList.remove('is-leaving');
     if (raf) { cancelAnimationFrame(raf); raf = 0; }
     shooter.classList.remove('is-visible');
     floor.classList.remove('is-visible');
