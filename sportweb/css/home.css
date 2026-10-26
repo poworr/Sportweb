@@ -69,9 +69,7 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 }
 
 /* the basketball court is the background: one flat blue, white lines */
-.p-home .page { position: relative; background: #5b8fc4; }
-.court-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-.court-bg svg { width: 100%; height: 100%; display: block; }
+.p-home .page { position: relative; }
 .p-home .site-header, .p-home .page > main, .p-home .pager { position: relative; z-index: 1; }
 .p-home .site-header { position: relative; background: none; }
 .p-home .header-inner { display: flex; align-items: center; gap: 8px 24px; padding: clamp(12px, 2.4dvh, 22px) clamp(14px, 2vw, 28px); }
@@ -87,7 +85,9 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 .p-home .tile:not(.tile--photo) { background-color: rgba(255, 255, 255, 0.16) !important; background-image: none; color: #fff; box-shadow: none; }
 .p-home .tile-ph { color: #fff; opacity: 0.7; }
 @media (max-aspect-ratio: 1/1), (max-width: 760px) { .brand { align-items: stretch; } .p-home .wordmark { font-size: min(21vw, 13dvh); } }
-body.p-home { background: #5b8fc4; }
 .p-home .pager { background: none; }
 .p-home .pager-key { background: rgba(255, 255, 255, 0.18); border-color: rgba(255, 255, 255, 0.5); color: #fff; }
 .p-home .tile:not(.tile--photo) { background-color: rgba(255, 255, 255, 0.2) !important; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+
+/* home: court lines stronger than on the other pages */
+.p-home .page { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 100 940 800%22 fill=%22none%22 stroke=%22%23fff%22 stroke-opacity=%22.4%22 stroke-width=%225%22%3E%3Cg transform=%22translate%28940 0%29 scale%28-1 1%29%22%3E%3Crect x=%22560%22 y=%22340%22 width=%22380%22 height=%22320%22/%3E%3Cpath d=%22M560 380A120 120 0 0 0 560 620%22/%3E%3Cpath d=%22M560 380A120 120 0 0 1 560 620%22 stroke-dasharray=%2214 12%22/%3E%3Cpath d=%22M940 60H656A475 475 0 0 0 656 940H940%22/%3E%3Cpath d=%22M835 420A80 80 0 0 0 835 580%22/%3E%3Cpath d=%22M0 380A120 120 0 0 1 0 620%22/%3E%3Cpath d=%22M860 440V560%22/%3E%3Cpath d=%22M850 500H860%22/%3E%3Ccircle cx=%22835%22 cy=%22500%22 r=%2215%22/%3E%3C/g%3E%3C/svg%3E"); }

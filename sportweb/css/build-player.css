@@ -44,9 +44,9 @@
 .result-body { display: flex; flex-wrap: wrap; align-items: center; gap: 32px 48px; margin-top: 32px; }
 .radar-box { flex: 1 1 360px; min-width: 0; max-width: 520px; }
 .radar-box svg { display: block; width: 100%; height: auto; }
-.radar-ring { fill: none; stroke: #d6d6d2; stroke-width: 1.5; }
+.radar-ring { fill: none; stroke: rgba(255,255,255,.4); stroke-width: 1.5; }
 .radar-label { font: 600 14px var(--body); fill: var(--muted); }
-.radar-them { fill: rgba(29, 29, 31, 0.06); stroke: var(--text); stroke-width: 2.5; stroke-linejoin: round; }
+.radar-them { fill: rgba(255, 255, 255, 0.1); stroke: var(--text); stroke-width: 2.5; stroke-linejoin: round; }
 .radar-you { fill: rgba(255, 106, 19, 0.28); stroke: var(--ball); stroke-width: 3; stroke-linejoin: round; }
 .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; margin-top: 8px; font-size: 14px; font-weight: 600; }
 .legend span { display: flex; align-items: center; gap: 8px; }

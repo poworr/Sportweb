@@ -14,7 +14,7 @@
   background: var(--card-2);
 }
 .us-map > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.us-outline { fill: var(--card); stroke: #d6d6d2; stroke-width: 2; stroke-linejoin: round; }
+.us-outline { fill: var(--card); stroke: rgba(255,255,255,.4); stroke-width: 2; stroke-linejoin: round; }
 .us-grid { fill: none; stroke: var(--line); stroke-width: 1; }
 
 .stop {
