@@ -5,8 +5,8 @@
 // The eight numbers you enter. Each has a slider range and a drill tip.
 var STATS = [
   { key: 'pts', label: '1試合の得点', percent: false, min: 0, max: 40, step: 0.5, tip: '得意な位置に入る練習を。3か所で、ドリブルからの試合スピードのシュートを50本打ち、そのあとリングまで両手でフィニッシュしましょう。' },
-  { key: 'fg', label: 'フィールドゴール成功率', percent: true, min: 30, max: 70, step: 0.5, tip: 'シュート選びが一番大切です。2週間、場所ごとの成功数を記録して、一番よく決まる場所からの本数を増やしましょう。' },
-  { key: 'tp', label: '3ポイント成功率', percent: true, min: 0, max: 50, step: 0.5, tip: 'フォームと本数が大切です。キャッチ&シュートの3ポイントを週3日、100本ずつ打ち、場所ごとに成功数を記録しましょう。' },
+  { key: 'fg', label: 'フィールドゴール成功率', percent: true, min: 20, max: 100, step: 0.5, tip: 'シュート選びが一番大切です。2週間、場所ごとの成功数を記録して、一番よく決まる場所からの本数を増やしましょう。' },
+  { key: 'tp', label: '3ポイント成功率', percent: true, min: 0, max: 100, step: 0.5, tip: 'フォームと本数が大切です。キャッチ&シュートの3ポイントを週3日、100本ずつ打ち、場所ごとに成功数を記録しましょう。' },
   { key: 'ft', label: 'フリースロー成功率', percent: true, min: 30, max: 100, step: 0.5, tip: '毎回の練習の最後に、走ったあとのフリースローを50本。毎回同じルーティンで打ちましょう。' },
   { key: 'reb', label: '1試合のリバウンド', percent: false, min: 0, max: 16, step: 0.5, tip: 'ドリルのすべてのシュートでボックスアウトし、リングから跳ねるボールを追いましょう。ボールには両手で向かいます。' },
   { key: 'ast', label: '1試合のアシスト', percent: false, min: 0, max: 14, step: 0.5, tip: 'ピック&ロールの読みを磨きましょう。ヘルプが来る前にパスを出し、左右どちらの手のパスも練習します。' },
