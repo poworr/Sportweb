@@ -211,19 +211,33 @@
   floor.className = 'court-floor';
   floor.setAttribute('aria-hidden', 'true');
   document.body.appendChild(floor);
+  /* A basketball half court seen from a low angle along the sideline. Real court sizes (feet)
+     are used: lane 19 x 16, free-throw circle r 6, three-point arc r 23.75 with straight
+     corner lines 22 ft from the hoop, hoop 5.25 ft from the baseline, court 50 ft wide.
+     Across the court is squeezed (sy) to give the sense of depth. */
   function drawFloor(w, H, mx, rimX) {
-    var planks = '', i;
-    for (i = 40; i < w; i += 46) { planks += '<line x1="' + i + '" y1="8" x2="' + i + '" y2="' + H + '"/>'; }
-    var rx = Math.max(60, rimX - mx - 45), laneL = rimX - Math.min(300, w * 0.24);
-    var y1 = Math.round(H * 0.2), y2 = Math.round(H * 0.86), cy = Math.round(H * 0.52), ry = Math.round(H * 0.46);
+    var R = Math.max(80, rimX - mx - 40);                 // 23.75 ft in pixels (the shooter stands just behind it)
+    var sx = R / 23.75, sy = H * 0.84 / 50, cy = H * 0.5;
+    var base = rimX + 5.25 * sx;                          // the baseline
+    var far = cy - 25 * sy, near = cy + 25 * sy;          // sidelines
+    var ftX = base - 19 * sx, laneT = cy - 8 * sy, laneB = cy + 8 * sy;
+    var cornerX = rimX - Math.sqrt(23.75 * 23.75 - 22 * 22) * sx, cT = cy - 22 * sy, cB = cy + 22 * sy;
+    var planks = '', y;
+    for (y = far + 9; y < H; y += 9) { planks += '<line x1="0" y1="' + y + '" x2="' + w + '" y2="' + y + '"/>'; }
+    function f(n) { return n.toFixed(1); }
     floor.style.height = H + 'px';
     floor.innerHTML = '<svg width="' + w + '" height="' + H + '" viewBox="0 0 ' + w + ' ' + H + '">' +
-      '<rect width="' + w + '" height="' + H + '" fill="#bf5d18"/>' +
-      '<g stroke="#000" stroke-opacity=".07" stroke-width="2">' + planks + '</g>' +
-      '<g fill="none" stroke="#fff6ea" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">' +
-      '<line x1="0" y1="3" x2="' + w + '" y2="3"/>' +
-      '<path d="M' + laneL + ' ' + y1 + 'L' + (rimX + 120) + ' ' + y1 + 'M' + laneL + ' ' + y2 + 'L' + (rimX + 120) + ' ' + y2 + 'M' + laneL + ' ' + y1 + 'V' + y2 + '"/>' +
-      '<ellipse cx="' + rimX + '" cy="' + cy + '" rx="' + rx + '" ry="' + ry + '" clip-path="inset(0 ' + Math.max(0, w - rimX - 6) + 'px 0 0)"/>' +
+      '<rect width="' + w + '" height="' + H + '" fill="#b9591a"/>' +
+      '<rect x="0" y="' + f(far) + '" width="' + f(base) + '" height="' + f(near - far) + '" fill="#cf6d24"/>' +
+      '<g stroke="#000" stroke-opacity=".06" stroke-width="1.5">' + planks + '</g>' +
+      '<rect x="' + f(ftX) + '" y="' + f(laneT) + '" width="' + f(base - ftX) + '" height="' + f(laneB - laneT) + '" fill="#a94d12" fill-opacity=".75"/>' +
+      '<g fill="none" stroke="#fff6ea" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M0 ' + f(far) + 'H' + f(base) + 'V' + f(near) + 'H0"/>' +
+      '<rect x="' + f(ftX) + '" y="' + f(laneT) + '" width="' + f(base - ftX) + '" height="' + f(laneB - laneT) + '"/>' +
+      '<path d="M' + f(ftX) + ' ' + f(cy - 6 * sy) + 'A' + f(6 * sx) + ' ' + f(6 * sy) + ' 0 0 0 ' + f(ftX) + ' ' + f(cy + 6 * sy) + '"/>' +
+      '<path d="M' + f(ftX) + ' ' + f(cy - 6 * sy) + 'A' + f(6 * sx) + ' ' + f(6 * sy) + ' 0 0 1 ' + f(ftX) + ' ' + f(cy + 6 * sy) + '" stroke-dasharray="7 7"/>' +
+      '<path d="M' + f(base) + ' ' + f(cT) + 'H' + f(cornerX) + 'A' + f(23.75 * sx) + ' ' + f(23.75 * sy) + ' 0 0 0 ' + f(cornerX) + ' ' + f(cB) + 'H' + f(base) + '"/>' +
+      '<path d="M' + f(rimX) + ' ' + f(cy - 4 * sy) + 'A' + f(4 * sx) + ' ' + f(4 * sy) + ' 0 0 0 ' + f(rimX) + ' ' + f(cy + 4 * sy) + '"/>' +
       '</g></svg>';
   }
 
@@ -250,7 +264,7 @@
     var poleX = br.left + 296 * kx;
     var mx = Math.max(w * 0.07, rimX - Math.min(660, w * 0.62));    // where he stands (left of the hoop)
     var gy = h - FLOOR;                                            // the floor he stands on
-    drawFloor(w, FH, mx, poleX);
+    drawFloor(w, FH, mx, rimX);
     plus3.style.left = (br.left + 200 * kx) + 'px';
     plus3.style.bottom = (h - br.top - 20 * ky + 12) + 'px';
     var D0 = Math.min(w * 0.5, h * 0.46);                          // ball size after the crush
