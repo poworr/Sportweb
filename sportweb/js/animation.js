@@ -56,37 +56,38 @@
     '</svg><div class="sheen"></div>';
   shape.appendChild(creases);
 
-  // the basket (two layers so the ball goes "inside" the net)
+  // the hoop: a tall pole with a curved arm, a fan-shaped board, the rim and net high up
+  // (two layers: the ball goes "inside" the net). Drawing space is 320 x 560, ground at y = 560;
+  // the rim centre is at (92, 132).
+  var OR = '#f07a1a', WHITE = '#fbf6ee', POLE = '#f3eee4';
   function makeBasket(front) {
     var box = document.createElement('div');
     box.className = 'basket ' + (front ? 'basket--front' : 'basket--back');
     box.setAttribute('aria-hidden', 'true');
-    var TEAL = '#1f8db5', CREAM = '#f3eddc', RIM = '#ee6a28', RED = '#e8392f', POST = '#d9c58a';
-    var rimBack = '<path d="M54 118A66 13 0 0 1 186 118" fill="none" stroke="#5b2410" stroke-width="10.5" stroke-linecap="round"/><path d="M54 118A66 13 0 0 1 186 118" fill="none" stroke="' + RIM + '" stroke-width="7" stroke-linecap="round"/>';
-    var rimFront = '<path d="M54 118A66 13 0 0 0 186 118" fill="none" stroke="#5b2410" stroke-width="10.5" stroke-linecap="round"/><path d="M54 118A66 13 0 0 0 186 118" fill="none" stroke="' + RIM + '" stroke-width="7" stroke-linecap="round"/>' +
-      '<path d="M60 120A60 11 0 0 0 180 120" fill="none" stroke="#b9461a" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>';
+    var rimBack = '<path d="M38 132A54 11 0 0 1 146 132" fill="none" stroke="#5b2410" stroke-width="9" stroke-linecap="round"/><path d="M38 132A54 11 0 0 1 146 132" fill="none" stroke="' + OR + '" stroke-width="5.5" stroke-linecap="round"/>';
+    var rimFront = '<path d="M38 132A54 11 0 0 0 146 132" fill="none" stroke="#5b2410" stroke-width="9" stroke-linecap="round"/><path d="M38 132A54 11 0 0 0 146 132" fill="none" stroke="' + OR + '" stroke-width="5.5" stroke-linecap="round"/>';
     if (!front) {
       box.innerHTML =
-        '<svg viewBox="0 0 240 220">' +
-        '<rect x="113" y="194" width="14" height="26" fill="#b9bcc2"/>' +
-        '<rect x="106" y="98" width="28" height="15" rx="2" fill="#4a4d55"/>' +
-        '<rect x="2" y="-46" width="236" height="146" rx="5" fill="#e3eef5" stroke="#2b1511" stroke-width="3"/>' +
-        '<rect x="8" y="-40" width="224" height="134" fill="none" stroke="#ffffff" stroke-width="6"/>' +
-        '<text x="120" y="-6" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="17" font-weight="800" letter-spacing="4" fill="#2b1511" fill-opacity=".75">RANGE</text>' +
-        '<rect x="82" y="34" width="76" height="58" fill="none" stroke="#e2452a" stroke-width="5"/>' +
+        '<svg viewBox="0 0 320 560">' +
+        '<ellipse cx="262" cy="557" rx="34" ry="5" fill="#8a8f96" fill-opacity=".55"/>' +
+        '<path d="M262 500V196C262 150 244 128 206 112" fill="none" stroke="#cfc9bd" stroke-width="22" stroke-linecap="butt"/>' +
+        '<path d="M260 500V196C260 150 242 128 204 112" fill="none" stroke="' + POLE + '" stroke-width="18" stroke-linecap="butt"/>' +
+        '<rect x="240" y="498" width="44" height="60" rx="3" fill="' + OR + '"/><rect x="270" y="498" width="14" height="60" fill="#c85d0c"/>' +
+        '<path d="M86 34C122 10 224 6 284 26L286 84C286 106 252 118 196 118C132 118 92 108 84 84Z" fill="' + WHITE + '" stroke="' + OR + '" stroke-width="8" stroke-linejoin="round"/>' +
+        '<rect x="150" y="48" width="74" height="46" fill="none" stroke="' + OR + '" stroke-width="6"/>' +
+        '<path d="M146 126L168 116" stroke="' + OR + '" stroke-width="9" stroke-linecap="round"/>' +
         rimBack + '</svg>';
     } else {
+      var tx = [38, 56, 74, 92, 110, 128, 146], bx = [62, 72, 82, 92, 102, 112, 122], g = '', i;
+      for (i = 0; i < 7; i++) {
+        g += 'M' + tx[i] + ' 134L' + bx[i] + ' 198';
+        if (i < 6) { g += 'M' + tx[i] + ' 134L' + bx[i + 1] + ' 198M' + tx[i + 1] + ' 134L' + bx[i] + ' 198'; }
+      }
       box.innerHTML =
-        '<div class="basket-net"><svg viewBox="0 0 240 220">' +
-        '<g fill="none" stroke="#ffffff" stroke-opacity=".95" stroke-width="2.6" stroke-linecap="round">' +
-        '<path d="M54 118L84 190M100 126L110 190M140 126L130 190M186 118L156 190"/>' +
-        '<path d="M54 118L98 190M100 126L120 190M140 126L142 190"/>' +
-        '<path d="M186 118L142 190M140 126L120 190M100 126L98 190"/></g>' +
-        '<g fill="none" stroke="' + RED + '" stroke-width="2.6" stroke-linecap="round">' +
-        '<path d="M77 123L98 190M120 127L120 190M163 123L142 190"/>' +
-        '<path d="M77 123L110 190M120 127L130 190M163 123L156 190"/>' +
-        '<path d="M163 123L130 190M120 127L110 190M77 123L84 190"/>' +
-        '<path d="M63 138Q120 150 177 138M72 158Q120 168 168 158M80 176Q120 185 160 176"/></g>' +
+        '<div class="basket-net"><svg viewBox="0 0 320 560">' +
+        '<g fill="none" stroke="#ffffff" stroke-opacity=".92" stroke-width="1.8" stroke-linecap="round">' +
+        '<path d="' + g + '"/>' +
+        '<path d="M44 150Q92 160 140 150M52 168Q92 177 132 168M58 184Q92 192 126 184"/></g>' +
         rimFront + '</svg></div>';
     }
     document.body.appendChild(box);
@@ -245,13 +246,15 @@
     var D = Math.max(38, 33 * S);                                  // ball diameter in his hands
     var FLOOR = 56;                                                // height of the ground line above the bottom edge
     var br = basketFront.getBoundingClientRect();
-    var rimX = br.left + br.width / 2;                             // the hoop is on the right
-    var rimY = h - FLOOR - 140;                                    // where the ball enters the hoop
+    var kx = br.width / 320, ky = br.height / 560;
+    var rimX = br.left + 92 * kx;                                  // the rim: high up on the right, facing him
+    var rimY = br.top + 132 * ky - 22;                             // where the ball enters it
+    var poleX = br.left + 262 * kx;
     var mx = Math.max(w * 0.1, rimX - Math.min(430, w * 0.42));    // where he stands (left of the hoop)
     var gy = h - FLOOR;                                            // the floor he stands on
-    drawFloor(w, mx, rimX);
-    plus3.style.left = rimX + 'px';
-    plus3.style.bottom = '412px';
+    drawFloor(w, mx, poleX);
+    plus3.style.left = (br.left + 186 * kx) + 'px';
+    plus3.style.bottom = (h - br.top - 14 * ky + 10) + 'px';
     var D0 = Math.min(w * 0.5, h * 0.46);                          // ball size after the crush
     grp.setAttribute('transform', 'translate(' + mx + ' ' + gy + ') scale(' + S + ' ' + (-S) + ')');
     function scr(p) { return [mx + p[0] * S, gy - p[1] * S]; }
@@ -306,7 +309,7 @@
             var tf = (ts - REL) / FL;
             if (!P0) {
               P0 = ballAt(hd);
-              C = [rimX - 120, Math.min(P0[1], rimY) - Math.max(150, h * 0.24)];
+              C = [rimX - 120, Math.min(P0[1], rimY) - Math.max(110, h * 0.16)];
             }
             if (tf < 1) {                                          // flight along a curve
               var q = 1 - tf;
@@ -319,7 +322,7 @@
                 net.style.transition = 'transform 150ms ease-out';
                 net.style.transform = 'scale(1.1, 1.22)';
               }
-              put([rimX, rimY + 90 * td], D * (0.94 - 0.14 * td), 420 + (ts - REL) * 0.5, 1 - td);
+              put([rimX, rimY + 80 * ky * td], D * (0.94 - 0.14 * td), 420 + (ts - REL) * 0.5, 1 - td);
               if (td >= 1 && !fired.swish) {                       // swish + "+3"
                 fired.swish = true;
                 net.style.transition = '';

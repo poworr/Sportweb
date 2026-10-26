@@ -31,10 +31,10 @@
 /* The basket: back half sits behind the ball, net sits in front */
 .basket {
   position: fixed;
-  right: clamp(24px, 9vw, 160px);
+  right: clamp(24px, 8vw, 150px);
   bottom: 56px;
-  width: 300px;
-  height: 275px;
+  height: min(64vh, 560px);
+  aspect-ratio: 320 / 560;
   pointer-events: none;
   visibility: hidden;
   opacity: 0;
@@ -43,8 +43,8 @@
 .basket.is-visible { visibility: visible; opacity: 1; transition: opacity 260ms ease, visibility 0s; }
 .basket--back { z-index: 30; }
 .basket--front { z-index: 50; }
-.basket svg { display: block; width: 300px; height: 275px; overflow: visible; }
-.basket-net { width: 300px; height: 275px; transform-origin: 50% 54%; }
+.basket svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.basket-net { width: 100%; height: 100%; transform-origin: 29% 24%; }
 
 /* Net swings after the ball goes through */
 .basket-net.is-swishing { animation: net-swish 700ms cubic-bezier(.3, 1.2, .5, 1) both; }
