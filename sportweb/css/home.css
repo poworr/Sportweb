@@ -88,6 +88,54 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 .p-home .pager-key { background: rgba(255, 255, 255, 0.3); border-color: rgba(43, 21, 17, 0.35); color: var(--text); }
 .p-home .tile:not(.tile--photo) { background-color: rgba(255, 255, 255, 0.26) !important; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 
-/* home: thick white court lines and the ball, like the poster */
-.p-home .page { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 270 270%22%3E%3Cdefs%3E%3Cpattern id=%22d%22 width=%228%22 height=%228%22 patternUnits=%22userSpaceOnUse%22%3E%3Ccircle cx=%224%22 cy=%224%22 r=%222.3%22 fill=%22%232b1511%22/%3E%3C/pattern%3E%3CclipPath id=%22c%22%3E%3Ccircle cx=%22110%22 cy=%22110%22 r=%22100%22/%3E%3C/clipPath%3E%3C/defs%3E%3Ccircle cx=%22165%22 cy=%22165%22 r=%22100%22 fill=%22%232b1511%22 fill-opacity=%22.34%22/%3E%3Ccircle cx=%22110%22 cy=%22110%22 r=%22100%22 fill=%22%23c8402f%22/%3E%3Cg clip-path=%22url%28%23c%29%22%3E%3Ccircle cx=%22110%22 cy=%22110%22 r=%22100%22 fill=%22url%28%23d%29%22/%3E%3Ccircle cx=%22110%22 cy=%2276%22 r=%22100%22 fill=%22%23c8402f%22/%3E%3Cg stroke=%22%232b1511%22 stroke-width=%223.5%22 fill=%22none%22 stroke-linecap=%22round%22%3E%3Cpath d=%22M0 105H220%22/%3E%3Cpath d=%22M110 0V220%22/%3E%3Cpath d=%22M52 8C92 52 92 158 52 212%22/%3E%3Cpath d=%22M168 8C128 52 128 158 168 212%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-20 -20 1920 1040%22 fill=%22none%22 stroke=%22%23fff%22 stroke-opacity=%220.9%22 stroke-width=%2220%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Crect x=%220%22 y=%220%22 width=%221880%22 height=%221000%22/%3E%3Cpath d=%22M940 0V1000%22/%3E%3Ccircle cx=%22940%22 cy=%22500%22 r=%22120%22/%3E%3Ccircle cx=%22940%22 cy=%22500%22 r=%2240%22/%3E%3Cg transform=%22translate%28940 0%29 scale%28-1 1%29%22%3E%3Crect x=%22560%22 y=%22340%22 width=%22380%22 height=%22320%22/%3E%3Cpath d=%22M560 380A120 120 0 0 0 560 620%22/%3E%3Cpath d=%22M560 380A120 120 0 0 1 560 620%22 stroke-dasharray=%2214 12%22/%3E%3Cpath d=%22M940 60H656A475 475 0 0 0 656 940H940%22/%3E%3Cpath d=%22M835 420A80 80 0 0 0 835 580%22/%3E%3Cpath d=%22M860 440V560%22/%3E%3Cpath d=%22M850 500H860%22/%3E%3Ccircle cx=%22835%22 cy=%22500%22 r=%2215%22/%3E%3C/g%3E%3Cg transform=%22translate%28940 0%29%22%3E%3Crect x=%22560%22 y=%22340%22 width=%22380%22 height=%22320%22/%3E%3Cpath d=%22M560 380A120 120 0 0 0 560 620%22/%3E%3Cpath d=%22M560 380A120 120 0 0 1 560 620%22 stroke-dasharray=%2214 12%22/%3E%3Cpath d=%22M940 60H656A475 475 0 0 0 656 940H940%22/%3E%3Cpath d=%22M835 420A80 80 0 0 0 835 580%22/%3E%3Cpath d=%22M860 440V560%22/%3E%3Cpath d=%22M850 500H860%22/%3E%3Ccircle cx=%22835%22 cy=%22500%22 r=%2215%22/%3E%3C/g%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: 17% 24%, center; background-size: min(22vw, 30dvh) auto, contain; }
-@media (max-aspect-ratio: 1/1) { .p-home .page { background-size: min(40vw, 22dvh) auto, auto 100vh; background-position: 20% 14%, center; } }
+/* home: thick white court lines, like the poster */
+.p-home .page { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-20 -20 1920 1040%22 fill=%22none%22 stroke=%22%23fff%22 stroke-opacity=%220.9%22 stroke-width=%2220%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Crect x=%220%22 y=%220%22 width=%221880%22 height=%221000%22/%3E%3Cpath d=%22M940 0V1000%22/%3E%3Ccircle cx=%22940%22 cy=%22500%22 r=%22120%22/%3E%3Ccircle cx=%22940%22 cy=%22500%22 r=%2240%22/%3E%3Cg transform=%22translate%28940 0%29 scale%28-1 1%29%22%3E%3Crect x=%22560%22 y=%22340%22 width=%22380%22 height=%22320%22/%3E%3Cpath d=%22M560 380A120 120 0 0 0 560 620%22/%3E%3Cpath d=%22M560 380A120 120 0 0 1 560 620%22 stroke-dasharray=%2214 12%22/%3E%3Cpath d=%22M940 60H656A475 475 0 0 0 656 940H940%22/%3E%3Cpath d=%22M835 420A80 80 0 0 0 835 580%22/%3E%3Cpath d=%22M860 440V560%22/%3E%3Cpath d=%22M850 500H860%22/%3E%3Ccircle cx=%22835%22 cy=%22500%22 r=%2215%22/%3E%3C/g%3E%3Cg transform=%22translate%28940 0%29%22%3E%3Crect x=%22560%22 y=%22340%22 width=%22380%22 height=%22320%22/%3E%3Cpath d=%22M560 380A120 120 0 0 0 560 620%22/%3E%3Cpath d=%22M560 380A120 120 0 0 1 560 620%22 stroke-dasharray=%2214 12%22/%3E%3Cpath d=%22M940 60H656A475 475 0 0 0 656 940H940%22/%3E%3Cpath d=%22M835 420A80 80 0 0 0 835 580%22/%3E%3Cpath d=%22M860 440V560%22/%3E%3Cpath d=%22M850 500H860%22/%3E%3Ccircle cx=%22835%22 cy=%22500%22 r=%2215%22/%3E%3C/g%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; background-size: contain; }
+@media (max-aspect-ratio: 1/1) { .p-home .page { background-size: auto 100vh; } }
+
+/* The basketball sits right next to the word RANGE; click it and four squares pop out */
+.brand { display: flex; flex: 0 0 auto; min-width: 0; flex-direction: row; align-items: flex-end; gap: clamp(6px, 1vw, 16px); }
+.p-home { --pick: min(11vw, 24dvh); }
+.ball-menu { position: relative; flex: 0 0 auto; margin-bottom: 0.4vw; }
+.ball-btn {
+  display: block; width: min(11vw, 28dvh); aspect-ratio: 1; padding: 0; border: 0; background: none; cursor: pointer;
+  transition: transform 420ms cubic-bezier(.3, 1.6, .5, 1); animation: ball-bob 2.2s ease-in-out infinite;
+  -webkit-tap-highlight-color: transparent;
+}
+.ball-btn svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.ball-btn:hover { transform: scale(1.06) rotate(-8deg); }
+.ball-btn:focus-visible { outline: 3px solid #fff; outline-offset: 4px; border-radius: 50%; }
+.is-open .ball-btn { animation: none; transform: rotate(-24deg) scale(.94); }
+@keyframes ball-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+.ball-hint { position: absolute; left: 4%; bottom: calc(100% - 4px); font-size: 12px; font-weight: 600; white-space: nowrap; color: var(--text); opacity: .8; letter-spacing: .04em; transition: opacity 200ms ease; }
+.is-open .ball-hint { opacity: 0; }
+
+.picks { position: absolute; left: calc(100% + clamp(10px, 1.6vw, 24px)); bottom: 0; display: grid; grid-template-columns: repeat(4, var(--pick)); gap: clamp(8px, 1vw, 14px); pointer-events: none; }
+.is-open .picks { pointer-events: auto; }
+.picks .tile {
+  width: var(--pick); height: var(--pick);
+  opacity: 0; transform: translate(calc(var(--i, 0) * -112% - 60%), 40%) scale(.2) rotate(-18deg);
+  transition: transform 560ms cubic-bezier(.3, 1.4, .5, 1), opacity 240ms ease;
+  border-radius: 6px;
+}
+.picks .tile:nth-child(1) { --i: 0; transition-delay: 0ms; }
+.picks .tile:nth-child(2) { --i: 1; transition-delay: 70ms; }
+.picks .tile:nth-child(3) { --i: 2; transition-delay: 140ms; }
+.picks .tile:nth-child(4) { --i: 3; transition-delay: 210ms; }
+.is-open .picks .tile { opacity: 1; transform: none; }
+.is-open .picks .tile:hover { transform: translateY(-6px); transition-delay: 0ms; transition-duration: 200ms; }
+.picks .tile-label { opacity: 1; transform: none; left: 10px; right: 10px; bottom: 10px; }
+.picks .tile-title { font-size: clamp(12px, 1.2vw, 16px); }
+.picks .tile-sub { display: block; font-size: clamp(10px, .85vw, 12px); }
+.picks .tile--photo::after { opacity: 1; }
+.picks .tile-ph { font-size: 10px; }
+
+/* tall or narrow windows: ball under the word, squares in a 2 x 2 grid below it */
+@media (max-aspect-ratio: 1/1), (max-width: 760px) {
+  .brand { flex-direction: column; align-items: flex-start; gap: clamp(6px, 1.4dvh, 14px); }
+  .ball-menu { margin: 0; }
+  .ball-btn { width: min(34vw, 17dvh); }
+  .ball-hint { left: calc(100% + 6px); bottom: 40%; }
+  .picks { position: static; margin-top: 6px; grid-template-columns: repeat(2, min(42vw, 22dvh)); display: none; }
+  .is-open .picks { display: grid; }
+  .picks .tile { width: min(42vw, 22dvh); height: min(42vw, 22dvh); }
+}
