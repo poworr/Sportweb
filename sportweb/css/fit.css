@@ -31,9 +31,6 @@
   h2 { font-size: clamp(26px, 3.2vw, 42px); }
   .lede { margin-top: 8px; max-width: 1100px; font-size: 15px; line-height: 1.6; }
 
-  /* home */
-  .home { flex: 1 1 0; min-height: 0; padding: 16px 24px 36px; }
-
   /* shot map */
   .p-shot .shot-panel { flex: 1 1 0; min-height: 0; margin-top: 12px; flex-wrap: nowrap; align-items: stretch; gap: 32px; padding: 20px 32px; }
   .p-shot .shot-info { flex: 1 1 0; min-width: 0; justify-content: center; gap: 12px; }
