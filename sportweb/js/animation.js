@@ -145,11 +145,10 @@
   var shadowEl = mk('ellipse');
   shadowEl.setAttribute('fill', 'rgba(43,21,17,.22)'); shadowEl.setAttribute('stroke', 'none');
   shadowEl.setAttribute('cx', '0'); shadowEl.setAttribute('cy', '0'); shadowEl.setAttribute('rx', '26'); shadowEl.setAttribute('ry', '4');
-  var legB = mk('polyline'), armG = mk('polyline'), torso = mk('line'), legF = mk('polyline'), armS = mk('polyline'), fing = mk('path');   // right (shooting) arm is the near arm, drawn last
+  var legB = mk('polyline'), armG = mk('polyline'), torso = mk('line'), legF = mk('polyline'), armS = mk('polyline');   // right (shooting) arm is the near arm, drawn last
   var head = mk('circle');
   head.setAttribute('r', '8.5'); head.setAttribute('fill', '#2b1511');
   armG.setAttribute('stroke-opacity', '.72'); legB.setAttribute('stroke-opacity', '.72');
-  fing.setAttribute('stroke-width', '2.4');
   sg.appendChild(grp);
   shooter.appendChild(sg);
   document.body.appendChild(shooter);
@@ -206,9 +205,6 @@
     var e2 = add(sh, dir(p.u2), 24), h2 = add(e2, dir(p.f2), 22);
     armS.setAttribute('points', pts([sh, e1, h1, w1]));   // right (shooting) arm: far side
     armG.setAttribute('points', pts([sh, e2, h2]));       // left (guide) arm: near side
-    var ha = p.f1 + p.wr, d = '';                    // fingers fanned at the end of the shooting hand
-    [-26, 0, 26].forEach(function (o, i) { var q = add(w1, dir(ha + o), i === 1 ? 9 : 7.5); d += 'M' + w1[0].toFixed(1) + ' ' + w1[1].toFixed(1) + 'L' + q[0].toFixed(1) + ' ' + q[1].toFixed(1); });
-    fing.setAttribute('d', d);
     shadowEl.setAttribute('cx', 0);
     return { hand: w1, aim: dir(p.f1 + p.wr * 0.6) };
   }
