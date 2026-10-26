@@ -34,7 +34,7 @@
 .dot--miss {
   width: 22px; height: 22px; margin: -11px 0 0 -11px;
   background: var(--card-2);
-  border: 2.5px solid rgba(255,255,255,.75);
+  border: 2.5px solid rgba(43,21,17,.45);
 }
 
 /* bottom: bar chart of all seasons */
