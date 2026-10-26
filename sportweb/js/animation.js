@@ -211,18 +211,19 @@
   floor.className = 'court-floor';
   floor.setAttribute('aria-hidden', 'true');
   document.body.appendChild(floor);
-  function drawFloor(w, mx, rimX) {
-    var H = 112, planks = '', i;
-    for (i = 40; i < w; i += 46) { planks += '<line x1="' + i + '" y1="6" x2="' + i + '" y2="' + H + '"/>'; }
-    var rx = Math.max(60, rimX - mx - 45), laneL = rimX - Math.min(250, w * 0.2);
+  function drawFloor(w, H, mx, rimX) {
+    var planks = '', i;
+    for (i = 40; i < w; i += 46) { planks += '<line x1="' + i + '" y1="8" x2="' + i + '" y2="' + H + '"/>'; }
+    var rx = Math.max(60, rimX - mx - 45), laneL = rimX - Math.min(300, w * 0.24);
+    var y1 = Math.round(H * 0.2), y2 = Math.round(H * 0.86), cy = Math.round(H * 0.52), ry = Math.round(H * 0.46);
+    floor.style.height = H + 'px';
     floor.innerHTML = '<svg width="' + w + '" height="' + H + '" viewBox="0 0 ' + w + ' ' + H + '">' +
       '<rect width="' + w + '" height="' + H + '" fill="#bf5d18"/>' +
       '<g stroke="#000" stroke-opacity=".07" stroke-width="2">' + planks + '</g>' +
-      '<g fill="none" stroke="#fff6ea" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">' +
+      '<g fill="none" stroke="#fff6ea" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">' +
       '<line x1="0" y1="3" x2="' + w + '" y2="3"/>' +
-      '<path d="M' + laneL + ' 22L' + (rimX + 110) + ' 22M' + laneL + ' 92L' + (rimX + 110) + ' 92M' + laneL + ' 22V92"/>' +
-      '<path d="M' + (rimX - rx) + ' 22A' + rx + ' 90 0 0 0 ' + (rimX - rx) + ' 92" opacity=".0"/>' +
-      '<ellipse cx="' + rimX + '" cy="57" rx="' + rx + '" ry="46" stroke-dasharray="0" clip-path="inset(0 ' + Math.max(0, w - rimX - 6) + 'px 0 0)"/>' +
+      '<path d="M' + laneL + ' ' + y1 + 'L' + (rimX + 120) + ' ' + y1 + 'M' + laneL + ' ' + y2 + 'L' + (rimX + 120) + ' ' + y2 + 'M' + laneL + ' ' + y1 + 'V' + y2 + '"/>' +
+      '<ellipse cx="' + rimX + '" cy="' + cy + '" rx="' + rx + '" ry="' + ry + '" clip-path="inset(0 ' + Math.max(0, w - rimX - 6) + 'px 0 0)"/>' +
       '</g></svg>';
   }
 
@@ -239,7 +240,9 @@
     // sizes and places (pixels)
     var S = Math.min(1.8, (h * 0.27) / 119);                       // figure scale
     var D = Math.max(38, 33 * S);                                  // ball diameter in his hands
-    var FLOOR = 56;                                                // height of the ground line above the bottom edge
+    var FH = Math.round(Math.min(240, Math.max(140, h * 0.27)));   // height of the court floor strip
+    var FLOOR = Math.round(FH * 0.5);                              // the ground line: middle of the strip
+    document.documentElement.style.setProperty('--floor', FLOOR + 'px');
     var br = basketFront.getBoundingClientRect();
     var kx = br.width / 320, ky = br.height / 560;
     var rimX = br.left + 162 * kx;                                  // the rim: high up on the right, facing him
@@ -247,7 +250,7 @@
     var poleX = br.left + 296 * kx;
     var mx = Math.max(w * 0.1, rimX - Math.min(430, w * 0.42));    // where he stands (left of the hoop)
     var gy = h - FLOOR;                                            // the floor he stands on
-    drawFloor(w, mx, poleX);
+    drawFloor(w, FH, mx, poleX);
     plus3.style.left = (br.left + 200 * kx) + 'px';
     plus3.style.bottom = (h - br.top - 20 * ky + 12) + 'px';
     var D0 = Math.min(w * 0.5, h * 0.46);                          // ball size after the crush
@@ -345,6 +348,7 @@
     if (raf) { cancelAnimationFrame(raf); raf = 0; }
     shooter.classList.remove('is-visible');
     floor.classList.remove('is-visible');
+    document.documentElement.style.removeProperty('--floor');
     fly.classList.remove('is-moving');
     [fly, shape, page, creases, net, plus3].forEach(function (el) { el.removeAttribute('style'); });
     net.classList.remove('is-swishing');

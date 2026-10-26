@@ -32,8 +32,8 @@
 .basket {
   position: fixed;
   right: clamp(24px, 8vw, 150px);
-  bottom: 56px;
-  height: min(64vh, 560px);
+  bottom: var(--floor, 56px);
+  height: min(60vh, 540px);
   aspect-ratio: 320 / 560;
   pointer-events: none;
   visibility: hidden;
