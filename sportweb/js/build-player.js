@@ -24,13 +24,13 @@
 
   // Words you write in the weakness / goal boxes -> a matching drill
   var KEYWORDS = [
-    [/free ?throw|\bft\b/, 'ft'],
-    [/three|3[- ]?pt|3[- ]?point|range|shoot|jumper/, 'tp'],
-    [/rebound|box ?out/, 'reb'],
-    [/pass|assist|vision|playmak|handle|dribble/, 'ast'],
-    [/steal|defen|lock/, 'stl'],
-    [/block|rim protect/, 'blk'],
-    [/finish|layup|paint|scor|efficien/, 'fg']
+    [/free ?throw|\bft\b|フリースロー|フリー・スロー/, 'ft'],
+    [/three|3[- ]?pt|3[- ]?point|range|shoot|jumper|スリー|3ポイント|3point|３ポイント|シュート|ジャンパー|外角/, 'tp'],
+    [/rebound|box ?out|リバウンド|ボックスアウト/, 'reb'],
+    [/pass|assist|vision|playmak|handle|dribble|パス|アシスト|視野|ハンドリング|ドリブル|プレーメイク/, 'ast'],
+    [/steal|defen|lock|スティール|ディフェンス|守備|守り/, 'stl'],
+    [/block|rim protect|ブロック|リムプロテクト/, 'blk'],
+    [/finish|layup|paint|scor|efficien|フィニッシュ|レイアップ|ペイント|得点|決定力|効率/, 'fg']
   ];
 
   function statByKey(key) { return STATS.filter(function (s) { return s.key === key; })[0]; }
@@ -66,8 +66,8 @@
     $('tabNow').classList.toggle('is-active', state.tab === 'now');
     $('tabAll').classList.toggle('is-active', state.tab === 'all');
     $('tabNote').textContent = state.tab === 'now'
-      ? "The top 10 is ESPN's NBA Rank 2026, published September 24, 2026, with 2025-26 per-game stats. This is a snapshot taken October 21, 2026. Keeping it live needs a data feed, which is the next step."
-      : 'Ten greats picked from the NBA 75th Anniversary Team, shown with career per-game averages. This is not a ranking. Bill Russell and Wilt Chamberlain are left out because steals and blocks were not tracked in their careers.';
+      ? 'トップ10はESPNの「NBA Rank 2026」（2026年9月24日発表）で、成績は2025-26シーズンの1試合平均です。2026年10月21日時点のスナップショットで、常に最新にするにはデータフィードが必要です。次の課題です。'
+      : 'NBA 75周年記念チームから選んだ10人の名選手を、キャリア通算の1試合平均で表示しています。ランキングではありません。ビル・ラッセルとウィルト・チェンバレンは、現役時代にスティールとブロックが記録されていないため含めていません。';
 
     var pool = $('pool');
     pool.innerHTML = '';
@@ -75,9 +75,9 @@
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'player-btn' + (p.id === state.fav ? ' is-active' : '');
-      var sub = p.group === 'now' ? '#' + p.rank + ' · ' + p.team : 'Career, ' + p.games.toLocaleString('en-US') + ' games';
+      var sub = p.group === 'now' ? '#' + p.rank + ' · ' + p.team : 'キャリア ' + p.games.toLocaleString('en-US') + '試合';
       btn.innerHTML = '<span class="name">' + p.name + '</span><span class="meta">' + sub + '</span>' +
-                      '<span class="meta">' + p.s.pts.toFixed(1) + ' PPG</span>';
+                      '<span class="meta">' + p.s.pts.toFixed(1) + '得点/試合</span>';
       btn.addEventListener('click', function () { state.fav = p.id; update(); });
       pool.appendChild(btn);
     });
@@ -109,7 +109,7 @@
 
   function renderResults() {
     var fav = findPlayer(state.fav);
-    var you = ($('playerName').value || '').trim() || 'You';
+    var you = ($('playerName').value || '').trim() || 'あなた';
     var yourRatings = rate(state.stats);
     var favRatings = rate(fav.s);
 
@@ -121,9 +121,8 @@
       r.forEach(function (v, i) { sum += (v - yourRatings[i]) * (v - yourRatings[i]); });
       return { p: p, pct: Math.max(0, Math.round(100 - Math.sqrt(sum / 6))) };
     }).sort(function (a, b) { return b.pct - a.pct; }).slice(0, 3);
-    $('resultLine').textContent = 'Your strongest area is ' + RATING_NAMES[mine.hi].toLowerCase() +
-      ' and your lowest is ' + RATING_NAMES[mine.lo].toLowerCase() + '. Your closest match among these ' +
-      PLAYERS.length + ' players is ' + matches[0].p.name + ' at ' + matches[0].pct + '%.';
+    $('resultLine').textContent = 'あなたの一番の強みは「' + RATING_NAMES[mine.hi] + '」、一番低いのは「' + RATING_NAMES[mine.lo] + '」です。この' +
+      PLAYERS.length + '人の中で一番近いのは' + matches[0].p.name + '（' + matches[0].pct + '%）です。';
 
     // radar chart
     $('radarR1').setAttribute('points', ringPoints(0.25));
@@ -150,11 +149,11 @@
       row.className = 'compare-row';
       row.innerHTML =
         '<div class="compare-top"><span class="compare-label">' + stat.label + '</span>' +
-        '<span class="compare-verdict' + (ahead ? ' is-ahead' : '') + '">' + (ahead ? 'Ahead' : 'Behind') + '</span></div>' +
+        '<span class="compare-verdict' + (ahead ? ' is-ahead' : '') + '">' + (ahead ? '上回る' : '下回る') + '</span></div>' +
         '<div class="compare-body"><div class="compare-bars">' +
         '<div class="track"><i class="you" style="width:' + (y / max * 100).toFixed(1) + '%"></i></div>' +
         '<div class="track"><i class="them" style="width:' + (t / max * 100).toFixed(1) + '%"></i></div></div>' +
-        '<div class="compare-nums"><span class="you">You ' + fmt(stat, y) + '</span><span>Them ' + fmt(stat, t) + '</span></div></div>';
+        '<div class="compare-nums"><span class="you">あなた ' + fmt(stat, y) + '</span><span>相手 ' + fmt(stat, t) + '</span></div></div>';
       rows.appendChild(row);
     });
 
@@ -166,8 +165,8 @@
       btn.type = 'button';
       btn.className = 'match';
       btn.innerHTML = '<span class="match-pct">' + m.pct + '%</span><span class="match-name">' + m.p.name + '</span>' +
-        '<span class="match-sub">' + (m.p.group === 'now' ? 'Ranked #' + m.p.rank + ' · ' + m.p.team : 'All-time great') + '</span>' +
-        '<span class="match-hint">Tap to compare</span>';
+        '<span class="match-sub">' + (m.p.group === 'now' ? 'ランキング' + m.p.rank + '位 · ' + m.p.team : '歴代の名選手') + '</span>' +
+        '<span class="match-hint">タップして比べる</span>';
       btn.addEventListener('click', function () { state.tab = m.p.group; state.fav = m.p.id; update(); });
       box.appendChild(btn);
     });
@@ -175,10 +174,10 @@
     // player file
     var ex = extremes(favRatings);
     $('fileName').textContent = fav.name;
-    $('fileSub').textContent = fav.group === 'now' ? 'Ranked #' + fav.rank + ' by ESPN · ' + fav.team : 'NBA 75th Anniversary Team';
-    $('fileLine').textContent = fav.s.pts.toFixed(1) + ' pts, ' + fav.s.reb.toFixed(1) + ' reb, ' + fav.s.ast.toFixed(1) +
-      ' ast, ' + fav.s.stl.toFixed(1) + ' stl, ' + fav.s.blk.toFixed(1) + ' blk';
-    $('fileSplits').textContent = fav.s.fg.toFixed(1) + '% FG · ' + fav.s.tp.toFixed(1) + '% 3P · ' + fav.s.ft.toFixed(1) + '% FT';
+    $('fileSub').textContent = fav.group === 'now' ? 'ESPNランキング' + fav.rank + '位 · ' + fav.team : 'NBA 75周年記念チーム';
+    $('fileLine').textContent = fav.s.pts.toFixed(1) + '得点、' + fav.s.reb.toFixed(1) + 'リバウンド、' + fav.s.ast.toFixed(1) +
+      'アシスト、' + fav.s.stl.toFixed(1) + 'スティール、' + fav.s.blk.toFixed(1) + 'ブロック';
+    $('fileSplits').textContent = 'FG ' + fav.s.fg.toFixed(1) + '% · 3P ' + fav.s.tp.toFixed(1) + '% · FT ' + fav.s.ft.toFixed(1) + '%';
     $('fileBest').textContent = RATING_NAMES[ex.hi] + ' (' + Math.min(99, Math.round(favRatings[ex.hi])) + ')';
     $('fileWorst').textContent = RATING_NAMES[ex.lo] + ' (' + Math.round(favRatings[ex.lo]) + ')';
     $('fileNote').textContent = fav.note;
@@ -187,7 +186,7 @@
   /* ---------- 4. plan: gaps, 12-week table, your words ---------- */
   function renderPlan() {
     var fav = findPlayer(state.fav);
-    $('gapsTitle').textContent = 'Your biggest gaps to ' + fav.name;
+    $('gapsTitle').textContent = fav.name + 'との差が大きい項目';
 
     // the three biggest relative gaps
     var gaps = STATS.map(function (stat) {
@@ -198,16 +197,16 @@
       .slice(0, 3);
 
     $('noGaps').hidden = gaps.length > 0;
-    $('noGaps').textContent = 'You are ahead of ' + fav.name + ' in every category. Pick a tougher comparison to find your next gap.';
+    $('noGaps').textContent = 'あなたはすべての項目で' + fav.name + 'を上回っています。もっと強い相手と比べて、次の課題を見つけましょう。';
 
     var focus = $('focusList');
     focus.innerHTML = '';
     gaps.forEach(function (g, i) {
       var card = document.createElement('div');
       card.className = 'focus';
-      card.innerHTML = '<span class="focus-rank">Focus ' + (i + 1) + '</span>' +
+      card.innerHTML = '<span class="focus-rank">フォーカス ' + (i + 1) + '</span>' +
         '<span class="focus-title">' + g.stat.label + '</span>' +
-        '<span class="focus-line">You ' + fmt(g.stat, g.y) + '. ' + fav.name + ' ' + fmt(g.stat, g.t) + '.</span>' +
+        '<span class="focus-line">あなた ' + fmt(g.stat, g.y) + '。' + fav.name + ' ' + fmt(g.stat, g.t) + '。</span>' +
         '<span class="focus-tip">' + g.stat.tip + '</span>';
       focus.appendChild(card);
     });
@@ -241,7 +240,7 @@
     }
     $('keyword').hidden = !hit;
     if (hit) {
-      $('keywordLabel').textContent = 'Matched to what you wrote: ' + hit.label;
+      $('keywordLabel').textContent = 'あなたの書いた内容に合う練習：' + hit.label;
       $('keywordTip').textContent = hit.tip;
     }
   }

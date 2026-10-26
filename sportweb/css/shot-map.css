@@ -5,7 +5,7 @@
 /* left: season numbers */
 .shot-info { flex: 1 1 320px; display: flex; flex-direction: column; gap: 20px; }
 .shot-season { white-space: nowrap; font-size: clamp(64px, 9vw, 130px); color: var(--accent); }
-.shot-caption { font-size: 19px; line-height: 1.4; color: var(--soft); }
+.shot-caption { font-size: 19px; line-height: 1.7; color: var(--soft); }
 .stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 24px; margin: 8px 0 0; }
 .stat-grid dt { font-size: 13px; font-weight: 500; color: var(--muted); }
 .stat-grid dd { margin: 2px 0 0; font-size: 32px; font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }

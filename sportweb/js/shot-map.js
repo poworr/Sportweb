@@ -21,12 +21,12 @@
 
   // Seasons with a special sentence (by index in SEASONS)
   var SPECIAL = {
-    0: 'The first season in this data: 4.8 attempts per game.',
-    2: 'He played 26 games this season.',
-    6: 'On February 27, 2016 in Oklahoma City, he hit 12 threes, including a 32-foot game-winner in overtime.',
-    7: 'On November 7, 2016, he hit an NBA-record 13 threes against the Pelicans.',
-    10: 'He played 5 games this season.',
-    12: 'On December 14, 2021, his 2,974th career three passed Ray Allen.'
+    0: 'このデータで最初のシーズン：1試合4.8本の試投。',
+    2: 'このシーズンは26試合に出場。',
+    6: '2016年2月27日、オクラホマシティで12本の3ポイントを決め、延長戦では32フィート（約9.8メートル）の決勝弾も沈めた。',
+    7: '2016年11月7日、ペリカンズ戦でNBA記録となる13本の3ポイントを成功させた。',
+    10: 'このシーズンは5試合に出場。',
+    12: '2021年12月14日、通算2,974本目の3ポイントでレイ・アレンを抜いた。'
   };
 
   // Where the dots go: [angle in degrees, distance from the hoop]. Layout only, not real shot locations.
@@ -52,8 +52,8 @@
     var prev = i - 1;
     if (prev >= 0 && SEASONS[prev][1] < 30) { prev = i - 2; }   // skip very short seasons
     var diff = SEASONS[i][3] - SEASONS[prev][3];
-    return SEASONS[i][3].toFixed(1) + ' attempts per game, ' + (diff >= 0 ? 'up' : 'down') + ' ' +
-           Math.abs(diff).toFixed(1) + ' from ' + SEASONS[prev][0] + '.';
+    return '1試合' + SEASONS[i][3].toFixed(1) + '本の試投。' + SEASONS[prev][0] + 'から' +
+           Math.abs(diff).toFixed(1) + '本' + (diff >= 0 ? '増加' : '減少') + '。';
   }
 
   /* ---------- dots on the court ---------- */
@@ -84,7 +84,7 @@
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'bar';
-      btn.setAttribute('aria-label', s[0] + ': ' + s[3].toFixed(1) + ' attempts and ' + s[2].toFixed(1) + ' makes per game');
+      btn.setAttribute('aria-label', s[0] + '：1試合あたり試投' + s[3].toFixed(1) + '本、成功' + s[2].toFixed(1) + '本');
       btn.innerHTML = '<span class="bar-attempts" style="height:' + Math.round(s[3] / BAR_SCALE * 130) + 'px">' +
                       '<span class="bar-made" style="height:' + Math.round(s[2] / BAR_SCALE * 130) + 'px"></span></span>';
       btn.addEventListener('click', function () { stop(); show(i); });
@@ -109,7 +109,7 @@
     els.att.textContent = s[3].toFixed(1);
     els.pct.textContent = s[4].toFixed(1) + '%';
     els.ppg.textContent = s[5].toFixed(1);
-    els.games.textContent = s[1] + ' games played';
+    els.games.textContent = s[1] + '試合に出場';
     renderDots(s);
     els.bars.querySelectorAll('.bar').forEach(function (b, n) { b.classList.toggle('is-active', n === i); });
   }
@@ -117,11 +117,11 @@
   /* ---------- play / pause ---------- */
   function stop() {
     if (timer) { clearInterval(timer); timer = null; }
-    els.play.textContent = 'Play through the seasons';
+    els.play.textContent = 'シーズンを順に再生';
   }
   function togglePlay() {
     if (timer) { stop(); return; }
-    els.play.textContent = 'Pause';
+    els.play.textContent = '一時停止';
     timer = setInterval(function () { show((current + 1) % SEASONS.length); }, 1100);
   }
 

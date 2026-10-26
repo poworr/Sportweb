@@ -8,27 +8,27 @@
 
   // Games on record, keyed by team id
   var GAMES = {
-    nyk: { date: 'December 14, 2021', result: 'Warriors 105, Knicks 96', line: 'His 2,974th career three broke the all-time record.', note: 'It came in the first quarter with 7:33 left, from the right wing. Ray Allen and Reggie Miller were in the building.' },
-    okc: { date: 'February 27, 2016', result: 'Warriors 121, Thunder 118 (OT)', line: '46 points, 12 threes, and a 32-foot game-winner.', note: 'The 12 threes tied the NBA single-game record. He also broke his own single-season record that night, reaching 288.' },
-    gsw: { date: 'November 7, 2016', result: 'Warriors 116, Pelicans 106', line: '46 points and 13 threes on 17 attempts.', note: 'An NBA single-game record, passing the 12 he had shared with Kobe Bryant and Donyell Marshall.' }
+    nyk: { date: '2021年12月14日', result: 'ウォリアーズ 105、ニックス 96', line: '通算2,974本目の3ポイントで、歴代記録を更新した。', note: '第1クォーター残り7分33秒、右ウイングからの一本。レイ・アレンとレジー・ミラーが会場に来ていた。' },
+    okc: { date: '2016年2月27日', result: 'ウォリアーズ 121、サンダー 118（延長）', line: '46得点、12本の3ポイント、そして32フィート（約9.8メートル）の決勝弾。', note: '12本はNBAの1試合記録に並んだ。この夜は自身のシーズン記録も更新し、288本に到達した。' },
+    gsw: { date: '2016年11月7日', result: 'ウォリアーズ 116、ペリカンズ 106', line: '46得点。17本中13本の3ポイントを決めた。', note: 'NBAの1試合記録。コービー・ブライアントやドニエル・マーシャルと分け合っていた12本を超えた。' }
   };
 
   // [id, name, city, longitude, latitude]
   var TEAMS = [
-    ['atl', 'Atlanta Hawks', 'Atlanta', -84.4, 33.8], ['bos', 'Boston Celtics', 'Boston', -71.1, 42.4],
-    ['cha', 'Charlotte Hornets', 'Charlotte', -80.8, 35.2], ['chi', 'Chicago Bulls', 'Chicago', -87.7, 41.9],
-    ['cle', 'Cleveland Cavaliers', 'Cleveland', -81.2, 41.2], ['dal', 'Dallas Mavericks', 'Dallas', -96.8, 32.8],
-    ['den', 'Denver Nuggets', 'Denver', -105.0, 39.7], ['det', 'Detroit Pistons', 'Detroit', -83.1, 42.3],
-    ['gsw', 'Golden State Warriors', 'Bay Area · Home court', -122.8, 37.6], ['hou', 'Houston Rockets', 'Houston', -95.4, 29.8],
-    ['ind', 'Indiana Pacers', 'Indianapolis', -86.2, 39.8], ['la', 'Lakers and Clippers', 'Los Angeles', -118.3, 34.0],
-    ['mem', 'Memphis Grizzlies', 'Memphis', -90.0, 35.1], ['mia', 'Miami Heat', 'Miami', -80.2, 25.8],
-    ['mil', 'Milwaukee Bucks', 'Milwaukee', -87.9, 43.4], ['min', 'Minnesota Timberwolves', 'Minneapolis', -93.3, 45.0],
-    ['nop', 'New Orleans Pelicans', 'New Orleans', -90.1, 29.95], ['nyk', 'Knicks and Nets', 'New York', -74.0, 40.7],
-    ['okc', 'Oklahoma City Thunder', 'Oklahoma City', -97.5, 35.5], ['orl', 'Orlando Magic', 'Orlando', -81.4, 28.5],
-    ['phi', 'Philadelphia 76ers', 'Philadelphia', -75.6, 39.6], ['phx', 'Phoenix Suns', 'Phoenix', -112.1, 33.4],
-    ['por', 'Portland Trail Blazers', 'Portland', -122.7, 45.5], ['sac', 'Sacramento Kings', 'Sacramento', -120.9, 38.9],
-    ['sas', 'San Antonio Spurs', 'San Antonio', -98.5, 29.4], ['tor', 'Toronto Raptors', 'Toronto', -79.4, 43.7],
-    ['uta', 'Utah Jazz', 'Salt Lake City', -111.9, 40.8], ['was', 'Washington Wizards', 'Washington, D.C.', -77.6, 38.4]
+    ['atl', 'アトランタ・ホークス', 'アトランタ', -84.4, 33.8], ['bos', 'ボストン・セルティックス', 'ボストン', -71.1, 42.4],
+    ['cha', 'シャーロット・ホーネッツ', 'シャーロット', -80.8, 35.2], ['chi', 'シカゴ・ブルズ', 'シカゴ', -87.7, 41.9],
+    ['cle', 'クリーブランド・キャバリアーズ', 'クリーブランド', -81.2, 41.2], ['dal', 'ダラス・マーベリックス', 'ダラス', -96.8, 32.8],
+    ['den', 'デンバー・ナゲッツ', 'デンバー', -105.0, 39.7], ['det', 'デトロイト・ピストンズ', 'デトロイト', -83.1, 42.3],
+    ['gsw', 'ゴールデンステイト・ウォリアーズ', 'ベイエリア · 本拠地', -122.8, 37.6], ['hou', 'ヒューストン・ロケッツ', 'ヒューストン', -95.4, 29.8],
+    ['ind', 'インディアナ・ペイサーズ', 'インディアナポリス', -86.2, 39.8], ['la', 'レイカーズとクリッパーズ', 'ロサンゼルス', -118.3, 34.0],
+    ['mem', 'メンフィス・グリズリーズ', 'メンフィス', -90.0, 35.1], ['mia', 'マイアミ・ヒート', 'マイアミ', -80.2, 25.8],
+    ['mil', 'ミルウォーキー・バックス', 'ミルウォーキー', -87.9, 43.4], ['min', 'ミネソタ・ティンバーウルブズ', 'ミネアポリス', -93.3, 45.0],
+    ['nop', 'ニューオーリンズ・ペリカンズ', 'ニューオーリンズ', -90.1, 29.95], ['nyk', 'ニックスとネッツ', 'ニューヨーク', -74.0, 40.7],
+    ['okc', 'オクラホマシティ・サンダー', 'オクラホマシティ', -97.5, 35.5], ['orl', 'オーランド・マジック', 'オーランド', -81.4, 28.5],
+    ['phi', 'フィラデルフィア・セブンティシクサーズ', 'フィラデルフィア', -75.6, 39.6], ['phx', 'フェニックス・サンズ', 'フェニックス', -112.1, 33.4],
+    ['por', 'ポートランド・トレイルブレイザーズ', 'ポートランド', -122.7, 45.5], ['sac', 'サクラメント・キングス', 'サクラメント', -120.9, 38.9],
+    ['sas', 'サンアントニオ・スパーズ', 'サンアントニオ', -98.5, 29.4], ['tor', 'トロント・ラプターズ', 'トロント', -79.4, 43.7],
+    ['uta', 'ユタ・ジャズ', 'ソルトレイクシティ', -111.9, 40.8], ['was', 'ワシントン・ウィザーズ', 'ワシントンD.C.', -77.6, 38.4]
   ];
 
   // Outline of the lower 48 as [longitude, latitude] points
@@ -71,7 +71,7 @@
     var team = TEAMS.filter(function (t) { return t[0] === id; })[0];
     var game = GAMES[id];
 
-    $('arenaTag').textContent = game ? 'Game on record' : 'Waiting for data';
+    $('arenaTag').textContent = game ? '記録された試合あり' : 'データ待ち';
     $('arenaName').textContent = team[1];
     $('arenaWhere').textContent = team[2];
     $('arenaGame').hidden = !game;

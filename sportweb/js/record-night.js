@@ -7,10 +7,10 @@
   'use strict';
 
   var STEPS = [
-    { count: '2,972', showShot: false, caption: 'Curry enters the game two threes behind the record.' },
-    { count: '2,973', showShot: false, caption: 'The exact spot of this shot is not shown here.' },
-    { count: '2,974', showShot: true, caption: 'The record-breaking three, from the right wing.' },
-    { count: '2,974', showShot: true, caption: 'Final: Warriors 105, Knicks 96.' }
+    { count: '2,972', showShot: false, caption: 'カリーは、記録まであと2本の状態で試合に入った。' },
+    { count: '2,973', showShot: false, caption: 'このシュートの正確な位置は、ここには表示していません。' },
+    { count: '2,974', showShot: true, caption: '記録を更新する3ポイント。右ウイングから。' },
+    { count: '2,974', showShot: true, caption: '最終スコア：ウォリアーズ 105、ニックス 96。' }
   ];
 
   var buttons = document.querySelectorAll('.story-step');

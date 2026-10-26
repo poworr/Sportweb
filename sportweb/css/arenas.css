@@ -34,13 +34,13 @@
 /* the detail card */
 .arena-card { flex: 1 1 300px; min-width: 0; align-self: flex-start; display: flex; flex-direction: column; gap: 8px; padding: 28px; border-radius: 32px; background: var(--card); }
 .arena-tag { font-size: 13px; font-weight: 600; color: var(--accent); }
-.arena-card h3 { font-size: 34px; line-height: 1.05; }
+.arena-card h3 { font-size: 30px; line-height: 1.25; }
 .arena-where { font-size: 15px; color: var(--muted); }
 .arena-game { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; padding-top: 20px; border-top: 1px solid var(--line); }
 .arena-date { font-size: 13px; font-weight: 500; color: var(--muted); }
-.arena-result { font-size: 22px; line-height: 1.2; font-weight: 700; letter-spacing: -0.02em; }
-.arena-line { font-size: 17px; line-height: 1.35; font-weight: 600; }
-.arena-note { font-size: 15px; line-height: 1.5; color: var(--soft); }
-.arena-empty { margin-top: 16px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.5; color: var(--soft); }
+.arena-result { font-size: 20px; line-height: 1.4; font-weight: 700; letter-spacing: 0; }
+.arena-line { font-size: 17px; line-height: 1.6; font-weight: 600; }
+.arena-note { font-size: 15px; line-height: 1.7; color: var(--soft); }
+.arena-empty { margin-top: 16px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.7; color: var(--soft); }
 .arena-footnote { margin-top: 16px; }
 [hidden] { display: none !important; }

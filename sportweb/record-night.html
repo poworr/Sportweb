@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Record night | Range</title>
+<title>記録の夜 | Range</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/transition.css">
 <link rel="stylesheet" href="css/record-night.css">
@@ -17,11 +17,11 @@
       <div class="header-inner">
         <a class="logo" href="index.html">Range</a>
         <nav class="main-nav" aria-label="Main">
-          <a href="index.html">Home</a>
-          <a href="shot-map.html">Shot map</a>
-          <a href="arenas.html">Arenas</a>
-          <a href="record-night.html" aria-current="page">Record night</a>
-          <a href="build-player.html">Build your player</a>
+          <a href="index.html">ホーム</a>
+          <a href="shot-map.html">ショットマップ</a>
+          <a href="arenas.html">アリーナ</a>
+          <a href="record-night.html" aria-current="page">記録の夜</a>
+          <a href="build-player.html">選手を作る</a>
         </nav>
       </div>
     </header>
@@ -29,44 +29,44 @@
     <main class="record">
       <section class="section">
         <div class="container">
-          <p class="eyebrow">Record night</p>
-          <h2>The night he passed Ray Allen.</h2>
-          <p class="lede">December 14, 2021, Madison Square Garden. Step through the moments that decided the all-time three-point record.</p>
+          <p class="eyebrow">記録の夜</p>
+          <h2>レイ・アレンを抜いた夜。</h2>
+          <p class="lede">2021年12月14日、マディソン・スクエア・ガーデン。3ポイントの歴代記録を決めた瞬間を、順にたどります。</p>
 
           <div class="record-layout">
             <div class="story-steps">
             <button class="story-step" type="button">
-              <span class="story-time">Before tip-off</span>
-              <span class="story-title">Two threes to go.</span>
-              <span class="story-body">Ray Allen holds the career record with 2,973 threes. Curry needs two to pass him.</span>
+              <span class="story-time">試合開始前</span>
+              <span class="story-title">あと2本。</span>
+              <span class="story-body">レイ・アレンの通算記録は2,973本。カリーが抜くには、あと2本が必要です。</span>
             </button>
             <button class="story-step" type="button">
-              <span class="story-time">First quarter</span>
-              <span class="story-title">The first three ties it.</span>
-              <span class="story-body">His first three of the night ties Allen at 2,973.</span>
+              <span class="story-time">第1クォーター</span>
+              <span class="story-title">最初の1本で並ぶ。</span>
+              <span class="story-body">この夜1本目の3ポイントで、アレンの2,973本に並んだ。</span>
             </button>
             <button class="story-step" type="button">
-              <span class="story-time">First quarter · 7:33 left</span>
-              <span class="story-title">The record is his.</span>
-              <span class="story-body">From the right wing, his 2,974th career three breaks the record. Coach Steve Kerr calls a timeout to make room for the celebration.</span>
+              <span class="story-time">第1クォーター · 残り7:33</span>
+              <span class="story-title">記録は彼のものに。</span>
+              <span class="story-body">右ウイングから放った通算2,974本目の3ポイントで、記録を更新。スティーブ・カー監督は、祝福の時間をつくるためにタイムアウトを取った。</span>
             </button>
             <button class="story-step" type="button">
-              <span class="story-time">The timeout</span>
-              <span class="story-title">Allen is in the building.</span>
-              <span class="story-body">Allen and Reggie Miller present Curry with a jersey that reads 2,974. Curry hugs Allen, his parents, and his teammates. The Warriors win 105 to 96.</span>
+              <span class="story-time">タイムアウト</span>
+              <span class="story-title">アレンが会場に。</span>
+              <span class="story-body">アレンとレジー・ミラーが、2,974と書かれたジャージーをカリーに贈った。カリーはアレンや両親、チームメートと抱き合った。ウォリアーズは105対96で勝利。</span>
             </button>
             </div>
 
             <div class="story-board">
               <div class="story-score">
                 <div>
-                  <span class="story-score-label">Curry career threes</span>
+                  <span class="story-score-label">カリーの通算3ポイント</span>
                   <span class="display-num story-count" id="storyCount">2,972</span>
                 </div>
-                <div class="story-allen">Allen: 2,973</div>
+                <div class="story-allen">アレン：2,973</div>
               </div>
               <div class="story-court">
-                <svg viewBox="0 0 520 500" role="img" aria-label="A half basketball court seen from above, hoop at the top">
+                <svg viewBox="0 0 520 500" role="img" aria-label="真上から見たハーフコート。ゴールは上側">
               <rect x="10" y="10" width="500" height="470" rx="14" fill="#efefed" stroke="#d6d6d2" stroke-width="2"/>
               <g fill="none" stroke="#1d1d1f" stroke-width="2" opacity="0.3" stroke-linecap="round">
                 <rect x="180" y="10" width="160" height="190"/>
@@ -80,7 +80,7 @@
               <circle cx="260" cy="62.5" r="9" fill="none" stroke="#ff6a13" stroke-width="3.5"/>
             </svg>
                 <span class="story-shot" id="storyShot" hidden></span>
-                <span class="story-tag" id="storyTag" hidden>Right wing</span>
+                <span class="story-tag" id="storyTag" hidden>右ウイング</span>
               </div>
               <p class="story-foot" id="storyCaption"></p>
             </div>

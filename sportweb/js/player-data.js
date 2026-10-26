@@ -4,18 +4,18 @@
 
 // The eight numbers you enter. Each has a slider range and a drill tip.
 var STATS = [
-  { key: 'pts', label: 'Points per game', percent: false, min: 0, max: 40, step: 0.5, tip: 'Work on getting to your best spots: take 50 game-speed shots after a dribble from three spots, then finish at the rim with both hands.' },
-  { key: 'fg', label: 'Field goal %', percent: true, min: 30, max: 70, step: 0.5, tip: 'Shot selection matters most: log your makes by spot for two weeks, then take more shots from where you shoot best.' },
-  { key: 'tp', label: '3-point %', percent: true, min: 0, max: 50, step: 0.5, tip: 'Form and volume: 100 catch-and-shoot threes, three days a week, and log makes by spot.' },
-  { key: 'ft', label: 'Free throw %', percent: true, min: 30, max: 100, step: 0.5, tip: 'Finish every practice with 50 free throws after running, using the same routine every time.' },
-  { key: 'reb', label: 'Rebounds per game', percent: false, min: 0, max: 16, step: 0.5, tip: 'Box out on every shot in drills and track the ball off the rim. Go to the ball with two hands.' },
-  { key: 'ast', label: 'Assists per game', percent: false, min: 0, max: 14, step: 0.5, tip: 'Pick-and-roll reads: make the pass before the help defender arrives, and practice passes with both hands.' },
-  { key: 'stl', label: 'Steals per game', percent: false, min: 0, max: 4, step: 0.1, tip: "Defensive slides and anticipation: study the ball handler's habits and stay low in your stance." },
-  { key: 'blk', label: 'Blocks per game', percent: false, min: 0, max: 4, step: 0.1, tip: 'Timing and verticality: practice contesting shots with a partner without fouling, going straight up.' }
+  { key: 'pts', label: '1試合の得点', percent: false, min: 0, max: 40, step: 0.5, tip: '得意な位置に入る練習を。3か所で、ドリブルからの試合スピードのシュートを50本打ち、そのあとリングまで両手でフィニッシュしましょう。' },
+  { key: 'fg', label: 'フィールドゴール成功率', percent: true, min: 30, max: 70, step: 0.5, tip: 'シュート選びが一番大切です。2週間、場所ごとの成功数を記録して、一番よく決まる場所からの本数を増やしましょう。' },
+  { key: 'tp', label: '3ポイント成功率', percent: true, min: 0, max: 50, step: 0.5, tip: 'フォームと本数が大切です。キャッチ&シュートの3ポイントを週3日、100本ずつ打ち、場所ごとに成功数を記録しましょう。' },
+  { key: 'ft', label: 'フリースロー成功率', percent: true, min: 30, max: 100, step: 0.5, tip: '毎回の練習の最後に、走ったあとのフリースローを50本。毎回同じルーティンで打ちましょう。' },
+  { key: 'reb', label: '1試合のリバウンド', percent: false, min: 0, max: 16, step: 0.5, tip: 'ドリルのすべてのシュートでボックスアウトし、リングから跳ねるボールを追いましょう。ボールには両手で向かいます。' },
+  { key: 'ast', label: '1試合のアシスト', percent: false, min: 0, max: 14, step: 0.5, tip: 'ピック&ロールの読みを磨きましょう。ヘルプが来る前にパスを出し、左右どちらの手のパスも練習します。' },
+  { key: 'stl', label: '1試合のスティール', percent: false, min: 0, max: 4, step: 0.1, tip: 'ディフェンスのスライドと先読みを練習しましょう。ボールを持つ相手のクセを観察し、低い構えを保ちます。' },
+  { key: 'blk', label: '1試合のブロック', percent: false, min: 0, max: 4, step: 0.1, tip: 'タイミングと垂直跳びが大切です。パートナー相手に、ファウルをせずまっすぐ跳んでシュートに手を出す練習をしましょう。' }
 ];
 
 // The six rating axes on the radar chart (clockwise from the top)
-var RATING_NAMES = ['Scoring', 'Shooting', 'Playmaking', 'Rebounding', 'Defense', 'Efficiency'];
+var RATING_NAMES = ['得点', 'シュート', 'プレーメイク', 'リバウンド', 'ディフェンス', '効率'];
 
 function clamp100(x) { return Math.max(0, Math.min(100, x)); }
 
@@ -37,29 +37,29 @@ function player(id, name, group, rank, team, games, fg, tp, ft, reb, ast, stl, b
            s: { fg: fg, tp: tp, ft: ft, reb: reb, ast: ast, stl: stl, blk: blk, pts: pts }, note: note };
 }
 
-var NOW_NOTE = '2025-26 regular season per-game averages. ';
+var NOW_NOTE = '2025-26レギュラーシーズンの1試合平均。';
 var PLAYERS = [
   // ESPN NBA Rank 2026 top 10 (group "now")
-  player('jokic', 'Nikola Jokic', 'now', 1, 'Denver Nuggets', 65, 56.9, 38.0, 83.1, 12.9, 10.7, 1.4, 0.8, 27.7, NOW_NOTE + '65 games.'),
-  player('wemby', 'Victor Wembanyama', 'now', 2, 'San Antonio Spurs', 64, 51.2, 34.9, 82.7, 11.5, 3.1, 1.0, 3.1, 25.0, NOW_NOTE + '64 games.'),
-  player('sga', 'Shai Gilgeous-Alexander', 'now', 3, 'Oklahoma City Thunder', 68, 55.3, 38.6, 87.9, 4.3, 6.6, 1.4, 0.8, 31.1, NOW_NOTE + '68 games.'),
-  player('luka', 'Luka Doncic', 'now', 4, 'Los Angeles Lakers', 64, 47.6, 36.6, 78.0, 7.7, 8.3, 1.6, 0.5, 33.5, NOW_NOTE + '64 games.'),
-  player('giannis', 'Giannis Antetokounmpo', 'now', 5, 'Miami Heat', 36, 62.4, 33.3, 65.0, 9.8, 5.4, 0.9, 0.7, 27.6, NOW_NOTE + 'Only 36 games, played for Milwaukee that season.'),
-  player('brunson', 'Jalen Brunson', 'now', 6, 'New York Knicks', 74, 46.7, 36.9, 84.1, 3.3, 6.8, 0.8, 0.1, 26.0, NOW_NOTE + '74 games.'),
-  player('edwards', 'Anthony Edwards', 'now', 7, 'Minnesota Timberwolves', 61, 48.9, 39.9, 79.6, 5.0, 3.7, 1.4, 0.8, 28.8, NOW_NOTE + '61 games.'),
-  player('cade', 'Cade Cunningham', 'now', 8, 'Detroit Pistons', 64, 46.1, 34.2, 81.2, 5.5, 9.9, 1.4, 0.8, 23.9, NOW_NOTE + '64 games.'),
-  player('tatum', 'Jayson Tatum', 'now', 9, 'Boston Celtics', 16, 41.1, 32.9, 82.3, 10.0, 5.3, 1.4, 0.2, 21.8, NOW_NOTE + 'Only 16 games, so this is a small sample.'),
-  player('mitchell', 'Donovan Mitchell', 'now', 10, 'Cleveland Cavaliers', 70, 48.3, 36.4, 86.5, 4.5, 5.7, 1.5, 0.3, 27.9, NOW_NOTE + '70 games.'),
+  player('jokic', 'ニコラ・ヨキッチ', 'now', 1, 'デンバー・ナゲッツ', 65, 56.9, 38.0, 83.1, 12.9, 10.7, 1.4, 0.8, 27.7, NOW_NOTE + '65試合。'),
+  player('wemby', 'ビクター・ウェンバンヤマ', 'now', 2, 'サンアントニオ・スパーズ', 64, 51.2, 34.9, 82.7, 11.5, 3.1, 1.0, 3.1, 25.0, NOW_NOTE + '64試合。'),
+  player('sga', 'シェイ・ギルジャス＝アレクサンダー', 'now', 3, 'オクラホマシティ・サンダー', 68, 55.3, 38.6, 87.9, 4.3, 6.6, 1.4, 0.8, 31.1, NOW_NOTE + '68試合。'),
+  player('luka', 'ルカ・ドンチッチ', 'now', 4, 'ロサンゼルス・レイカーズ', 64, 47.6, 36.6, 78.0, 7.7, 8.3, 1.6, 0.5, 33.5, NOW_NOTE + '64試合。'),
+  player('giannis', 'ヤニス・アデトクンボ', 'now', 5, 'マイアミ・ヒート', 36, 62.4, 33.3, 65.0, 9.8, 5.4, 0.9, 0.7, 27.6, NOW_NOTE + '36試合のみ。このシーズンはミルウォーキーでプレーした。'),
+  player('brunson', 'ジェイレン・ブランソン', 'now', 6, 'ニューヨーク・ニックス', 74, 46.7, 36.9, 84.1, 3.3, 6.8, 0.8, 0.1, 26.0, NOW_NOTE + '74試合。'),
+  player('edwards', 'アンソニー・エドワーズ', 'now', 7, 'ミネソタ・ティンバーウルブズ', 61, 48.9, 39.9, 79.6, 5.0, 3.7, 1.4, 0.8, 28.8, NOW_NOTE + '61試合。'),
+  player('cade', 'ケイド・カニングハム', 'now', 8, 'デトロイト・ピストンズ', 64, 46.1, 34.2, 81.2, 5.5, 9.9, 1.4, 0.8, 23.9, NOW_NOTE + '64試合。'),
+  player('tatum', 'ジェイソン・テイタム', 'now', 9, 'ボストン・セルティックス', 16, 41.1, 32.9, 82.3, 10.0, 5.3, 1.4, 0.2, 21.8, NOW_NOTE + '16試合のみのため、サンプルは小さめ。'),
+  player('mitchell', 'ドノバン・ミッチェル', 'now', 10, 'クリーブランド・キャバリアーズ', 70, 48.3, 36.4, 86.5, 4.5, 5.7, 1.5, 0.3, 27.9, NOW_NOTE + '70試合。'),
 
   // All-time greats from the NBA 75th Anniversary Team (group "all"), career averages
-  player('jordan', 'Michael Jordan', 'all', 0, '', 1072, 49.7, 32.7, 83.5, 6.2, 5.3, 2.3, 0.8, 30.1, 'Career regular season per-game averages over 1,072 games.'),
-  player('lebron', 'LeBron James', 'all', 0, '', 1622, 50.7, 34.8, 73.7, 7.5, 7.4, 1.5, 0.7, 26.8, 'Career regular season per-game averages over 1,622 games, through 2025-26.'),
-  player('kareem', 'Kareem Abdul-Jabbar', 'all', 0, '', 1560, 55.9, 5.6, 72.1, 11.2, 3.6, 0.9, 2.6, 24.6, 'Career per-game averages over 1,560 games. Steals and blocks were not tracked before 1973-74, so those two averages cover tracked seasons only.'),
-  player('magic', 'Magic Johnson', 'all', 0, '', 906, 52.0, 30.3, 84.8, 7.2, 11.2, 1.9, 0.4, 19.5, 'Career regular season per-game averages over 906 games.'),
-  player('bird', 'Larry Bird', 'all', 0, '', 897, 49.6, 37.6, 88.6, 10.0, 6.3, 1.7, 0.8, 24.3, 'Career regular season per-game averages over 897 games.'),
-  player('kobe', 'Kobe Bryant', 'all', 0, '', 1346, 44.7, 32.9, 83.7, 5.2, 4.7, 1.4, 0.5, 25.0, 'Career regular season per-game averages over 1,346 games.'),
-  player('duncan', 'Tim Duncan', 'all', 0, '', 1392, 50.6, 17.9, 69.6, 10.8, 3.0, 0.7, 2.2, 19.0, 'Career regular season per-game averages over 1,392 games.'),
-  player('shaq', "Shaquille O'Neal", 'all', 0, '', 1207, 58.2, 4.5, 52.7, 10.9, 2.5, 0.6, 2.3, 23.7, 'Career regular season per-game averages over 1,207 games.'),
-  player('hakeem', 'Hakeem Olajuwon', 'all', 0, '', 1238, 51.2, 20.2, 71.2, 11.1, 2.5, 1.7, 3.1, 21.8, 'Career regular season per-game averages over 1,238 games.'),
-  player('curry', 'Stephen Curry', 'all', 0, '', 1069, 47.1, 42.2, 91.2, 4.7, 6.3, 1.5, 0.3, 24.8, 'Career regular season per-game averages over 1,069 games, through 2025-26.')
+  player('jordan', 'マイケル・ジョーダン', 'all', 0, '', 1072, 49.7, 32.7, 83.5, 6.2, 5.3, 2.3, 0.8, 30.1, 'キャリア通算のレギュラーシーズン1試合平均（1,072試合）。'),
+  player('lebron', 'レブロン・ジェームズ', 'all', 0, '', 1622, 50.7, 34.8, 73.7, 7.5, 7.4, 1.5, 0.7, 26.8, 'キャリア通算のレギュラーシーズン1試合平均（1,622試合、2025-26シーズンまで）。'),
+  player('kareem', 'カリーム・アブドゥル＝ジャバー', 'all', 0, '', 1560, 55.9, 5.6, 72.1, 11.2, 3.6, 0.9, 2.6, 24.6, 'キャリア通算の1試合平均（1,560試合）。スティールとブロックは1973-74シーズンより前は記録されていないため、この2項目は記録のあるシーズンのみの平均です。'),
+  player('magic', 'マジック・ジョンソン', 'all', 0, '', 906, 52.0, 30.3, 84.8, 7.2, 11.2, 1.9, 0.4, 19.5, 'キャリア通算のレギュラーシーズン1試合平均（906試合）。'),
+  player('bird', 'ラリー・バード', 'all', 0, '', 897, 49.6, 37.6, 88.6, 10.0, 6.3, 1.7, 0.8, 24.3, 'キャリア通算のレギュラーシーズン1試合平均（897試合）。'),
+  player('kobe', 'コービー・ブライアント', 'all', 0, '', 1346, 44.7, 32.9, 83.7, 5.2, 4.7, 1.4, 0.5, 25.0, 'キャリア通算のレギュラーシーズン1試合平均（1,346試合）。'),
+  player('duncan', 'ティム・ダンカン', 'all', 0, '', 1392, 50.6, 17.9, 69.6, 10.8, 3.0, 0.7, 2.2, 19.0, 'キャリア通算のレギュラーシーズン1試合平均（1,392試合）。'),
+  player('shaq', 'シャキール・オニール', 'all', 0, '', 1207, 58.2, 4.5, 52.7, 10.9, 2.5, 0.6, 2.3, 23.7, 'キャリア通算のレギュラーシーズン1試合平均（1,207試合）。'),
+  player('hakeem', 'ハキーム・オラジュワン', 'all', 0, '', 1238, 51.2, 20.2, 71.2, 11.1, 2.5, 1.7, 3.1, 21.8, 'キャリア通算のレギュラーシーズン1試合平均（1,238試合）。'),
+  player('curry', 'ステフィン・カリー', 'all', 0, '', 1069, 47.1, 42.2, 91.2, 4.7, 6.3, 1.5, 0.3, 24.8, 'キャリア通算のレギュラーシーズン1試合平均（1,069試合、2025-26シーズンまで）。')
 ];

@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shot map | Range</title>
+<title>ショットマップ | Range</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/transition.css">
 <link rel="stylesheet" href="css/shot-map.css">
@@ -17,11 +17,11 @@
       <div class="header-inner">
         <a class="logo" href="index.html">Range</a>
         <nav class="main-nav" aria-label="Main">
-          <a href="index.html">Home</a>
-          <a href="shot-map.html" aria-current="page">Shot map</a>
-          <a href="arenas.html">Arenas</a>
-          <a href="record-night.html">Record night</a>
-          <a href="build-player.html">Build your player</a>
+          <a href="index.html">ホーム</a>
+          <a href="shot-map.html" aria-current="page">ショットマップ</a>
+          <a href="arenas.html">アリーナ</a>
+          <a href="record-night.html">記録の夜</a>
+          <a href="build-player.html">選手を作る</a>
         </nav>
       </div>
     </header>
@@ -29,27 +29,27 @@
     <main>
       <section class="section">
         <div class="container">
-          <p class="eyebrow">Shot map</p>
-          <h2>Watch the three-point line fill up.</h2>
-          <p class="lede">Pick a season, or press play. Every dot is one three-point attempt in an average game that year. Orange dots went in.</p>
+          <p class="eyebrow">ショットマップ</p>
+          <h2>3ポイントラインが埋まっていく。</h2>
+          <p class="lede">シーズンを選ぶか、再生を押してください。点ひとつが、その年の平均的な1試合での3ポイント1本です。オレンジの点は成功を表します。</p>
 
           <div class="card shot-panel">
             <div class="shot-info">
               <div class="display-num shot-season" id="seasonLabel"></div>
               <p class="shot-caption" id="seasonCaption"></p>
               <dl class="stat-grid">
-                <div><dt>Threes made per game</dt><dd id="seasonMade"></dd></div>
-                <div><dt>Attempts per game</dt><dd id="seasonAtt"></dd></div>
-                <div><dt>Three-point percentage</dt><dd id="seasonPct"></dd></div>
-                <div><dt>Points per game</dt><dd id="seasonPpg"></dd></div>
+                <div><dt>1試合の3ポイント成功数</dt><dd id="seasonMade"></dd></div>
+                <div><dt>1試合の試投数</dt><dd id="seasonAtt"></dd></div>
+                <div><dt>3ポイント成功率</dt><dd id="seasonPct"></dd></div>
+                <div><dt>1試合の得点</dt><dd id="seasonPpg"></dd></div>
               </dl>
               <p class="shot-games" id="seasonGames"></p>
-              <div><button class="btn btn--primary btn--large" id="playBtn" type="button">Play through the seasons</button></div>
+              <div><button class="btn btn--primary btn--large" id="playBtn" type="button">シーズンを順に再生</button></div>
             </div>
 
             <div class="court-wrap">
               <div class="court">
-                <svg viewBox="0 0 520 500" role="img" aria-label="A half basketball court seen from above, hoop at the top">
+                <svg viewBox="0 0 520 500" role="img" aria-label="真上から見たハーフコート。ゴールは上側">
               <rect x="10" y="10" width="500" height="470" rx="14" fill="#efefed" stroke="#d6d6d2" stroke-width="2"/>
               <g fill="none" stroke="#1d1d1f" stroke-width="2" opacity="0.55" stroke-linecap="round">
                 <rect x="180" y="10" width="160" height="190"/>
@@ -64,17 +64,17 @@
             </svg>
                 <div id="courtDots"></div>
               </div>
-              <p class="note">Dot counts come from real per-game averages, rounded. Dot positions are only a layout, not real shot locations. Those come next.</p>
+              <p class="note">点の数は実際の1試合平均（四捨五入）にもとづいています。点の位置はレイアウトのためのもので、実際のシュート位置ではありません。実際の位置は今後追加します。</p>
             </div>
           </div>
 
           <div class="card card--soft season-chart">
             <div class="season-chart-head">
-              <h3>Three-point attempts per game</h3>
-              <span>Tap a season. The lighter part of each bar is made threes.</span>
+              <h3>1試合あたりの3ポイント試投数</h3>
+              <span>シーズンをタップしてください。各バーの明るい部分が成功数です。</span>
             </div>
             <div class="bars" id="bars"></div>
-            <p class="note">Season labels show the year the season began.</p>
+            <p class="note">シーズンのラベルは、開幕した年を示します。</p>
           </div>
         </div>
       </section>
