@@ -79,7 +79,7 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 .p-home .pager-link, .p-home .pager-name { color: var(--text); }
 .p-home .pager-link { opacity: 0.85; }
 .p-home .pager-link:hover { opacity: 1; }
-.p-home .wordmark { font-size: min(11vw, 30dvh); }
+.p-home .wordmark { font-size: var(--F); }
 /* tiles: soft white glass so the court shows through */
 .p-home .tile:not(.tile--photo) { background-color: rgba(255, 255, 255, 0.16) !important; background-image: none; color: var(--text); box-shadow: none; }
 .p-home .tile-ph { color: var(--text); opacity: 0.65; }
@@ -94,8 +94,8 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 
 /* The basketball sits right next to the word RANGE; click it and four squares pop out */
 .brand { display: flex; flex: 0 0 auto; min-width: 0; flex-direction: row; align-items: flex-end; gap: clamp(6px, 1vw, 16px); }
-.p-home { --pick: min(8.6vw, 22dvh); --ballsz: min(16vw, 40dvh); --aw: clamp(56px, 6.5vw, 96px); }
-.ball-menu { position: relative; flex: 0 0 auto; margin-bottom: 0.4vw; }
+.p-home { --F: min(11vw, 30dvh); --pick: min(9vw, 22dvh); --ballsz: calc(var(--F) * .98);   /* the ball is as tall as the capital letters */ --aw: clamp(56px, 6.5vw, 96px); }
+.ball-menu { position: relative; flex: 0 0 auto; margin-bottom: calc(var(--F) * -.155); }   /* ball bottom sits on the text baseline */
 .ball-btn {
   display: block; width: var(--ballsz); aspect-ratio: 1; padding: 0; border: 0; background: none; cursor: pointer;
   transition: transform 420ms cubic-bezier(.3, 1.6, .5, 1); animation: ball-bob 2.2s ease-in-out infinite;
@@ -120,7 +120,7 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 .tagline-tag { padding: .3em .9em; border-radius: 999px; background: #fff6ea; color: var(--ball); font-family: Inter, sans-serif; font-size: .58em; font-weight: 700; letter-spacing: .16em; }
 .tagline-text { font-weight: 700; line-height: 1.45; color: var(--text); }
 
-.picks { position: absolute; left: calc(100% + clamp(10px, 1.6vw, 24px)); bottom: 0; display: grid; grid-template-columns: repeat(4, var(--pick)); gap: clamp(8px, 1vw, 14px); pointer-events: none; }
+.picks { position: absolute; left: calc(100% + clamp(10px, 1.6vw, 24px)); bottom: calc(var(--ballsz) * .2); display: grid; grid-template-columns: repeat(4, var(--pick)); gap: clamp(8px, 1vw, 14px); pointer-events: none; }
 .is-open .picks { pointer-events: auto; }
 .picks .tile {
   width: var(--pick); height: var(--pick);
