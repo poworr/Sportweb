@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arenas | Range</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/transition.css">
+<link rel="stylesheet" href="css/arenas.css">
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="logo" href="index.html">Range</a>
+        <nav class="main-nav" aria-label="Main">
+          <a href="index.html">Home</a>
+          <a href="shot-map.html">Shot map</a>
+          <a href="arenas.html" aria-current="page">Arenas</a>
+          <a href="record-night.html">Record night</a>
+          <a href="build-player.html">Build your player</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="container">
+          <p class="eyebrow">Arenas</p>
+          <h2>Every building. Three big nights so far.</h2>
+          <p class="lede">All 30 teams, 28 stops on the map. The orange stops already have a game on record. The rest are waiting for game-log data.</p>
+
+          <div class="arena-picks">
+            <button class="pill" type="button" data-team="nyk">New York · Dec 2021</button>
+            <button class="pill" type="button" data-team="okc">Oklahoma City · Feb 2016</button>
+            <button class="pill" type="button" data-team="gsw">Bay Area · Nov 2016</button>
+          </div>
+
+          <div class="arena-layout">
+            <div class="us-map">
+              <svg viewBox="0 0 1000 620" aria-hidden="true">
+                <g class="us-grid"><path d="M0 145H1000M0 250H1000M0 355H1000M0 460H1000"/><path d="M200 0V620M400 0V620M600 0V620M800 0V620"/></g>
+                <path class="us-outline" id="usOutline" d=""/>
+              </svg>
+              <div id="stops"></div>
+            </div>
+
+            <div class="arena-card">
+              <div class="arena-tag" id="arenaTag"></div>
+              <h3 id="arenaName"></h3>
+              <p class="arena-where" id="arenaWhere"></p>
+              <div class="arena-game" id="arenaGame">
+                <span class="arena-date" id="arenaDate"></span>
+                <span class="arena-result" id="arenaResult"></span>
+                <span class="arena-line" id="arenaLine"></span>
+                <span class="arena-note" id="arenaNote"></span>
+              </div>
+              <p class="arena-empty" id="arenaEmpty">No game from this stop is loaded yet. Once the game logs are in, his best night here will show up on this card.</p>
+            </div>
+          </div>
+          <p class="note arena-footnote">The map is a simplified outline. Pins sit at city positions, not exact arena locations. Toronto sits just north of the outline.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+<script src="js/arenas.js"></script>
+<script src="js/animation.js"></script>
+</body>
+</html>

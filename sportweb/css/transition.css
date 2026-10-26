@@ -1,0 +1,48 @@
+/* ==========================================================
+   Page-change animation: the page is crushed into a ball and
+   thrown into a basket. animation.js adds the wrapper elements
+   and sets the inline transforms; these rules are the base look.
+   ========================================================== */
+
+/* .fly moves the whole ball, .shape rotates / scales / clips the page */
+.fly { position: relative; z-index: 40; }
+.fly.is-moving { position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; }
+
+.shape { position: relative; min-height: 100vh; background: var(--bg); }
+.fly.is-moving .shape { height: 100vh; overflow: hidden; }
+
+/* Fold lines and shading that fade in while the page crumples */
+.creases {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+}
+.creases svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.creases .sheen {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 36% 30%, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 42%),
+    radial-gradient(circle at 68% 76%, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0) 62%);
+}
+
+/* The basket: back half sits behind the ball, net sits in front */
+.basket {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  width: 300px;
+  height: 275px;
+  margin-left: -150px;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 260ms ease, visibility 0s linear 260ms;
+}
+.basket.is-visible { visibility: visible; opacity: 1; transition: opacity 260ms ease, visibility 0s; }
+.basket--back { z-index: 30; }
+.basket--front { z-index: 50; }
+.basket svg { display: block; width: 300px; height: 275px; }
+.basket-net { width: 300px; height: 275px; transform-origin: 50% 54%; }

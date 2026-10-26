@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shot map | Range</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/transition.css">
+<link rel="stylesheet" href="css/shot-map.css">
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="logo" href="index.html">Range</a>
+        <nav class="main-nav" aria-label="Main">
+          <a href="index.html">Home</a>
+          <a href="shot-map.html" aria-current="page">Shot map</a>
+          <a href="arenas.html">Arenas</a>
+          <a href="record-night.html">Record night</a>
+          <a href="build-player.html">Build your player</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="container">
+          <p class="eyebrow">Shot map</p>
+          <h2>Watch the three-point line fill up.</h2>
+          <p class="lede">Pick a season, or press play. Every dot is one three-point attempt in an average game that year. Orange dots went in.</p>
+
+          <div class="card shot-panel">
+            <div class="shot-info">
+              <div class="display-num shot-season" id="seasonLabel"></div>
+              <p class="shot-caption" id="seasonCaption"></p>
+              <dl class="stat-grid">
+                <div><dt>Threes made per game</dt><dd id="seasonMade"></dd></div>
+                <div><dt>Attempts per game</dt><dd id="seasonAtt"></dd></div>
+                <div><dt>Three-point percentage</dt><dd id="seasonPct"></dd></div>
+                <div><dt>Points per game</dt><dd id="seasonPpg"></dd></div>
+              </dl>
+              <p class="shot-games" id="seasonGames"></p>
+              <div><button class="btn btn--primary btn--large" id="playBtn" type="button">Play through the seasons</button></div>
+            </div>
+
+            <div class="court-wrap">
+              <div class="court">
+                <svg viewBox="0 0 520 500" role="img" aria-label="A half basketball court seen from above, hoop at the top">
+              <rect x="10" y="10" width="500" height="470" rx="14" fill="#efefed" stroke="#d6d6d2" stroke-width="2"/>
+              <g fill="none" stroke="#1d1d1f" stroke-width="2" opacity="0.55" stroke-linecap="round">
+                <rect x="180" y="10" width="160" height="190"/>
+                <path d="M200 200A60 60 0 0 0 320 200"/>
+                <path d="M200 200A60 60 0 0 1 320 200" stroke-dasharray="5 7"/>
+                <path d="M220 62.5A40 40 0 0 0 300 62.5"/>
+                <path d="M40 10V152A237.5 237.5 0 0 0 480 152V10"/>
+                <path d="M200 480A60 60 0 0 1 320 480"/>
+                <path d="M230 50H290" stroke-width="4"/>
+              </g>
+              <circle cx="260" cy="62.5" r="9" fill="none" stroke="#ff6a13" stroke-width="3.5"/>
+            </svg>
+                <div id="courtDots"></div>
+              </div>
+              <p class="note">Dot counts come from real per-game averages, rounded. Dot positions are only a layout, not real shot locations. Those come next.</p>
+            </div>
+          </div>
+
+          <div class="card card--soft season-chart">
+            <div class="season-chart-head">
+              <h3>Three-point attempts per game</h3>
+              <span>Tap a season. The lighter part of each bar is made threes.</span>
+            </div>
+            <div class="bars" id="bars"></div>
+            <p class="note">Season labels show the year the season began.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+<script src="js/shot-map.js"></script>
+<script src="js/animation.js"></script>
+</body>
+</html>

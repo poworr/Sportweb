@@ -1,0 +1,59 @@
+/* Shot map page */
+
+.shot-panel { margin-top: 56px; display: flex; flex-wrap: wrap; align-items: center; gap: 40px; padding: clamp(20px, 4vw, 48px); }
+
+/* left: season numbers */
+.shot-info { flex: 1 1 320px; display: flex; flex-direction: column; gap: 20px; }
+.shot-season { white-space: nowrap; font-size: clamp(64px, 9vw, 130px); color: var(--accent); }
+.shot-caption { font-size: 19px; line-height: 1.4; color: var(--soft); }
+.stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 24px; margin: 8px 0 0; }
+.stat-grid dt { font-size: 13px; font-weight: 500; color: var(--muted); }
+.stat-grid dd { margin: 2px 0 0; font-size: 32px; font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.shot-games { font-size: 14px; color: var(--muted); }
+
+/* right: half court with dots */
+.court-wrap { flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.court {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 520 / 500;
+  border-radius: 24px;
+  background: var(--card-2);
+}
+.court svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.court-wrap .note { max-width: 560px; text-align: center; }
+
+.dot { position: absolute; border-radius: 50%; }
+.dot--made {
+  width: 26px; height: 26px; margin: -13px 0 0 -13px;
+  background: var(--ball);
+  border: 3px solid var(--bg);
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.4);
+}
+.dot--miss {
+  width: 22px; height: 22px; margin: -11px 0 0 -11px;
+  background: var(--card-2);
+  border: 2.5px solid #8e8e93;
+}
+
+/* bottom: bar chart of all seasons */
+.season-chart { margin-top: 16px; padding: clamp(20px, 3vw, 36px); }
+.season-chart-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; }
+.season-chart-head span { font-size: 14px; color: var(--muted); }
+.bars { display: flex; align-items: flex-end; gap: 6px; margin-top: 24px; }
+.bar-col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.bar {
+  display: flex; flex-direction: column; justify-content: flex-end; align-items: stretch;
+  height: 150px; padding: 0; border: 0; background: transparent;
+}
+.bar-attempts {
+  display: flex; flex-direction: column; justify-content: flex-end;
+  width: 100%; border-radius: 7px; overflow: hidden;
+  background: var(--card-2); transition: background 250ms ease;
+}
+.bar-made { display: block; width: 100%; background: #b8b8bc; transition: background 250ms ease; }
+.bar.is-active .bar-attempts { background: #c9c9cc; }
+.bar.is-active .bar-made { background: var(--accent); }
+.bar-label { text-align: center; font-size: 12px; color: var(--muted); }
+.season-chart .note { margin-top: 12px; }

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build your player | Range</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/transition.css">
+<link rel="stylesheet" href="css/build-player.css">
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="logo" href="index.html">Range</a>
+        <nav class="main-nav" aria-label="Main">
+          <a href="index.html">Home</a>
+          <a href="shot-map.html">Shot map</a>
+          <a href="arenas.html">Arenas</a>
+          <a href="record-night.html">Record night</a>
+          <a href="build-player.html" aria-current="page">Build your player</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="container">
+          <p class="eyebrow">Build your player</p>
+          <h2>Which NBA player could you be?</h2>
+          <p class="lede">Enter your own numbers. Compare yourself with today's top 10 or an all-time great, see where the gaps are, and get a pacing plan.</p>
+
+          <div class="card" style="margin-top:56px">
+            <div class="card-head">
+              <div>
+                <h3>1. Your numbers</h3>
+                <p class="card-sub">Use your team or pickup averages. Estimates are fine.</p>
+              </div>
+              <div class="field name-field">
+                <label for="playerName">Your name</label>
+                <input id="playerName" type="text" placeholder="You">
+              </div>
+            </div>
+            <div class="sliders" id="sliders"></div>
+          </div>
+
+          <div class="card card--soft">
+            <h3>2. Compare with</h3>
+            <div class="tabs">
+              <button class="pill" id="tabNow" type="button">Right now: ESPN top 10</button>
+              <button class="pill" id="tabAll" type="button">All-time greats</button>
+            </div>
+            <p class="note tab-note" id="tabNote"></p>
+            <div class="pool" id="pool"></div>
+          </div>
+
+          <div class="card">
+            <h3 id="resultTitle"></h3>
+            <p class="result-line" id="resultLine"></p>
+            <div class="result-body">
+              <div class="radar-box">
+                <svg viewBox="-30 0 460 410" role="img" aria-label="Radar chart comparing your six ratings with the selected player">
+                  <polygon class="radar-ring" id="radarR4"/>
+                  <polygon class="radar-ring" id="radarR3"/>
+                  <polygon class="radar-ring" id="radarR2"/>
+                  <polygon class="radar-ring" id="radarR1"/>
+                  <path class="radar-ring" id="radarAxes"/>
+                  <polygon class="radar-them" id="radarThem"/>
+                  <polygon class="radar-you" id="radarYou"/>
+                  <text class="radar-label" x="200" y="26" text-anchor="middle">Scoring</text>
+                  <text class="radar-label" x="346" y="122">Shooting</text>
+                  <text class="radar-label" x="346" y="296">Playmaking</text>
+                  <text class="radar-label" x="200" y="392" text-anchor="middle">Rebounding</text>
+                  <text class="radar-label" x="54" y="296" text-anchor="end">Defense</text>
+                  <text class="radar-label" x="54" y="122" text-anchor="end">Efficiency</text>
+                </svg>
+                <div class="legend">
+                  <span><i class="you"></i><b id="legendYou"></b></span>
+                  <span><i class="them"></i><b id="legendThem"></b></span>
+                </div>
+                <p class="note">Ratings are our own simple 0 to 99 formulas built from per-game stats. They are for comparison only.</p>
+              </div>
+              <div class="compare-rows" id="compareRows"></div>
+            </div>
+
+            <div class="matches-wrap">
+              <h4>Your closest NBA matches</h4>
+              <div class="matches" id="matches"></div>
+            </div>
+          </div>
+
+          <div class="card player-file">
+            <div class="tag">Player file</div>
+            <h3 id="fileName"></h3>
+            <p class="sub" id="fileSub"></p>
+            <div class="facts">
+              <div class="fact"><span class="fact-label">Stat line</span><span class="fact-value" id="fileLine"></span></div>
+              <div class="fact"><span class="fact-label">Shooting splits</span><span class="fact-value" id="fileSplits"></span></div>
+              <div class="fact"><span class="fact-label">Highest of our six ratings</span><span class="fact-value" id="fileBest"></span></div>
+              <div class="fact"><span class="fact-label">Lowest of our six ratings</span><span class="fact-value" id="fileWorst"></span></div>
+            </div>
+            <p class="note" id="fileNote"></p>
+          </div>
+
+          <div class="card">
+            <h3>4. Your plan</h3>
+            <p class="result-line">Write your own weakness and stretch goal. The plan below uses your words and the gaps above.</p>
+
+            <div class="plan-fields">
+              <div class="field">
+                <label for="weak">My biggest weakness</label>
+                <textarea id="weak" rows="3" placeholder="For example: I miss free throws when I am tired."></textarea>
+              </div>
+              <div class="field">
+                <label for="goal">My stretch goal</label>
+                <textarea id="goal" rows="3" placeholder="For example: Hit 80 percent from the line by spring."></textarea>
+              </div>
+            </div>
+
+            <div class="keyword" id="keyword" hidden>
+              <div class="tag" id="keywordLabel"></div>
+              <p id="keywordTip"></p>
+            </div>
+
+            <h4 id="gapsTitle"></h4>
+            <p class="empty-text" id="noGaps" hidden></p>
+            <div class="focus-list" id="focusList"></div>
+
+            <div id="planBlock" hidden>
+              <h4>A 12-week pacing sketch</h4>
+              <p class="note plan-note">Closing a quarter of each gap every three weeks. Real progress depends on training, age, and body, so treat these as signposts, not promises.</p>
+              <div class="plan-scroll">
+                <table class="plan-table">
+                  <thead><tr><th>Stat</th><th>Now</th><th>Week 3</th><th>Week 6</th><th>Week 9</th><th>Week 12</th></tr></thead>
+                  <tbody id="planBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="words" id="words" hidden>
+              <span class="tag">In your words</span>
+              <p id="wordsWeak" hidden><strong>Weakness:</strong> <span id="wordsWeakText"></span></p>
+              <p id="wordsGoal" hidden><strong>Stretch goal:</strong> <span id="wordsGoalText"></span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+<script src="js/player-data.js"></script>
+<script src="js/build-player.js"></script>
+<script src="js/animation.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+/* Record night page (black background, see .theme-record in style.css) */
+
+.record { padding-bottom: 96px; }
+.record-layout { display: flex; flex-wrap: wrap; align-items: center; gap: 48px; margin-top: 64px; }
+
+/* the four steps */
+.story-steps { flex: 1 1 340px; display: flex; flex-direction: column; gap: 12px; }
+.story-step {
+  display: flex; flex-direction: column; gap: 8px;
+  width: 100%; padding: 20px 24px;
+  border: 0; border-radius: 24px; background: transparent; text-align: left;
+  transition: background 240ms ease;
+}
+.story-time { font-size: 14px; font-weight: 600; color: var(--muted); }
+.story-title { font-size: 24px; line-height: 1.2; font-weight: 700; letter-spacing: -0.02em; color: var(--muted); }
+.story-body { font-size: 16px; line-height: 1.5; color: var(--muted); }
+.story-step.is-active { background: var(--card); }
+.story-step.is-active .story-time { color: var(--accent); }
+.story-step.is-active .story-title { color: var(--text); }
+.story-step.is-active .story-body { color: var(--muted); }
+
+/* the scoreboard + court */
+.story-board { flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 20px; padding: 28px; border-radius: 32px; background: var(--card); }
+.story-score { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+.story-score-label { display: block; font-size: 13px; font-weight: 600; color: var(--muted); }
+.story-count { font-size: clamp(56px, 7vw, 96px); font-variant-numeric: tabular-nums; }
+.story-allen { padding: 8px 16px; border-radius: 999px; background: var(--card-2); font-size: 14px; font-weight: 600; }
+.story-court { position: relative; width: 100%; aspect-ratio: 520 / 500; }
+.story-court svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.story-shot { position: absolute; left: 84.6%; top: 47%; width: 48px; height: 48px; margin: -24px 0 0 -24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 106, 19, 0.25); }
+.story-shot::before { content: ''; width: 26px; height: 26px; border-radius: 50%; background: var(--ball); border: 4px solid #fff; }
+.story-tag { position: absolute; left: 62%; top: 55%; padding: 6px 12px; border-radius: 999px; background: var(--card-2); font-size: 13px; font-weight: 600; }
+.story-foot { font-size: 14px; line-height: 1.5; color: var(--muted); }
