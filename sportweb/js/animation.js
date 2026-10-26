@@ -248,7 +248,7 @@
     var rimX = br.left + 162 * kx;                                  // the rim: high up on the right, facing him
     var rimY = br.top + 124 * ky - 22;                             // where the ball enters it
     var poleX = br.left + 296 * kx;
-    var mx = Math.max(w * 0.1, rimX - Math.min(430, w * 0.42));    // where he stands (left of the hoop)
+    var mx = Math.max(w * 0.07, rimX - Math.min(660, w * 0.62));    // where he stands (left of the hoop)
     var gy = h - FLOOR;                                            // the floor he stands on
     drawFloor(w, FH, mx, poleX);
     plus3.style.left = (br.left + 200 * kx) + 'px';
