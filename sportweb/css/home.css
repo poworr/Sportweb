@@ -94,10 +94,10 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 
 /* The basketball sits right next to the word RANGE; click it and four squares pop out */
 .brand { display: flex; flex: 0 0 auto; min-width: 0; flex-direction: row; align-items: flex-end; gap: clamp(6px, 1vw, 16px); }
-.p-home { --pick: min(11vw, 24dvh); }
+.p-home { --pick: min(8.6vw, 22dvh); --ballsz: min(16vw, 40dvh); --aw: clamp(56px, 6.5vw, 96px); }
 .ball-menu { position: relative; flex: 0 0 auto; margin-bottom: 0.4vw; }
 .ball-btn {
-  display: block; width: min(11vw, 28dvh); aspect-ratio: 1; padding: 0; border: 0; background: none; cursor: pointer;
+  display: block; width: var(--ballsz); aspect-ratio: 1; padding: 0; border: 0; background: none; cursor: pointer;
   transition: transform 420ms cubic-bezier(.3, 1.6, .5, 1); animation: ball-bob 2.2s ease-in-out infinite;
   -webkit-tap-highlight-color: transparent;
 }
@@ -110,7 +110,7 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 .ball-hint { position: absolute; left: 0; bottom: calc(100% + 2px); display: flex; flex-direction: column; align-items: flex-start; pointer-events: none; animation: hint-bob 1.5s ease-in-out infinite; transition: opacity 200ms ease; }
 .hint-pill { display: inline-flex; align-items: center; gap: .6em; white-space: nowrap; padding: .5em 1em .5em .5em; border-radius: 999px; background: var(--text); color: #fff6ea; font-size: clamp(13px, 1.45vw, 21px); font-weight: 700; letter-spacing: .03em; box-shadow: 0 5px 0 rgba(43, 21, 17, .28); }
 .hint-pill b { padding: .18em .7em; border-radius: 999px; background: var(--ball); color: #fff6ea; font-family: Inter, sans-serif; font-size: .72em; letter-spacing: .12em; }
-.hint-arrow { width: clamp(46px, 5.6vw, 84px); margin: 4px 0 0 clamp(18px, 2.2vw, 34px); overflow: visible; fill: none; stroke: var(--text); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.hint-arrow { width: var(--aw); margin: 2px 0 0 calc(var(--ballsz) * .41 - var(--aw) * .65); overflow: visible; fill: none; stroke: var(--text); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
 @keyframes hint-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -7px; } }
 .is-open .ball-hint { opacity: 0; }
 
@@ -135,8 +135,8 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 .is-open .picks .tile { opacity: 1; transform: none; }
 .is-open .picks .tile:hover { transform: translateY(-6px); transition-delay: 0ms; transition-duration: 200ms; }
 .picks .tile-label { opacity: 1; transform: none; left: 10px; right: 10px; bottom: 10px; }
-.picks .tile-title { font-size: clamp(12px, 1.2vw, 16px); }
-.picks .tile-sub { display: block; font-size: clamp(10px, .85vw, 12px); }
+.picks .tile-title { font-size: clamp(11px, .95vw, 14px); white-space: nowrap; }
+.picks .tile-sub { display: block; font-size: clamp(9px, .7vw, 11px); }
 .picks .tile--photo::after { opacity: 1; }
 .picks .tile-ph { font-size: 10px; }
 
@@ -144,10 +144,10 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 @media (max-aspect-ratio: 1/1), (max-width: 760px) {
   .brand { flex-direction: column; align-items: flex-start; gap: clamp(6px, 1.4dvh, 14px); }
   .ball-menu { margin: 0; }
-  .ball-btn { width: min(34vw, 17dvh); }
+  .ball-btn { width: min(44vw, 22dvh); }
   .tagline { max-width: 94vw; font-size: clamp(13px, 3.6vw, 18px); }
   .ball-hint { left: calc(100% + 4px); bottom: 38%; flex-direction: row-reverse; align-items: center; }
-  .hint-arrow { transform: rotate(80deg); width: 38px; margin: 0 -2px 0 0; }
+  .hint-arrow { transform: rotate(144deg); width: 40px; margin: 0 -4px 0 0; }
   .hint-pill { font-size: 10.5px; padding: .45em .8em .45em .4em; gap: .45em; }
   .ball-hint { left: calc(100% - 6px); }
   .picks { position: static; margin-top: 6px; grid-template-columns: repeat(2, min(42vw, 22dvh)); display: none; }

@@ -10,14 +10,30 @@
     menu.classList.toggle('is-open', open);
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
+  /* hover (mouse) also opens it; it closes shortly after the pointer leaves, unless the ball was clicked */
+  var sticky = false, timer = 0;
+  btn.addEventListener('pointerenter', function (e) {
+    if (e.pointerType !== 'mouse') { return; }
+    clearTimeout(timer);
+    setOpen(true);
+  });
+  menu.addEventListener('pointerenter', function () { clearTimeout(timer); });
+  menu.addEventListener('pointerleave', function (e) {
+    if (e.pointerType !== 'mouse' || sticky) { return; }
+    clearTimeout(timer);
+    timer = setTimeout(function () { setOpen(false); }, 350);
+  });
   btn.addEventListener('click', function (e) {
     e.stopPropagation();
-    setOpen(!menu.classList.contains('is-open'));
+    var open = menu.classList.contains('is-open');
+    if (open && !sticky && e.detail > 0) { sticky = true; return; }   // clicking after hover keeps it open
+    sticky = !open;
+    setOpen(!open);
   });
   document.addEventListener('click', function (e) {
-    if (!menu.contains(e.target)) { setOpen(false); }
+    if (!menu.contains(e.target)) { sticky = false; setOpen(false); }
   });
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') { setOpen(false); }
+    if (e.key === 'Escape') { sticky = false; setOpen(false); }
   });
 })();
