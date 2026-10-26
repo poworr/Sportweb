@@ -61,27 +61,29 @@
     var box = document.createElement('div');
     box.className = 'basket ' + (front ? 'basket--front' : 'basket--back');
     box.setAttribute('aria-hidden', 'true');
-    var NAVY = '#12385e', ORANGE = '#ec5b2b';
-    var rimBack = '<path d="M54 118A66 13 0 0 1 186 118" fill="none" stroke="' + NAVY + '" stroke-width="7" stroke-linecap="round"/>';
-    var rimFront = '<path d="M54 118A66 13 0 0 0 186 118" fill="none" stroke="' + NAVY + '" stroke-width="7" stroke-linecap="round"/>' +
-      '<path d="M58 119A62 11 0 0 0 182 119" fill="none" stroke="' + ORANGE + '" stroke-width="2" stroke-linecap="round" opacity=".9"/>';
+    var TEAL = '#1f8db5', CREAM = '#f3eddc', RIM = '#ee6a28', RED = '#e8392f', POST = '#d9c58a';
+    var rimBack = '<path d="M54 118A66 13 0 0 1 186 118" fill="none" stroke="#5b2410" stroke-width="10.5" stroke-linecap="round"/><path d="M54 118A66 13 0 0 1 186 118" fill="none" stroke="' + RIM + '" stroke-width="7" stroke-linecap="round"/>';
+    var rimFront = '<path d="M54 118A66 13 0 0 0 186 118" fill="none" stroke="#5b2410" stroke-width="10.5" stroke-linecap="round"/><path d="M54 118A66 13 0 0 0 186 118" fill="none" stroke="' + RIM + '" stroke-width="7" stroke-linecap="round"/>' +
+      '<path d="M60 120A60 11 0 0 0 180 120" fill="none" stroke="#b9461a" stroke-width="1.6" stroke-linecap="round" opacity=".7"/>';
     if (!front) {
       box.innerHTML =
         '<svg viewBox="0 0 240 220">' +
-        '<polygon points="180,10 194,2 194,90 180,98" fill="' + ORANGE + '"/>' +
-        '<polygon points="44,10 58,2 194,2 180,10" fill="' + ORANGE + '"/>' +
-        '<rect x="44" y="10" width="136" height="88" fill="#ffffff" stroke="' + ORANGE + '" stroke-width="2.5"/>' +
-        '<rect x="50" y="16" width="124" height="76" fill="none" stroke="' + ORANGE + '" stroke-width="1" opacity=".55"/>' +
-        '<rect x="90" y="48" width="54" height="38" fill="none" stroke="' + ORANGE + '" stroke-width="2.5"/>' +
-        '<rect x="108" y="98" width="24" height="14" fill="' + ORANGE + '"/><rect x="126" y="98" width="6" height="14" fill="' + NAVY + '"/>' +
+        '<rect x="113" y="194" width="14" height="26" fill="' + POST + '"/><rect x="123" y="194" width="4" height="26" fill="#b9a56a"/>' +
+        '<path d="M120 100V113M104 100L112 113M136 100L128 113" stroke="' + POST + '" stroke-width="4.5" stroke-linecap="round"/>' +
+        '<polygon points="46,4 194,4 212,100 28,100" fill="' + TEAL + '" stroke="' + CREAM + '" stroke-width="5" stroke-linejoin="miter"/>' +
+        '<polygon points="92,42 148,42 152,86 88,86" fill="none" stroke="' + CREAM + '" stroke-width="5"/>' +
         rimBack + '</svg>';
     } else {
       box.innerHTML =
         '<div class="basket-net"><svg viewBox="0 0 240 220">' +
-        '<g fill="none" stroke="#ffffff" stroke-opacity=".92" stroke-width="2" stroke-linecap="round">' +
-        '<path d="M54 118L84 190M77 123L98 190M100 126L110 190M120 127L120 190M140 126L130 190M163 123L142 190M186 118L156 190"/>' +
-        '<path d="M54 118L98 190M77 123L110 190M100 126L120 190M120 127L130 190M140 126L142 190M163 123L156 190"/>' +
-        '<path d="M186 118L142 190M163 123L130 190M140 126L120 190M120 127L110 190M100 126L98 190M77 123L84 190"/>' +
+        '<g fill="none" stroke="#ffffff" stroke-opacity=".95" stroke-width="2.6" stroke-linecap="round">' +
+        '<path d="M54 118L84 190M100 126L110 190M140 126L130 190M186 118L156 190"/>' +
+        '<path d="M54 118L98 190M100 126L120 190M140 126L142 190"/>' +
+        '<path d="M186 118L142 190M140 126L120 190M100 126L98 190"/></g>' +
+        '<g fill="none" stroke="' + RED + '" stroke-width="2.6" stroke-linecap="round">' +
+        '<path d="M77 123L98 190M120 127L120 190M163 123L142 190"/>' +
+        '<path d="M77 123L110 190M120 127L130 190M163 123L156 190"/>' +
+        '<path d="M163 123L130 190M120 127L110 190M77 123L84 190"/>' +
         '<path d="M63 138Q120 150 177 138M72 158Q120 168 168 158M80 176Q120 185 160 176"/></g>' +
         rimFront + '</svg></div>';
     }
