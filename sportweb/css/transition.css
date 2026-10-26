@@ -75,3 +75,8 @@
   55%  { opacity: 1; transform: translate(-50%, -20px) scale(1); }
   100% { opacity: 1; transform: translate(-50%, -52px) scale(1); }
 }
+
+/* The stick-man shooter stands on the court at the left of the hoop */
+.shooter { position: fixed; inset: 0; z-index: 35; pointer-events: none; opacity: 0; transition: opacity 220ms ease; }
+.shooter.is-visible { opacity: 1; }
+.shooter svg { display: block; }
