@@ -64,8 +64,7 @@
   font: 800 clamp(48px, 9vw, 84px)/1 var(--display);
   letter-spacing: -0.03em;
   color: #fff;
-  -webkit-text-stroke: 6px #2b1511; paint-order: stroke fill;
-  text-shadow: 0 4px 0 rgba(43, 21, 17, 0.25);
+  text-shadow: 0 4px 14px rgba(43, 21, 17, 0.35);
 }
 .plus3.is-on { animation: plus3-pop 720ms cubic-bezier(.2, .9, .3, 1) both; }
 @keyframes plus3-pop {

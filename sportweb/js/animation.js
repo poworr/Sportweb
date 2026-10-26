@@ -216,7 +216,7 @@
      corner lines 22 ft from the hoop, hoop 5.25 ft from the baseline, court 50 ft wide.
      Across the court is squeezed (sy) to give the sense of depth. */
   function drawFloor(w, H, mx, rimX) {
-    var R = Math.max(80, rimX - mx - 40);                 // 23.75 ft in pixels (the shooter stands just behind it)
+    var R = Math.max(80, rimX - mx - 30);                 // 23.75 ft in pixels (the shooter stands just behind it)
     var sx = R / 23.75, sy = H * 0.84 / 50, cy = H * 0.5;
     var base = rimX + 5.25 * sx;                          // the baseline
     var far = cy - 25 * sy, near = cy + 25 * sy;          // sidelines
