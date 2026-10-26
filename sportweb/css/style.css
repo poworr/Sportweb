@@ -83,13 +83,13 @@ input, textarea { color-scheme: light; font: inherit; }
   padding: 12px 20px;
 }
 .logo { justify-self: start; font-size: 13px; font-weight: 700; letter-spacing: -0.01em; }
-.main-nav { grid-column: 3; justify-self: end; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px 16px; }
+.main-nav { grid-column: 2; justify-self: center; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 24px; }
 .main-nav a { padding: 4px 0; font-size: 12px; color: var(--muted); transition: color 160ms ease; }
 .main-nav a:hover,
 .main-nav a[aria-current='page'] { color: var(--text); }
 @media (max-width: 700px) {
   .header-inner { grid-template-columns: 1fr auto; }
-  .main-nav { grid-column: 1 / -1; justify-self: start; justify-content: flex-start; }
+  .main-nav { grid-column: 1 / -1; justify-self: center; justify-content: center; }
 }
 
 /* 5. Buttons ----------------------------------------------- */

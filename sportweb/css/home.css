@@ -72,8 +72,8 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 .p-home .page { position: relative; }
 .p-home .site-header, .p-home .page > main, .p-home .pager { position: relative; z-index: 1; }
 .p-home .site-header { position: relative; background: none; }
-.p-home .header-inner { display: flex; align-items: center; gap: 8px 24px; padding: clamp(12px, 2.4dvh, 22px) clamp(14px, 2vw, 28px); }
-.p-home .main-nav { flex: 1; display: flex; flex-wrap: wrap; justify-content: space-evenly; gap: 4px 16px; }
+.p-home .header-inner { position: relative; display: flex; align-items: center; gap: 8px 24px; padding: clamp(12px, 2.4dvh, 22px) clamp(14px, 2vw, 28px); }
+.p-home .main-nav { position: absolute; left: 50%; transform: translateX(-50%); display: flex; flex-wrap: wrap; justify-content: center; gap: 4px clamp(16px, 2.4vw, 36px); }
 .p-home .logo, .p-home .main-nav a, .p-home .wordmark { color: #fff; }
 .p-home .main-nav a { opacity: 0.8; font-size: 13px; }
 .p-home .main-nav a:hover { opacity: 1; color: #fff; }
@@ -91,3 +91,4 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 
 /* home: court lines stronger than on the other pages */
 .p-home .page { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 100 940 800%22 fill=%22none%22 stroke=%22%23fff%22 stroke-opacity=%22.4%22 stroke-width=%225%22%3E%3Cg transform=%22translate%28940 0%29 scale%28-1 1%29%22%3E%3Crect x=%22560%22 y=%22340%22 width=%22380%22 height=%22320%22/%3E%3Cpath d=%22M560 380A120 120 0 0 0 560 620%22/%3E%3Cpath d=%22M560 380A120 120 0 0 1 560 620%22 stroke-dasharray=%2214 12%22/%3E%3Cpath d=%22M940 60H656A475 475 0 0 0 656 940H940%22/%3E%3Cpath d=%22M835 420A80 80 0 0 0 835 580%22/%3E%3Cpath d=%22M0 380A120 120 0 0 1 0 620%22/%3E%3Cpath d=%22M860 440V560%22/%3E%3Cpath d=%22M850 500H860%22/%3E%3Ccircle cx=%22835%22 cy=%22500%22 r=%2215%22/%3E%3C/g%3E%3C/svg%3E"); }
+@media (max-width: 700px) { .p-home .main-nav { position: static; transform: none; width: 100%; } }
