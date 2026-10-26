@@ -46,3 +46,32 @@
 .basket--front { z-index: 50; }
 .basket svg { display: block; width: 300px; height: 275px; }
 .basket-net { width: 300px; height: 275px; transform-origin: 50% 54%; }
+
+/* Net swings after the ball goes through */
+.basket-net.is-swishing { animation: net-swish 700ms cubic-bezier(.3, 1.2, .5, 1) both; }
+@keyframes net-swish {
+  0%   { transform: scale(1.1, 1.22); }
+  22%  { transform: scale(0.94, 1.08) skewX(-9deg); }
+  45%  { transform: scale(1.04, 0.96) skewX(8deg); }
+  68%  { transform: scale(0.99, 1.02) skewX(-4deg); }
+  100% { transform: scale(1, 1) skewX(0); }
+}
+
+/* "+3" pops up above the hoop and floats away */
+.plus3 {
+  position: fixed; left: 50%; bottom: 315px; z-index: 60;
+  transform: translate(-50%, 0) scale(0.3);
+  opacity: 0; pointer-events: none;
+  font: 800 clamp(48px, 9vw, 84px)/1 var(--display);
+  letter-spacing: -0.03em;
+  color: #fff;
+  -webkit-text-stroke: 6px #2b1511; paint-order: stroke fill;
+  text-shadow: 0 4px 0 rgba(43, 21, 17, 0.25);
+}
+.plus3.is-on { animation: plus3-pop 720ms cubic-bezier(.2, .9, .3, 1) both; }
+@keyframes plus3-pop {
+  0%   { opacity: 0; transform: translate(-50%, 20px) scale(0.3); }
+  30%  { opacity: 1; transform: translate(-50%, -6px) scale(1.2); }
+  55%  { opacity: 1; transform: translate(-50%, -20px) scale(1); }
+  100% { opacity: 1; transform: translate(-50%, -52px) scale(1); }
+}

@@ -10,8 +10,8 @@
      600   up      ball is tossed up
      870   down    ball falls toward the hoop
      1210  drop    ball drops through the net
-     1380  swish   net settles
-     1560  go      the new page is opened
+     1380  swish   net swings, "+3" pops up above the hoop
+     2100  go      the new page is opened
    ========================================================== */
 (function () {
   'use strict';
@@ -61,18 +61,24 @@
     var box = document.createElement('div');
     box.className = 'basket ' + (front ? 'basket--front' : 'basket--back');
     box.setAttribute('aria-hidden', 'true');
-    var rimBack = '<path d="M54 118A66 13 0 0 1 186 118" fill="none" stroke="#ff6a13" stroke-width="7" stroke-linecap="round"/>';
-    var rimFront = '<path d="M54 118A66 13 0 0 0 186 118" fill="none" stroke="#ff6a13" stroke-width="7" stroke-linecap="round"/>';
+    var NAVY = '#12385e', ORANGE = '#ec5b2b';
+    var rimBack = '<path d="M54 118A66 13 0 0 1 186 118" fill="none" stroke="' + NAVY + '" stroke-width="7" stroke-linecap="round"/>';
+    var rimFront = '<path d="M54 118A66 13 0 0 0 186 118" fill="none" stroke="' + NAVY + '" stroke-width="7" stroke-linecap="round"/>' +
+      '<path d="M58 119A62 11 0 0 0 182 119" fill="none" stroke="' + ORANGE + '" stroke-width="2" stroke-linecap="round" opacity=".9"/>';
     if (!front) {
       box.innerHTML =
         '<svg viewBox="0 0 240 220">' +
-        '<rect x="50" y="2" width="140" height="96" rx="8" fill="#ffffff" stroke="#1d1d1f" stroke-width="3"/>' +
-        '<rect x="95" y="46" width="50" height="38" fill="none" stroke="#1d1d1f" stroke-width="3"/>' +
-        '<rect x="112" y="98" width="16" height="14" fill="#8e8e93"/>' + rimBack + '</svg>';
+        '<polygon points="180,10 194,2 194,90 180,98" fill="' + ORANGE + '"/>' +
+        '<polygon points="44,10 58,2 194,2 180,10" fill="' + ORANGE + '"/>' +
+        '<rect x="44" y="10" width="136" height="88" fill="#ffffff" stroke="' + ORANGE + '" stroke-width="2.5"/>' +
+        '<rect x="50" y="16" width="124" height="76" fill="none" stroke="' + ORANGE + '" stroke-width="1" opacity=".55"/>' +
+        '<rect x="90" y="48" width="54" height="38" fill="none" stroke="' + ORANGE + '" stroke-width="2.5"/>' +
+        '<rect x="108" y="98" width="24" height="14" fill="' + ORANGE + '"/><rect x="126" y="98" width="6" height="14" fill="' + NAVY + '"/>' +
+        rimBack + '</svg>';
     } else {
       box.innerHTML =
         '<div class="basket-net"><svg viewBox="0 0 240 220">' +
-        '<g fill="none" stroke="#1d1d1f" stroke-opacity=".5" stroke-width="1.8" stroke-linecap="round">' +
+        '<g fill="none" stroke="#ffffff" stroke-opacity=".92" stroke-width="2" stroke-linecap="round">' +
         '<path d="M54 118L84 190M77 123L98 190M100 126L110 190M120 127L120 190M140 126L130 190M163 123L142 190M186 118L156 190"/>' +
         '<path d="M54 118L98 190M77 123L110 190M100 126L120 190M120 127L130 190M140 126L142 190M163 123L156 190"/>' +
         '<path d="M186 118L142 190M163 123L130 190M140 126L120 190M120 127L110 190M100 126L98 190M77 123L84 190"/>' +
@@ -82,6 +88,11 @@
     document.body.appendChild(box);
     return box;
   }
+  var plus3 = document.createElement('div');
+  plus3.className = 'plus3';
+  plus3.setAttribute('aria-hidden', 'true');
+  plus3.textContent = '+3';
+  document.body.appendChild(plus3);
   var basketBack = makeBasket(false);
   var basketFront = makeBasket(true);
   var net = basketFront.querySelector('.basket-net');
@@ -153,13 +164,15 @@
         fly.style.transform = 'translateY(calc(50vh - 88px))';
         fly.style.opacity = '0';
         net.style.transition = 'transform 150ms ease-out';
-        net.style.transform = 'scale(1.08, 1.16)';
+        net.style.transform = 'scale(1.1, 1.22)';
       }],
-      [1380, function () {                                // swish
-        net.style.transition = 'transform 420ms cubic-bezier(.3,1.7,.5,1)';
-        net.style.transform = 'scale(1, 1)';
+      [1380, function () {                                // swish + "+3"
+        net.style.transition = '';
+        net.style.transform = '';
+        net.classList.add('is-swishing');
+        plus3.classList.add('is-on');
       }],
-      [1560, function () {                                // go to the next page
+      [2100, function () {                                // go to the next page
         try { sessionStorage.setItem(ARRIVE_KEY, '1'); } catch (e) { /* ignore */ }
         window.location.href = url;
       }]
@@ -171,7 +184,9 @@
   function reset() {
     busy = false;
     fly.classList.remove('is-moving');
-    [fly, shape, page, creases, net].forEach(function (el) { el.removeAttribute('style'); });
+    [fly, shape, page, creases, net, plus3].forEach(function (el) { el.removeAttribute('style'); });
+    net.classList.remove('is-swishing');
+    plus3.classList.remove('is-on');
     basketBack.classList.remove('is-visible');
     basketFront.classList.remove('is-visible');
   }
