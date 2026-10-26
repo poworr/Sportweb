@@ -120,25 +120,27 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 .tagline-tag { padding: .3em .9em; border-radius: 999px; background: #fff6ea; color: var(--ball); font-family: Inter, sans-serif; font-size: .58em; font-weight: 700; letter-spacing: .16em; }
 .tagline-text { font-weight: 700; line-height: 1.45; color: var(--text); }
 
-.picks { position: absolute; left: calc(100% + clamp(10px, 1.6vw, 24px)); bottom: calc(var(--ballsz) * .2); display: grid; grid-template-columns: repeat(4, var(--pick)); gap: clamp(8px, 1vw, 14px); pointer-events: none; }
+.hero { position: relative; }
+/* the four photos pop up big, above the word RANGE */
+.picks { position: absolute; left: 0; bottom: calc(100% + clamp(10px, 2.2dvh, 24px)); width: calc(100vw - 2 * clamp(14px, 2vw, 28px)); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(10px, 1.4vw, 22px); pointer-events: none; }
 .is-open .picks { pointer-events: auto; }
 .picks .tile {
-  width: var(--pick); height: var(--pick);
-  opacity: 0; transform: translate(calc(var(--i, 0) * -112% - 60%), 40%) scale(.2) rotate(-18deg);
-  transition: transform 560ms cubic-bezier(.3, 1.4, .5, 1), opacity 240ms ease;
-  border-radius: 6px;
+  width: auto; height: min(36dvh, 24vw);
+  opacity: 0; transform: translateY(38px) scale(.88); transform-origin: 50% 100%;
+  transition: transform 520ms cubic-bezier(.3, 1.4, .5, 1), opacity 240ms ease;
+  border-radius: 10px;
 }
-.picks .tile:nth-child(1) { --i: 0; transition-delay: 0ms; }
-.picks .tile:nth-child(2) { --i: 1; transition-delay: 70ms; }
-.picks .tile:nth-child(3) { --i: 2; transition-delay: 140ms; }
-.picks .tile:nth-child(4) { --i: 3; transition-delay: 210ms; }
+.picks .tile:nth-child(1) { transition-delay: 0ms; }
+.picks .tile:nth-child(2) { transition-delay: 70ms; }
+.picks .tile:nth-child(3) { transition-delay: 140ms; }
+.picks .tile:nth-child(4) { transition-delay: 210ms; }
 .is-open .picks .tile { opacity: 1; transform: none; }
 .is-open .picks .tile:hover { transform: translateY(-6px); transition-delay: 0ms; transition-duration: 200ms; }
 .picks .tile-label { opacity: 1; transform: none; left: 10px; right: 10px; bottom: 10px; }
-.picks .tile-title { font-size: clamp(11px, .95vw, 14px); white-space: nowrap; }
-.picks .tile-sub { display: block; font-size: clamp(9px, .7vw, 11px); }
+.picks .tile-title { font-size: clamp(14px, 1.6vw, 24px); }
+.picks .tile-sub { display: block; font-size: clamp(11px, 1vw, 15px); }
 .picks .tile--photo::after { opacity: 1; }
-.picks .tile-ph { font-size: 10px; }
+.picks .tile-ph { font-size: clamp(10px, .9vw, 13px); }
 
 /* tall or narrow windows: ball under the word, squares in a 2 x 2 grid below it */
 @media (max-aspect-ratio: 1/1), (max-width: 760px) {
@@ -150,7 +152,8 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
   .hint-arrow { transform: rotate(144deg); width: 40px; margin: 0 -4px 0 0; }
   .hint-pill { font-size: 10.5px; padding: .45em .8em .45em .4em; gap: .45em; }
   .ball-hint { left: calc(100% - 6px); }
-  .picks { position: static; margin-top: 6px; grid-template-columns: repeat(2, min(42vw, 22dvh)); display: none; }
+  .picks { position: static; order: 3; width: auto; margin-top: 6px; grid-template-columns: repeat(2, min(42vw, 22dvh)); display: none; }
   .is-open .picks { display: grid; }
   .picks .tile { width: min(42vw, 22dvh); height: min(42vw, 22dvh); }
+  .hero { align-items: flex-start; }
 }
