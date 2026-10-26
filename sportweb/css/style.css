@@ -154,3 +154,24 @@ h4 { line-height: 1.4; letter-spacing: 0; }
   .main-nav { gap: 4px 14px; }
   .main-nav a { font-size: 12px; }
 }
+
+/* 10. Page pager (arrow keys) -------------------------------
+   A strip along the bottom shows where Arrow Left and Arrow Right go. */
+.page { padding-bottom: 48px; }
+.pager {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 15;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  height: 48px; padding: 0 clamp(14px, 2vw, 28px);
+  background: var(--bg);
+}
+.pager-link { display: inline-flex; align-items: center; gap: 12px; color: var(--muted); transition: color 160ms ease; }
+.pager-link:hover, .pager-link:focus-visible { color: var(--text); }
+.pager-text { display: flex; flex-direction: column; gap: 1px; line-height: 1.2; }
+.pager-next .pager-text { align-items: flex-end; text-align: right; }
+.pager-hint { font-size: 10px; letter-spacing: 0.04em; }
+.pager-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.pager-key {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 26px; border: 1px solid var(--line); border-radius: 5px;
+  background: var(--card); color: var(--text); font-size: 14px; line-height: 1;
+}
