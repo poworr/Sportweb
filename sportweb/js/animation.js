@@ -210,6 +210,26 @@
     return { hand: w1, aim: dir(p.f1 + p.wr * 0.6) };
   }
 
+  /* the court floor along the bottom of the screen (drawn when the animation starts) */
+  var floor = document.createElement('div');
+  floor.className = 'court-floor';
+  floor.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(floor);
+  function drawFloor(w, mx, rimX) {
+    var H = 112, planks = '', i;
+    for (i = 40; i < w; i += 46) { planks += '<line x1="' + i + '" y1="6" x2="' + i + '" y2="' + H + '"/>'; }
+    var rx = Math.max(60, rimX - mx + 40), laneL = rimX - Math.min(250, w * 0.2);
+    floor.innerHTML = '<svg width="' + w + '" height="' + H + '" viewBox="0 0 ' + w + ' ' + H + '">' +
+      '<rect width="' + w + '" height="' + H + '" fill="#bf5d18"/>' +
+      '<g stroke="#000" stroke-opacity=".07" stroke-width="2">' + planks + '</g>' +
+      '<g fill="none" stroke="#fff6ea" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">' +
+      '<line x1="0" y1="3" x2="' + w + '" y2="3"/>' +
+      '<path d="M' + laneL + ' 22L' + (rimX + 110) + ' 22M' + laneL + ' 92L' + (rimX + 110) + ' 92M' + laneL + ' 22V92"/>' +
+      '<path d="M' + (rimX - rx) + ' 22A' + rx + ' 90 0 0 0 ' + (rimX - rx) + ' 92" opacity=".0"/>' +
+      '<ellipse cx="' + rimX + '" cy="57" rx="' + rx + '" ry="46" stroke-dasharray="0" clip-path="inset(0 ' + Math.max(0, w - rimX - 6) + 'px 0 0)"/>' +
+      '</g></svg>';
+  }
+
   /* ---------- 5. the animation ---------- */
   var raf = 0;
   function ease(x) { return x < 0 ? 0 : x > 1 ? 1 : x * x * (3 - 2 * x); }
@@ -223,10 +243,16 @@
     // sizes and places (pixels)
     var S = Math.min(1.8, (h * 0.27) / 119);                       // figure scale
     var D = Math.max(38, 33 * S);                                  // ball diameter in his hands
-    var mx = Math.max(w * 0.14, w / 2 - Math.min(330, w * 0.34));  // where he stands
-    var gy = h - 20;                                               // the floor
+    var FLOOR = 56;                                                // height of the ground line above the bottom edge
+    var br = basketFront.getBoundingClientRect();
+    var rimX = br.left + br.width / 2;                             // the hoop is on the right
+    var rimY = h - FLOOR - 140;                                    // where the ball enters the hoop
+    var mx = Math.max(w * 0.1, rimX - Math.min(430, w * 0.42));    // where he stands (left of the hoop)
+    var gy = h - FLOOR;                                            // the floor he stands on
+    drawFloor(w, mx, rimX);
+    plus3.style.left = rimX + 'px';
+    plus3.style.bottom = '412px';
     var D0 = Math.min(w * 0.5, h * 0.46);                          // ball size after the crush
-    var rimX = w / 2, rimY = h - 160;                              // where the ball enters the hoop
     grp.setAttribute('transform', 'translate(' + mx + ' ' + gy + ') scale(' + S + ' ' + (-S) + ')');
     function scr(p) { return [mx + p[0] * S, gy - p[1] * S]; }
     function ballAt(hd) {                                          // ball centre when held, in pixels
@@ -253,6 +279,7 @@
       creases.style.opacity = '1';
       basketBack.classList.add('is-visible');
       basketFront.classList.add('is-visible');
+      floor.classList.add('is-visible');
     }, 40);
     setTimeout(function () { draw(poseAt(0)); shooter.classList.add('is-visible'); }, 120);
 
@@ -318,6 +345,7 @@
     busy = false;
     if (raf) { cancelAnimationFrame(raf); raf = 0; }
     shooter.classList.remove('is-visible');
+    floor.classList.remove('is-visible');
     fly.classList.remove('is-moving');
     [fly, shape, page, creases, net, plus3].forEach(function (el) { el.removeAttribute('style'); });
     net.classList.remove('is-swishing');
