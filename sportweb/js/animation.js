@@ -145,10 +145,11 @@
   var shadowEl = mk('ellipse');
   shadowEl.setAttribute('fill', 'rgba(43,21,17,.22)'); shadowEl.setAttribute('stroke', 'none');
   shadowEl.setAttribute('cx', '0'); shadowEl.setAttribute('cy', '0'); shadowEl.setAttribute('rx', '26'); shadowEl.setAttribute('ry', '4');
-  var legB = mk('polyline'), armG = mk('polyline'), torso = mk('line'), legF = mk('polyline'), armS = mk('polyline');   // right (shooting) arm is the near arm, drawn last
+  var legB = mk('polyline'), armG = mk('polyline'), torso = mk('line'), legF = mk('polyline'), armS = mk('polyline'), fing = mk('path');   // right (shooting) arm is the near arm, drawn last
   var head = mk('circle');
   head.setAttribute('r', '8.5'); head.setAttribute('fill', '#2b1511');
   armG.setAttribute('stroke-opacity', '.72'); legB.setAttribute('stroke-opacity', '.72');
+  fing.setAttribute('stroke-width', '2.4');
   sg.appendChild(grp);
   shooter.appendChild(sg);
   document.body.appendChild(shooter);
@@ -160,8 +161,11 @@
     { t: 230, h: 34, j: 0,  lean: 22, u1: 160, f1: 45, u2: 160, f2: 38, wr: 0 },    // deep dip, knees bent
     { t: 400, h: 54, j: 6,  lean: 8,  u1: 80,  f1: -12, u2: 95, f2: 30, wr: -30 },  // rise, ball cocked above the head, wrist back
     { t: 540, h: 64, j: 24, lean: -2, u1: 22,  f1: 20, u2: 70, f2: 50, wr: 50 },    // release at the top of the jump
-    { t: 760, h: 63, j: 20, lean: -4, u1: 15,  f1: 40, u2: 120, f2: 85, wr: 80 },   // arm fully extended, wrist snapped (goose-neck)
-    { t: 1100, h: 58, j: 0, lean: 2,  u1: 28,  f1: 70, u2: 130, f2: 90, wr: 80 }    // land, holding the follow-through
+    { t: 650, h: 65, j: 27, lean: -4, u1: 14,  f1: 28, u2: 85, f2: 62, wr: 78 },    // arm reaches up and out, wrist flicks over
+    { t: 850, h: 63, j: 18, lean: -4, u1: 12,  f1: 34, u2: 110, f2: 80, wr: 105 },  // goose-neck: fingers point down at the rim, guide arm falls away
+    { t: 1100, h: 56, j: 3, lean: 2,  u1: 14,  f1: 36, u2: 135, f2: 95, wr: 108 },  // landing, knees soften, arm still held
+    { t: 1300, h: 53, j: 0, lean: 5,  u1: 16,  f1: 38, u2: 145, f2: 100, wr: 108 }, // absorb the landing
+    { t: 1700, h: 58, j: 0, lean: 3,  u1: 18,  f1: 40, u2: 150, f2: 105, wr: 105 }  // stand tall, hold the follow-through
   ];
   var REL = 540;                                   // release time within the shot
   var FIELDS = ['h', 'j', 'lean', 'u1', 'f1', 'u2', 'f2', 'wr'];
@@ -202,6 +206,9 @@
     var e2 = add(sh, dir(p.u2), 24), h2 = add(e2, dir(p.f2), 22);
     armS.setAttribute('points', pts([sh, e1, h1, w1]));   // right (shooting) arm: far side
     armG.setAttribute('points', pts([sh, e2, h2]));       // left (guide) arm: near side
+    var ha = p.f1 + p.wr, d = '';                    // fingers fanned at the end of the shooting hand
+    [-26, 0, 26].forEach(function (o, i) { var q = add(w1, dir(ha + o), i === 1 ? 9 : 7.5); d += 'M' + w1[0].toFixed(1) + ' ' + w1[1].toFixed(1) + 'L' + q[0].toFixed(1) + ' ' + q[1].toFixed(1); });
+    fing.setAttribute('d', d);
     shadowEl.setAttribute('cx', 0);
     return { hand: w1, aim: dir(p.f1 + p.wr * 0.6) };
   }
