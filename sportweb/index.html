@@ -17,11 +17,13 @@
   <header class="site-header"></header>
     <main class="home">
       <div class="grid-view">
+        <div class="hero">
+        <p class="tagline"><span class="tagline-tag">STEPH CURRY SHOOTING LAB</span><span class="tagline-text">世界最高のシューター、ステフィン・カリーを研究して、シュートを上達させよう。</span></p>
         <div class="brand">
           <h1 class="wordmark">RANGE</h1>
           <div class="ball-menu" id="ballMenu">
             <button class="ball-btn" type="button" aria-expanded="false" aria-controls="picks" aria-label="ボールをクリックしてメニューを開く"><svg viewBox="0 0 270 270" aria-hidden="true"><defs><pattern id="bd" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="2.3" fill="#2b1511"/></pattern><clipPath id="bc"><circle cx="110" cy="110" r="100"/></clipPath></defs><circle cx="165" cy="165" r="100" fill="#2b1511" fill-opacity=".34"/><circle cx="110" cy="110" r="100" fill="#c8402f"/><g clip-path="url(#bc)"><circle cx="110" cy="110" r="100" fill="url(#bd)"/><circle cx="110" cy="76" r="100" fill="#c8402f"/><g stroke="#2b1511" stroke-width="3.5" fill="none" stroke-linecap="round"><path d="M0 105H220"/><path d="M110 0V220"/><path d="M52 8C92 52 92 158 52 212"/><path d="M168 8C128 52 128 158 168 212"/></g></g></svg></button>
-            <span class="ball-hint">ボールをクリック</span>
+            <span class="ball-hint" aria-hidden="true"><span class="hint-pill"><b>TIP-OFF</b>ボールをクリック！</span><svg class="hint-arrow" viewBox="0 0 64 84"><path d="M10 4C46 10 52 44 28 72" /><path d="M10 62L28 74L42 56" /></svg></span>
             <nav class="picks" id="picks" aria-label="Main">
               <a class="tile" href="shot-map.html">
                 <span class="tile-ph">写真：カリーのリリース</span>
@@ -41,6 +43,7 @@
               </a>
             </nav>
           </div>
+        </div>
         </div>
       </div>
     </main>
