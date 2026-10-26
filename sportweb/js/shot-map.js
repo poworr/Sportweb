@@ -85,8 +85,8 @@
       btn.type = 'button';
       btn.className = 'bar';
       btn.setAttribute('aria-label', s[0] + '：1試合あたり試投' + s[3].toFixed(1) + '本、成功' + s[2].toFixed(1) + '本');
-      btn.innerHTML = '<span class="bar-attempts" style="height:' + Math.round(s[3] / BAR_SCALE * 130) + 'px">' +
-                      '<span class="bar-made" style="height:' + Math.round(s[2] / BAR_SCALE * 130) + 'px"></span></span>';
+      btn.innerHTML = '<span class="bar-attempts" style="height:' + (s[3] / BAR_SCALE * 87).toFixed(1) + '%">' +
+                      '<span class="bar-made" style="height:' + (s[2] / s[3] * 100).toFixed(1) + '%"></span></span>';
       btn.addEventListener('click', function () { stop(); show(i); });
 
       var label = document.createElement('span');

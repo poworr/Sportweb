@@ -1,0 +1,158 @@
+/* ==========================================================
+   Fit to one screen
+   On laptop and desktop screens every page fits the window, so
+   nothing needs scrolling. On small screens the pages scroll
+   normally. The player builder shows one step at a time.
+   ========================================================== */
+
+/* step tabs of the player builder (all screen sizes) */
+.steps-nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; margin-top: 20px; }
+.steps-tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+.step-tab, .step-move {
+  min-height: 40px; padding: 0 16px; border: 0; border-radius: 4px;
+  background: var(--card-2); color: var(--text); font-size: 14px; font-weight: 600;
+  transition: background 200ms ease, color 200ms ease;
+}
+.step-tab.is-active, .step-move--next { background: var(--accent); color: var(--on-accent); }
+.step-move[disabled] { opacity: 0.35; cursor: default; }
+.steps-move { display: flex; gap: 6px; }
+.steps { margin-top: 16px; }
+.steps > .card[hidden] { display: none; }
+.steps > .card + .card { margin-top: 0; }
+
+@media (min-width: 960px) and (min-height: 640px) {
+  html, body { height: 100%; }
+  .page { height: 100dvh; min-height: 0; overflow: hidden; }
+  .header-inner { padding: 10px 24px; }
+  .page > main { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+  .section { flex: 1 1 0; min-height: 0; display: flex; padding-top: 8px; padding-bottom: 20px; }
+  .container { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; width: 100%; padding: 0 24px; }
+  .eyebrow { margin-bottom: 4px; }
+  h2 { font-size: clamp(26px, 3.2vw, 42px); }
+  .lede { margin-top: 8px; max-width: 1100px; font-size: 15px; line-height: 1.6; }
+
+  /* home */
+  .home { flex: 1 1 0; min-height: 0; padding: 16px 24px 36px; }
+
+  /* shot map */
+  .p-shot .shot-panel { flex: 1 1 0; min-height: 0; margin-top: 12px; flex-wrap: nowrap; align-items: stretch; gap: 32px; padding: 20px 32px; }
+  .p-shot .shot-info { flex: 1 1 0; min-width: 0; justify-content: center; gap: 12px; }
+  .p-shot .shot-season { font-size: clamp(48px, 6vw, 84px); }
+  .p-shot .shot-caption { font-size: 16px; line-height: 1.6; }
+  .p-shot .stat-grid { gap: 12px 20px; margin: 0; }
+  .p-shot .stat-grid dd { font-size: 26px; }
+  .p-shot .court-wrap { flex: 1 1 0; min-width: 0; min-height: 0; gap: 8px; }
+  .p-shot .court { flex: 1 1 0; min-height: 0; width: auto; max-width: 100%; }
+  .p-shot .court-wrap .note { font-size: 11px; line-height: 1.5; }
+  .p-shot .btn--large { min-height: 42px; }
+  .p-shot .season-chart { flex: 0 0 auto; margin-top: 12px; padding: 14px 24px 12px; }
+  .p-shot .season-chart-head h3 { font-size: 18px; }
+  .p-shot .bars { margin-top: 10px; gap: 6px; }
+  .p-shot .bar { height: 72px; }
+  .p-shot .season-chart .note { margin-top: 6px; font-size: 11px; }
+
+  /* arenas */
+  .p-arenas .arena-picks { margin-top: 12px; gap: 8px; }
+  .p-arenas .pill { min-height: 38px; font-size: 14px; }
+  .p-arenas .arena-layout { flex: 1 1 0; min-height: 0; flex-wrap: nowrap; margin-top: 12px; align-items: stretch; }
+  .p-arenas .us-map { flex: 0 0 auto; align-self: center; width: min(calc(100% - 340px), calc((100dvh - 290px) * 1.613)); }
+  .p-arenas .arena-card { flex: 1 1 300px; align-self: stretch; padding: 24px; overflow: auto; }
+  .p-arenas .arena-card h3 { font-size: 26px; }
+  .p-arenas .arena-footnote { margin-top: 8px; font-size: 11px; }
+
+  /* record night */
+  .record { padding-bottom: 0; }
+  .p-record .record-layout { flex: 1 1 0; min-height: 0; flex-wrap: nowrap; align-items: stretch; gap: 32px; margin-top: 12px; }
+  .p-record .story-steps { flex: 1 1 0; min-width: 0; justify-content: center; gap: 6px; }
+  .p-record .story-step { padding: 14px 20px; gap: 4px; }
+  .p-record .story-title { font-size: 20px; }
+  .p-record .story-body { font-size: 14px; line-height: 1.6; }
+  .p-record .story-board { flex: 1 1 0; min-width: 0; min-height: 0; gap: 12px; padding: 20px 24px; align-items: stretch; }
+  .p-record .story-count { font-size: clamp(44px, 5vw, 72px); }
+  .p-record .story-court { flex: 1 1 0; min-height: 0; width: auto; align-self: center; max-width: 100%; }
+  .p-record .story-foot { font-size: 13px; line-height: 1.5; text-align: center; }
+
+  /* player builder */
+  .p-player .steps-nav { margin-top: 10px; }
+  .p-player .steps { flex: 1 1 0; min-height: 0; margin-top: 12px; }
+  .p-player .steps > .card { height: 100%; overflow: auto; padding: 24px 32px; }
+  .p-player .sliders { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px 36px; margin-top: 28px; }
+  .p-player .pool { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+  .p-player .player-btn { min-width: 0; }
+  .p-player .card--result { display: grid; grid-template-columns: 320px minmax(0, 1fr) 230px; grid-template-rows: auto auto minmax(0, 1fr); gap: 0 32px; }
+  .p-player .card--result > h3, .p-player .card--result > .result-line { grid-column: 1 / -1; }
+  .p-player .card--result .result-body { display: contents; }
+  .p-player .card--result .radar-box { grid-column: 1; grid-row: 3; max-width: none; align-self: start; margin-top: 12px; }
+  .p-player .card--result .radar-box svg { max-height: calc(100dvh - 400px); }
+  .p-player .card--result .compare-rows { grid-column: 2; grid-row: 3; align-self: start; margin-top: 4px; }
+  .p-player .card--result .compare-rows { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; }
+  .p-player .card--result .compare-row { padding: 9px 0; }
+  .p-player .card--result .compare-nums { width: 96px; font-size: 12px; }
+  .p-player .card--result .compare-label { font-size: 14px; }
+  .p-player .card--result .matches-wrap { grid-column: 3; grid-row: 3; align-self: start; margin-top: 12px; padding: 0 0 0 28px; border-top: 0; border-left: 1px solid var(--line); }
+  .p-player .card--result .matches-wrap h4 { margin-top: 0; font-size: 17px; }
+  .p-player .card--result .matches { flex-direction: column; margin-top: 12px; }
+  .p-player .card--result .match { flex: 0 0 auto; padding: 14px 18px; border-radius: 6px; }
+  .p-player .card--result .match-pct { font-size: 34px; }
+  .p-player .card--result .match-hint { display: none; }
+  .p-player .player-file .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 40px; }
+  .p-player .plan-cols { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px; margin-top: 4px; }
+  .p-player .plan-fields { flex-direction: column; margin-top: 16px; gap: 16px; }
+  .p-player .plan-fields .field { flex: 0 0 auto; }
+  .p-player .card--plan h4 { margin-top: 0; }
+  .p-player .focus-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 10px; }
+  .p-player .focus { flex: 0 0 auto; padding: 14px 18px; gap: 4px; border-radius: 6px; }
+  .p-player .focus-tip { font-size: 13px; line-height: 1.6; }
+  .p-player .plan-fields textarea { padding: 10px 14px; }
+  .p-player .plan-note { font-size: 12px; margin-top: 4px; }
+  .p-player .plan-scroll { margin-top: 8px; }
+  .p-player .card--plan #planBlock h4 { margin-top: 16px; font-size: 17px; }
+  .p-player .plan-table { min-width: 0; }
+  .p-player .plan-table td { padding: 8px 8px 8px 0; }
+  .p-player .words { margin-top: 16px; padding: 16px 20px; }
+}
+
+/* laptop windows up to 940px tall: tighten the player builder */
+@media (min-width: 960px) and (min-height: 640px) and (max-height: 940px) {
+  .p-player .lede { display: none; }
+  .p-player .steps-nav { margin-top: 8px; }
+  .p-player .steps > .card { padding: 18px 28px; }
+  .p-player .card--result .result-line { margin-top: 4px; font-size: 14px; }
+  .p-player .card--result .radar-box { margin-top: 4px; }
+  .p-player .card--result .radar-box svg { max-height: calc(100dvh - 330px); }
+  .p-player .card--result .radar-box .note { display: none; }
+  .p-player .card--result .compare-row { padding: 5px 0; }
+  .p-player .card--result .compare-body { margin-top: 4px; }
+  .p-player .card--result .match { padding: 10px 16px; }
+  .p-player .card--result .match-pct { font-size: 28px; }
+  .p-player .result-line { font-size: 14px; }
+  .p-player .focus { padding: 10px 14px; }
+  .p-player .focus-tip { font-size: 12px; line-height: 1.5; }
+  .p-player .plan-table td { padding: 5px 8px 5px 0; font-size: 14px; }
+  .p-player .plan-table th { padding: 6px 8px 6px 0; }
+  .p-player .plan-note { display: none; }
+  .p-player .keyword { margin-top: 10px; padding: 12px 16px; }
+  .p-player .keyword p { font-size: 14px; }
+  .p-player .words { margin-top: 10px; padding: 12px 16px; }
+  .p-player .words p { font-size: 14px; }
+  .p-player .plan-fields { margin-top: 10px; gap: 10px; }
+  .p-player .card--plan #planBlock h4 { margin-top: 10px; }
+}
+
+/* shorter laptop windows: tighten a little more */
+@media (min-width: 960px) and (min-height: 640px) and (max-height: 780px) {
+  .p-shot .shot-caption { display: none; }
+  .p-shot .bar { height: 56px; }
+  .p-shot .season-chart .note { display: none; }
+  .p-record .story-body { font-size: 13px; }
+  .p-arenas .arena-note { font-size: 14px; }
+}
+
+@media (min-width: 960px) and (min-height: 640px) and (max-height: 760px) {
+  .p-player .card--result .result-line { display: none; }
+  .p-player .card--result .compare-row { padding: 3px 0; }
+  .p-player .card--result .radar-box svg { max-height: calc(100dvh - 300px); }
+  .p-player h2 { font-size: 26px; }
+  .p-player .steps > .card { padding: 14px 24px; }
+  .p-player .focus-tip { display: none; }
+}

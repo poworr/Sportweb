@@ -245,6 +245,25 @@
     }
   }
 
+  /* ---------- steps: one section at a time ---------- */
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.steps > [data-step]'));
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.step-tab'));
+  var prevBtn = $('stepPrev');
+  var nextBtn = $('stepNext');
+  var step = 1;
+  function goStep(n, scroll) {
+    step = Math.max(1, Math.min(panels.length, n));
+    panels.forEach(function (p) { p.hidden = Number(p.dataset.step) !== step; });
+    tabs.forEach(function (t) { t.classList.toggle('is-active', Number(t.dataset.go) === step); });
+    prevBtn.disabled = step === 1;
+    nextBtn.disabled = step === panels.length;
+    var area = document.querySelector('.steps');
+    if (scroll && area && area.scrollIntoView && window.innerWidth < 960) { area.scrollIntoView({ block: 'start' }); }
+  }
+  tabs.forEach(function (t) { t.addEventListener('click', function () { goStep(Number(t.dataset.go), true); }); });
+  prevBtn.addEventListener('click', function () { goStep(step - 1, true); });
+  nextBtn.addEventListener('click', function () { goStep(step + 1, true); });
+
   /* ---------- start ---------- */
   function update() { renderPool(); renderResults(); renderPlan(); }
 
@@ -255,4 +274,5 @@
     $(id).addEventListener('input', function () { renderResults(); renderPlan(); });
   });
   update();
+  goStep(1);
 })();

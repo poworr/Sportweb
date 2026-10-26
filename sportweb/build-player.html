@@ -10,8 +10,9 @@
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/transition.css">
 <link rel="stylesheet" href="css/build-player.css">
+<link rel="stylesheet" href="css/fit.css">
 </head>
-<body>
+<body class="p-player">
   <div class="page">
     <header class="site-header">
       <div class="header-inner">
@@ -33,7 +34,22 @@
           <h2>あなたはどのNBA選手に近い？</h2>
           <p class="lede">自分の数字を入力して、今のトップ10や歴代の名選手と比べましょう。差がどこにあるかを確認して、練習のペース配分も作れます。</p>
 
-          <div class="card" style="margin-top:56px">
+          <nav class="steps-nav" aria-label="ステップ">
+            <div class="steps-tabs" id="stepsTabs">
+              <button type="button" class="step-tab" data-go="1">1 あなたの数字</button>
+              <button type="button" class="step-tab" data-go="2">2 比べる相手</button>
+              <button type="button" class="step-tab" data-go="3">3 結果</button>
+              <button type="button" class="step-tab" data-go="4">4 選手ファイル</button>
+              <button type="button" class="step-tab" data-go="5">5 プラン</button>
+            </div>
+            <div class="steps-move">
+              <button type="button" class="step-move" id="stepPrev">戻る</button>
+              <button type="button" class="step-move step-move--next" id="stepNext">次へ</button>
+            </div>
+          </nav>
+
+          <div class="steps" id="steps">
+          <div class="card" data-step="1">
             <div class="card-head">
               <div>
                 <h3>1. あなたの数字</h3>
@@ -47,7 +63,7 @@
             <div class="sliders" id="sliders"></div>
           </div>
 
-          <div class="card card--soft">
+          <div class="card card--soft" data-step="2">
             <h3>2. 比べる相手</h3>
             <div class="tabs">
               <button class="pill" id="tabNow" type="button">今：ESPNトップ10</button>
@@ -57,7 +73,7 @@
             <div class="pool" id="pool"></div>
           </div>
 
-          <div class="card">
+          <div class="card card--result" data-step="3">
             <h3 id="resultTitle"></h3>
             <p class="result-line" id="resultLine"></p>
             <div class="result-body">
@@ -92,7 +108,7 @@
             </div>
           </div>
 
-          <div class="card player-file">
+          <div class="card player-file" data-step="4">
             <div class="tag">選手ファイル</div>
             <h3 id="fileName"></h3>
             <p class="sub" id="fileSub"></p>
@@ -105,18 +121,19 @@
             <p class="note" id="fileNote"></p>
           </div>
 
-          <div class="card">
-            <h3>4. あなたのプラン</h3>
+          <div class="card card--plan" data-step="5">
+            <h3>5. あなたのプラン</h3>
             <p class="result-line">自分の弱点と挑戦したい目標を書いてください。下のプランは、あなたの言葉と上の差をもとに作られます。</p>
 
+            <div class="plan-cols"><div class="plan-left">
             <div class="plan-fields">
               <div class="field">
                 <label for="weak">私の一番の弱点</label>
-                <textarea id="weak" rows="3" placeholder="例：疲れてくるとフリースローを外す。"></textarea>
+                <textarea id="weak" rows="2" placeholder="例：疲れてくるとフリースローを外す。"></textarea>
               </div>
               <div class="field">
                 <label for="goal">私の挑戦目標</label>
-                <textarea id="goal" rows="3" placeholder="例：春までにフリースロー成功率を80%にする。"></textarea>
+                <textarea id="goal" rows="2" placeholder="例：春までにフリースロー成功率を80%にする。"></textarea>
               </div>
             </div>
 
@@ -125,6 +142,12 @@
               <p id="keywordTip"></p>
             </div>
 
+            <div class="words" id="words" hidden>
+              <span class="tag">あなたの言葉</span>
+              <p id="wordsWeak" hidden><strong>弱点：</strong> <span id="wordsWeakText"></span></p>
+              <p id="wordsGoal" hidden><strong>挑戦目標：</strong> <span id="wordsGoalText"></span></p>
+            </div>
+            </div><div class="plan-right">
             <h4 id="gapsTitle"></h4>
             <p class="empty-text" id="noGaps" hidden></p>
             <div class="focus-list" id="focusList"></div>
@@ -140,11 +163,8 @@
               </div>
             </div>
 
-            <div class="words" id="words" hidden>
-              <span class="tag">あなたの言葉</span>
-              <p id="wordsWeak" hidden><strong>弱点：</strong> <span id="wordsWeakText"></span></p>
-              <p id="wordsGoal" hidden><strong>挑戦目標：</strong> <span id="wordsGoalText"></span></p>
-            </div>
+            </div></div>
+          </div>
           </div>
         </div>
       </section>
