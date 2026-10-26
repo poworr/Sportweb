@@ -68,10 +68,12 @@
     if (!front) {
       box.innerHTML =
         '<svg viewBox="0 0 240 220">' +
-        '<rect x="113" y="194" width="14" height="26" fill="' + POST + '"/><rect x="123" y="194" width="4" height="26" fill="#b9a56a"/>' +
-        '<path d="M120 100V113M104 100L112 113M136 100L128 113" stroke="' + POST + '" stroke-width="4.5" stroke-linecap="round"/>' +
-        '<polygon points="46,4 194,4 212,100 28,100" fill="' + TEAL + '" stroke="' + CREAM + '" stroke-width="5" stroke-linejoin="miter"/>' +
-        '<polygon points="92,42 148,42 152,86 88,86" fill="none" stroke="' + CREAM + '" stroke-width="5"/>' +
+        '<rect x="113" y="194" width="14" height="26" fill="#b9bcc2"/>' +
+        '<rect x="106" y="98" width="28" height="15" rx="2" fill="#4a4d55"/>' +
+        '<rect x="38" y="3" width="164" height="96" rx="4" fill="#e3eef5" stroke="#2b1511" stroke-width="3"/>' +
+        '<rect x="43" y="8" width="154" height="86" fill="none" stroke="#ffffff" stroke-width="5"/>' +
+        '<text x="120" y="31" text-anchor="middle" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="13" font-weight="800" letter-spacing="3" fill="#2b1511" fill-opacity=".75">RANGE</text>' +
+        '<rect x="92" y="46" width="56" height="44" fill="none" stroke="#e2452a" stroke-width="4.5"/>' +
         rimBack + '</svg>';
     } else {
       box.innerHTML =
