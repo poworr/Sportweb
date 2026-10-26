@@ -219,7 +219,7 @@
   function drawFloor(w, mx, rimX) {
     var H = 112, planks = '', i;
     for (i = 40; i < w; i += 46) { planks += '<line x1="' + i + '" y1="6" x2="' + i + '" y2="' + H + '"/>'; }
-    var rx = Math.max(60, rimX - mx + 40), laneL = rimX - Math.min(250, w * 0.2);
+    var rx = Math.max(60, rimX - mx - 45), laneL = rimX - Math.min(250, w * 0.2);
     floor.innerHTML = '<svg width="' + w + '" height="' + H + '" viewBox="0 0 ' + w + ' ' + H + '">' +
       '<rect width="' + w + '" height="' + H + '" fill="#bf5d18"/>' +
       '<g stroke="#000" stroke-opacity=".07" stroke-width="2">' + planks + '</g>' +
