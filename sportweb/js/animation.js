@@ -56,39 +56,34 @@
     '</svg><div class="sheen"></div>';
   shape.appendChild(creases);
 
-  // the hoop: a tall pole with a curved arm, a fan-shaped board, the rim and net high up
-  // (two layers: the ball goes "inside" the net). Drawing space is 320 x 560, ground at y = 560;
-  // the rim centre is at (92, 132).
-  var OR = '#f07a1a', WHITE = '#fbf6ee', POLE = '#f3eee4';
+  // the hoop seen from the side: dark pole with an angled arm, a thin slate board,
+  // a flat red rim sticking out toward the shooter and a diamond-mesh net.
+  // Drawing space is 320 x 560, ground at y = 560; the rim centre is at (162, 124).
+  var SLATE = '#4b5f6e', DARK = '#263640', REDRIM = '#d63a3a', NETC = '#2b3a45';
   function makeBasket(front) {
     var box = document.createElement('div');
     box.className = 'basket ' + (front ? 'basket--front' : 'basket--back');
     box.setAttribute('aria-hidden', 'true');
-    var rimBack = '<path d="M38 132A54 11 0 0 1 146 132" fill="none" stroke="#5b2410" stroke-width="9" stroke-linecap="round"/><path d="M38 132A54 11 0 0 1 146 132" fill="none" stroke="' + OR + '" stroke-width="5.5" stroke-linecap="round"/>';
-    var rimFront = '<path d="M38 132A54 11 0 0 0 146 132" fill="none" stroke="#5b2410" stroke-width="9" stroke-linecap="round"/><path d="M38 132A54 11 0 0 0 146 132" fill="none" stroke="' + OR + '" stroke-width="5.5" stroke-linecap="round"/>';
     if (!front) {
       box.innerHTML =
         '<svg viewBox="0 0 320 560">' +
-        '<ellipse cx="262" cy="557" rx="34" ry="5" fill="#8a8f96" fill-opacity=".55"/>' +
-        '<path d="M262 500V196C262 150 244 128 206 112" fill="none" stroke="#cfc9bd" stroke-width="22" stroke-linecap="butt"/>' +
-        '<path d="M260 500V196C260 150 242 128 204 112" fill="none" stroke="' + POLE + '" stroke-width="18" stroke-linecap="butt"/>' +
-        '<rect x="240" y="498" width="44" height="60" rx="3" fill="' + OR + '"/><rect x="270" y="498" width="14" height="60" fill="#c85d0c"/>' +
-        '<path d="M86 34C122 10 224 6 284 26L286 84C286 106 252 118 196 118C132 118 92 108 84 84Z" fill="' + WHITE + '" stroke="' + OR + '" stroke-width="8" stroke-linejoin="round"/>' +
-        '<rect x="150" y="48" width="74" height="46" fill="none" stroke="' + OR + '" stroke-width="6"/>' +
-        '<path d="M146 126L168 116" stroke="' + OR + '" stroke-width="9" stroke-linecap="round"/>' +
-        rimBack + '</svg>';
+        '<ellipse cx="296" cy="558" rx="40" ry="4" fill="#000" fill-opacity=".18"/>' +
+        '<path d="M296 558V152Q296 142 289 135L242 86" fill="none" stroke="' + DARK + '" stroke-width="14" stroke-linejoin="round"/>' +
+        '<rect x="214" y="20" width="28" height="132" fill="' + SLATE + '"/>' +
+        '<path d="M214 112H112Q104 112 104 118Q104 124 112 124L214 136Z" fill="' + REDRIM + '"/>' +
+        '</svg>';
     } else {
-      var tx = [38, 56, 74, 92, 110, 128, 146], bx = [62, 72, 82, 92, 102, 112, 122], g = '', i;
-      for (i = 0; i < 7; i++) {
-        g += 'M' + tx[i] + ' 134L' + bx[i] + ' 198';
-        if (i < 6) { g += 'M' + tx[i] + ' 134L' + bx[i + 1] + ' 198M' + tx[i + 1] + ' 134L' + bx[i] + ' 198'; }
+      var top0 = 122, topW = 84, bot0 = 140, botW = 50, y1 = 126, y2 = 192, g = '', i, xt = [], xb = [];
+      for (i = 0; i <= 6; i++) { xt.push(top0 + topW * i / 6); xb.push(bot0 + botW * i / 6); }
+      g += 'M' + xt[0] + ' ' + y1 + 'L' + xb[0] + ' ' + y2 + 'M' + xt[6] + ' ' + y1 + 'L' + xb[6] + ' ' + y2;
+      for (i = 0; i <= 4; i++) {
+        g += 'M' + xt[i] + ' ' + y1 + 'L' + xb[i + 2] + ' ' + y2 + 'M' + xt[i + 2] + ' ' + y1 + 'L' + xb[i] + ' ' + y2;
       }
       box.innerHTML =
         '<div class="basket-net"><svg viewBox="0 0 320 560">' +
-        '<g fill="none" stroke="#ffffff" stroke-opacity=".92" stroke-width="1.8" stroke-linecap="round">' +
-        '<path d="' + g + '"/>' +
-        '<path d="M44 150Q92 160 140 150M52 168Q92 177 132 168M58 184Q92 192 126 184"/></g>' +
-        rimFront + '</svg></div>';
+        '<path d="' + g + '" fill="none" stroke="' + NETC + '" stroke-opacity=".85" stroke-width="1.3" stroke-linecap="round"/>' +
+        '<path d="M' + xb[0] + ' ' + y2 + 'H' + xb[6] + '" stroke="' + NETC + '" stroke-opacity=".85" stroke-width="1.6"/>' +
+        '</svg></div>';
     }
     document.body.appendChild(box);
     return box;
@@ -247,14 +242,14 @@
     var FLOOR = 56;                                                // height of the ground line above the bottom edge
     var br = basketFront.getBoundingClientRect();
     var kx = br.width / 320, ky = br.height / 560;
-    var rimX = br.left + 92 * kx;                                  // the rim: high up on the right, facing him
-    var rimY = br.top + 132 * ky - 22;                             // where the ball enters it
-    var poleX = br.left + 262 * kx;
+    var rimX = br.left + 162 * kx;                                  // the rim: high up on the right, facing him
+    var rimY = br.top + 124 * ky - 22;                             // where the ball enters it
+    var poleX = br.left + 296 * kx;
     var mx = Math.max(w * 0.1, rimX - Math.min(430, w * 0.42));    // where he stands (left of the hoop)
     var gy = h - FLOOR;                                            // the floor he stands on
     drawFloor(w, mx, poleX);
-    plus3.style.left = (br.left + 186 * kx) + 'px';
-    plus3.style.bottom = (h - br.top - 14 * ky + 10) + 'px';
+    plus3.style.left = (br.left + 200 * kx) + 'px';
+    plus3.style.bottom = (h - br.top - 20 * ky + 12) + 'px';
     var D0 = Math.min(w * 0.5, h * 0.46);                          // ball size after the crush
     grp.setAttribute('transform', 'translate(' + mx + ' ' + gy + ') scale(' + S + ' ' + (-S) + ')');
     function scr(p) { return [mx + p[0] * S, gy - p[1] * S]; }
