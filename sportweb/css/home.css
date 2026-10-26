@@ -68,10 +68,26 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
   .tile--photo::after { opacity: 1; }
 }
 
-/* home only: the menu sits right above the RANGE word instead of at the top of the page */
-.brand { flex: 0 1 auto; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: clamp(8px, 2dvh, 20px); }
-.p-home .site-header { position: static; background: none; }
-.p-home .header-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 4px clamp(12px, 1.6vw, 24px); padding: 0; }
-.p-home .main-nav { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 4px clamp(10px, 1.4vw, 18px); }
+/* the basketball court is the background: one flat blue, white lines */
+.p-home .page { position: relative; background: #5b8fc4; }
+.court-bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.court-bg svg { width: 100%; height: 100%; display: block; }
+.p-home .site-header, .p-home .page > main, .p-home .pager { position: relative; z-index: 1; }
+.p-home .site-header { position: relative; background: none; }
+.p-home .header-inner { display: flex; align-items: center; gap: 8px 24px; padding: clamp(12px, 2.4dvh, 22px) clamp(14px, 2vw, 28px); }
+.p-home .main-nav { flex: 1; display: flex; flex-wrap: wrap; justify-content: space-evenly; gap: 4px 16px; }
+.p-home .logo, .p-home .main-nav a, .p-home .wordmark { color: #fff; }
+.p-home .main-nav a { opacity: 0.8; font-size: 13px; }
+.p-home .main-nav a:hover { opacity: 1; color: #fff; }
+.p-home .pager-link, .p-home .pager-name { color: #fff; }
+.p-home .pager-link { opacity: 0.85; }
+.p-home .pager-link:hover { opacity: 1; }
 .p-home .wordmark { font-size: min(11vw, 30dvh); }
+/* tiles: soft white glass so the court shows through */
+.p-home .tile:not(.tile--photo) { background-color: rgba(255, 255, 255, 0.16) !important; background-image: none; color: #fff; box-shadow: none; }
+.p-home .tile-ph { color: #fff; opacity: 0.7; }
 @media (max-aspect-ratio: 1/1), (max-width: 760px) { .brand { align-items: stretch; } .p-home .wordmark { font-size: min(21vw, 13dvh); } }
+body.p-home { background: #5b8fc4; }
+.p-home .pager { background: none; }
+.p-home .pager-key { background: rgba(255, 255, 255, 0.18); border-color: rgba(255, 255, 255, 0.5); color: #fff; }
+.p-home .tile:not(.tile--photo) { background-color: rgba(255, 255, 255, 0.2) !important; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
