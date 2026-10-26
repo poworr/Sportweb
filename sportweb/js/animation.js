@@ -215,8 +215,7 @@
      are used: lane 19 x 16, free-throw circle r 6, three-point arc r 23.75 with straight
      corner lines 22 ft from the hoop, hoop 5.25 ft from the baseline, court 50 ft wide.
      Across the court is squeezed (sy) to give the sense of depth. */
-  function drawFloor(w, H, mx, rimX) {
-    var R = Math.max(80, rimX - mx - 30);                 // 23.75 ft in pixels (the shooter stands just behind it)
+  function drawFloor(w, H, R, rimX) {                       // R = 23.75 ft in pixels (the three-point distance)
     var sx = R / 23.75, sy = H * 0.84 / 50, cy = H * 0.5;
     var base = rimX + 5.25 * sx;                          // the baseline
     var far = cy - 25 * sy, near = cy + 25 * sy;          // sidelines
@@ -263,9 +262,11 @@
     var rimX = br.left + 162 * kx;                                  // the rim: high up on the right, facing him
     var rimY = br.top + 124 * ky - 22;                             // where the ball enters it
     var poleX = br.left + 296 * kx;
-    var mx = Math.max(w * 0.07, rimX - Math.min(660, w * 0.62));    // where he stands (left of the hoop)
+    var R = Math.max(80, Math.min(560, w * 0.44));                 // the three-point distance in pixels
+    var mx = Math.max(w * 0.06, rimX - R - Math.min(250, w * 0.2));  // he stands well behind that line
+    R = Math.max(80, Math.min(R, rimX - mx - 30));                 // (on narrow screens keep him behind it too)
     var gy = h - FLOOR;                                            // the floor he stands on
-    drawFloor(w, FH, mx, rimX);
+    drawFloor(w, FH, R, rimX);
     plus3.style.left = (br.left + 200 * kx) + 'px';
     plus3.style.bottom = (h - br.top - 20 * ky + 12) + 'px';
     var D0 = Math.min(w * 0.5, h * 0.46);                          // ball size after the crush
