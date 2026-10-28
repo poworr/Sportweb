@@ -30,10 +30,6 @@
     <main>
       <section class="section">
         <div class="container">
-          <p class="eyebrow">シュート練習</p>
-          <h2>自分で打って、緑で決める。</h2>
-          <p class="lede">スペースキー（または下のSHOOTボタン）を押し続けると、シュートの動きとメーターが進みます。メーターの<b class="g">緑</b>のところで離すと、ボールはリングに吸い込まれます。早すぎても遅すぎても外れます。カリーのように、毎回同じタイミングで離しましょう。</p>
-
           <div class="stage" id="stage">
             <div class="court-floor" id="floor" aria-hidden="true"></div>
             <div class="basket basket--back" id="basketBack" aria-hidden="true"></div>
@@ -67,6 +63,16 @@
               </div>
             </div>
 
+            <div class="help" id="help">
+              <button type="button" class="help-btn" id="helpBtn" aria-expanded="false" aria-controls="helpPanel"><i>?</i>遊び方</button>
+              <div class="help-panel" id="helpPanel" role="region" aria-label="遊び方">
+                <p class="eyebrow">シュート練習</p>
+                <h2>自分で打って、緑で決める。</h2>
+                <p class="lede">スペースキー（または下のSHOOTボタン）を押し続けると、シュートの動きとメーターが進みます。メーターの<b class="g">緑</b>のところで離すと、ボールはリングに吸い込まれます。早すぎても遅すぎても外れます。カリーのように、毎回同じタイミングで離しましょう。</p>
+
+              </div>
+            </div>
+
             <button type="button" class="shoot-btn" id="shootBtn"><b>SHOOT</b><span>押し続けて、緑で離す</span></button>
           </div>
         </div>
@@ -75,6 +81,16 @@
   </div>
 
 <script src="js/shoot.js"></script>
+<script>
+(function () {
+  var help = document.getElementById('help'), btn = document.getElementById('helpBtn');
+  btn.addEventListener('click', function () {
+    var on = help.classList.toggle('is-pinned');
+    btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+    btn.blur();
+  });
+})();
+</script>
 <script src="js/pager.js"></script>
 </body>
 </html>

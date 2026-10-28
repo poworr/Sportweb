@@ -115,3 +115,24 @@
   .hud .pill { min-height: 30px; padding: 0 10px; font-size: 12px; }
   .shoot-btn { min-width: 170px; padding: 10px 20px 9px; }
 }
+
+/* the explanation lives in a small corner tab: hover to peek, click to keep it open */
+.p-shoot .stage { margin-top: 0; }
+.help { position: absolute; z-index: 58; left: 14px; bottom: 14px; }
+.help-btn {
+  display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 14px 0 8px; border: 0; border-radius: 999px;
+  background: rgba(43, 21, 17, 0.9); color: #fff6ea; font: 700 13px/1 var(--label, inherit); cursor: pointer;
+}
+.help-btn i { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #ff6a13; color: #2b1511; font-style: normal; font-weight: 800; }
+.help.is-pinned .help-btn { background: #ff6a13; color: #2b1511; }
+.help-panel {
+  position: absolute; left: 0; bottom: 46px; width: min(420px, calc(100vw - 72px)); padding: 16px 18px 18px; border-radius: 14px;
+  background: #fff6ea; color: #2b1511; box-shadow: 0 0 0 3px #2b1511, 0 14px 30px rgba(43, 21, 17, 0.3);
+  opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity 160ms ease, transform 160ms ease, visibility 160ms;
+}
+.help-panel h2 { margin: 4px 0 8px; font-size: 22px; }
+.help-panel .lede { margin: 0; font-size: 14px; line-height: 1.7; }
+.help:hover .help-panel, .help:focus-within .help-panel, .help.is-pinned .help-panel { opacity: 1; visibility: visible; transform: none; }
+@media (min-width: 960px) and (min-height: 640px) { .p-shoot .stage { margin-top: 0; } }
+@media (max-width: 959px), (max-height: 639px) { .stage { height: 82dvh; } }
+@media (max-width: 640px) { .shoot-btn { left: auto; right: 14px; transform: none; min-width: 150px; } .shoot-btn.is-down { transform: translateY(4px); } }
