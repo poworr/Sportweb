@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>シュート練習 | Range</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/shoot.css">
+<link rel="stylesheet" href="css/fit.css">
+<link rel="stylesheet" href="css/retro.css">
+</head>
+<body class="p-shoot">
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="logo" href="index.html">ホーム</a>
+        <nav class="main-nav" aria-label="Main">
+          <a href="shot-map.html">ショットマップ</a>
+          <a href="arenas.html">アリーナ</a>
+          <a href="record-night.html">記録の夜</a>
+          <a href="build-player.html">選手を作る</a>
+          <a href="shoot.html" aria-current="page">シュート練習</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="container">
+          <p class="eyebrow">シュート練習</p>
+          <h2>自分で打って、緑で決める。</h2>
+          <p class="lede">スペースキー（または下のSHOOTボタン）を押し続けると、シュートの動きとメーターが進みます。メーターの<b class="g">緑</b>のところで離すと、ボールはリングに吸い込まれます。早すぎても遅すぎても外れます。カリーのように、毎回同じタイミングで離しましょう。</p>
+
+          <div class="stage" id="stage">
+            <div class="court-floor" id="floor" aria-hidden="true"></div>
+            <div class="basket basket--back" id="basketBack" aria-hidden="true"></div>
+            <svg class="shooter" id="shooterSvg" aria-hidden="true"></svg>
+            <div class="ball" id="ball" aria-hidden="true"></div>
+            <div class="basket basket--front" id="basketFront" aria-hidden="true"></div>
+            <div class="plus3" id="plus3" aria-hidden="true">+3</div>
+
+            <div class="meter" id="meter" aria-hidden="true">
+              <div class="meter-bar"><div class="meter-fill" id="meterFill"></div></div>
+              <div class="meter-mark" id="meterMark"></div>
+            </div>
+            <div class="callout" id="callout" role="status" aria-live="polite"></div>
+
+            <div class="hud">
+              <div class="hud-stats">
+                <div class="hud-item"><span>得点</span><b id="hudPts">0</b></div>
+                <div class="hud-item"><span>成功</span><b id="hudMake">0/0</b></div>
+                <div class="hud-item"><span>成功率</span><b id="hudPct">0%</b></div>
+                <div class="hud-item"><span>グリーン</span><b id="hudGreen">0</b></div>
+                <div class="hud-item"><span>連続</span><b id="hudStreak">0</b></div>
+                <div class="hud-item"><span>ベスト連続</span><b id="hudBest">0</b></div>
+              </div>
+              <div class="hud-ctl">
+                <div class="levels" id="levels" role="group" aria-label="難易度">
+                  <button type="button" class="pill" data-win="85">イージー</button>
+                  <button type="button" class="pill is-active" data-win="55">ノーマル</button>
+                  <button type="button" class="pill" data-win="32">ハード</button>
+                </div>
+                <button type="button" class="pill" id="resetBtn">リセット</button>
+              </div>
+            </div>
+
+            <button type="button" class="shoot-btn" id="shootBtn"><b>SHOOT</b><span>押し続けて、緑で離す</span></button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+<script src="js/shoot.js"></script>
+<script src="js/pager.js"></script>
+</body>
+</html>

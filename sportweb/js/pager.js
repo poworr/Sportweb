@@ -2,8 +2,7 @@
    Page pager
    Arrow Right opens the next page, Arrow Left the previous one
    (the order follows the menu and wraps around). The bottom
-   corners show where each arrow goes. The links use the page-change
-   animation, because animation.js reacts to every link click.
+   corners show where each arrow goes. 
    ========================================================== */
 (function () {
   'use strict';
@@ -13,7 +12,8 @@
     ['shot-map.html', 'ショットマップ'],
     ['arenas.html', 'アリーナ'],
     ['record-night.html', '記録の夜'],
-    ['build-player.html', '選手を作る']
+    ['build-player.html', '選手を作る'],
+    ['shoot.html', 'シュート練習']
   ];
 
   var file = window.location.pathname.split('/').pop();

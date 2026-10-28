@@ -1,0 +1,117 @@
+/* ==========================================================
+   Shooting practice page: a small court where you shoot yourself.
+   Everything inside .stage is positioned by js/shoot.js.
+   ========================================================== */
+
+.lede b.g { color: #0d8a2b; font-weight: 800; }
+
+.stage {
+  position: relative; overflow: hidden; margin-top: 16px; min-height: 420px; height: min(70dvh, 640px);
+  border-radius: 14px; background: #fafafa;
+  box-shadow: 0 0 0 4px #efe6d2, 0 12px 30px rgba(43, 21, 17, 0.28);
+  user-select: none; -webkit-user-select: none; touch-action: manipulation;
+}
+
+/* court floor along the bottom */
+.court-floor { position: absolute; left: 0; right: 0; bottom: 0; z-index: 20; pointer-events: none; }
+.court-floor svg { display: block; }
+
+/* the hoop: back half behind the ball, the net in front of it */
+.basket { position: absolute; pointer-events: none; aspect-ratio: 320 / 560; }
+.basket--back { z-index: 30; }
+.basket--front { z-index: 50; }
+.basket svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.basket-net { width: 100%; height: 100%; transform-origin: 51% 22%; }
+.basket-net.is-swishing { animation: net-swish 700ms cubic-bezier(.3, 1.2, .5, 1) both; }
+@keyframes net-swish {
+  0%   { transform: scale(1.1, 1.22); }
+  22%  { transform: scale(0.94, 1.08) skewX(-9deg); }
+  45%  { transform: scale(1.04, 0.96) skewX(8deg); }
+  68%  { transform: scale(0.99, 1.02) skewX(-4deg); }
+  100% { transform: scale(1, 1) skewX(0); }
+}
+
+/* "+3" pops up above the hoop */
+.plus3 {
+  position: absolute; z-index: 60; transform: translate(-50%, 0) scale(0.3); opacity: 0; pointer-events: none;
+  font: 800 clamp(44px, 7vw, 80px)/1 var(--display); letter-spacing: -0.03em;
+  color: #e4622a; text-shadow: 0 4px 14px rgba(228, 98, 42, 0.25);
+}
+.plus3.is-on { animation: plus3-pop 900ms cubic-bezier(.2, .9, .3, 1) both; }
+@keyframes plus3-pop {
+  0%   { opacity: 0; transform: translate(-50%, 20px) scale(0.3); }
+  30%  { opacity: 1; transform: translate(-50%, -6px) scale(1.2); }
+  60%  { opacity: 1; transform: translate(-50%, -20px) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -60px) scale(1); }
+}
+
+.shooter { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 35; pointer-events: none; }
+.ball { position: absolute; left: 0; top: 0; z-index: 36; pointer-events: none; will-change: transform; }
+.ball svg { display: block; width: 100%; height: 100%; }
+
+/* shot meter, like the one in the basketball games */
+.meter { position: absolute; z-index: 45; width: 22px; pointer-events: none; }
+.meter-bar { position: relative; height: var(--mh, 180px); border-radius: 11px; overflow: hidden; background: rgba(43, 21, 17, 0.14); box-shadow: inset 0 0 0 2px rgba(43, 21, 17, 0.35); }
+.meter-bar::before { content: ''; position: absolute; inset: 0; background: var(--zones); opacity: 0.4; }
+.meter-fill { position: absolute; left: 0; right: 0; bottom: 0; height: 0; overflow: hidden; }
+.meter-fill::before { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: var(--mh, 180px); background: var(--zones); }
+.meter-mark { position: absolute; left: -7px; right: -7px; bottom: 0; height: 4px; margin-bottom: -2px; border-radius: 2px; background: #2b1511; box-shadow: 0 0 0 2px #fff; opacity: 0; }
+.meter.is-on .meter-mark { opacity: 1; }
+
+/* result text above the shooter */
+.callout {
+  position: absolute; z-index: 55; transform: translate(-50%, 0); text-align: center; pointer-events: none; white-space: nowrap;
+  opacity: 0; transition: opacity 160ms ease, transform 260ms cubic-bezier(.3, 1.5, .5, 1);
+}
+.callout.is-on { opacity: 1; }
+.callout b { display: block; font: 800 clamp(26px, 3.2vw, 44px)/1.05 var(--display); letter-spacing: -0.02em; }
+.callout span { display: block; margin-top: 4px; font-size: 14px; font-weight: 700; color: #2b1511; opacity: 0.8; }
+.callout.is-green b { color: #0d9b30; text-shadow: 0 0 18px rgba(47, 220, 74, 0.45); }
+.callout.is-yellow b { color: #c98a00; }
+.callout.is-red b { color: #d63a3a; }
+
+/* score + difficulty */
+.hud { position: absolute; z-index: 56; left: 14px; right: 14px; top: 12px; display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; pointer-events: none; }
+.hud-stats { display: flex; flex-wrap: wrap; gap: 6px 8px; }
+.hud-item { min-width: 64px; padding: 6px 12px 7px; border-radius: 10px; background: rgba(43, 21, 17, 0.9); color: #fff6ea; }
+.hud-item span { display: block; font-size: 10px; letter-spacing: 0.06em; opacity: 0.75; }
+.hud-item b { display: block; font: 800 20px/1.15 var(--display); font-variant-numeric: tabular-nums; }
+.hud-ctl { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; pointer-events: auto; }
+.levels { display: flex; gap: 6px; }
+.hud .pill { min-height: 34px; padding: 0 14px; border: 0; border-radius: 999px; background: rgba(43, 21, 17, 0.12); color: #2b1511; font-size: 13px; font-weight: 700; }
+.hud .pill.is-active { background: #2b1511; color: #fff6ea; }
+
+/* the big button: hold it down, let go on green */
+.shoot-btn {
+  position: absolute; z-index: 57; left: 50%; bottom: 14px; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 200px; padding: 12px 28px 11px;
+  border: 0; border-radius: 16px; background: #2b1511; color: #fff6ea; cursor: pointer;
+  box-shadow: 0 5px 0 rgba(43, 21, 17, 0.35); touch-action: none;
+  transition: transform 90ms ease, box-shadow 90ms ease, background 120ms ease;
+}
+.shoot-btn b { font: 800 24px/1 var(--display); letter-spacing: 0.12em; }
+.shoot-btn span { font-size: 12px; opacity: 0.8; }
+.shoot-btn.is-down { transform: translateX(-50%) translateY(4px); box-shadow: 0 1px 0 rgba(43, 21, 17, 0.35); background: #c42a1c; }
+.shoot-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+@media (max-width: 959px), (max-height: 639px) {
+  .stage { height: 74dvh; min-height: 440px; }
+  .hud-item { min-width: 54px; padding: 4px 8px 5px; }
+  .hud-item b { font-size: 16px; }
+}
+
+@media (min-width: 960px) and (min-height: 640px) {
+  .p-shoot .stage { flex: 1 1 0; height: auto; min-height: 0; margin-top: 12px; }
+  .p-shoot .lede { max-width: 1100px; }
+}
+
+@media (max-width: 640px) {
+  .hud { flex-direction: column; gap: 6px; }
+  .hud-item { min-width: 44px; padding: 3px 7px 4px; }
+  .hud-item span { font-size: 9px; }
+  .hud-item b { font-size: 14px; }
+  .hud-item:nth-child(3), .hud-item:nth-child(4), .hud-item:nth-child(6) { display: none; }
+  .hud-ctl { justify-content: flex-start; }
+  .hud .pill { min-height: 30px; padding: 0 10px; font-size: 12px; }
+  .shoot-btn { min-width: 170px; padding: 10px 20px 9px; }
+}

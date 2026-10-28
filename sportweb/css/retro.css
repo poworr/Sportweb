@@ -76,3 +76,9 @@ body:not(.p-home) .page { padding-bottom: calc(48px + var(--frame)); }
 body:not(.p-home) .header-inner { padding-top: calc(var(--frame) + 16px); padding-bottom: 10px; }
 body:not(.p-home) .pager { bottom: calc(var(--frame) + 14px); }
 body:not(.p-home) .page { padding-bottom: calc(48px + var(--frame) + 14px); }
+
+/* phones: the menu wraps instead of squeezing the words */
+@media (max-width: 640px) {
+  .header-inner { flex-wrap: wrap; justify-content: center; gap: 2px 16px; }
+  .logo, .main-nav a { white-space: nowrap; }
+}
