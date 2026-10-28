@@ -23,7 +23,7 @@
   var next = PAGES[(here + 1) % PAGES.length];
 
   var page = document.querySelector('.page');
-  if (!page) { return; }
+  if (!page || window.self !== window.top) { return; }   // not inside a preview frame
 
   var nav = document.createElement('nav');
   nav.className = 'pager';
@@ -31,11 +31,23 @@
   nav.innerHTML =
     '<a class="pager-link pager-prev" href="' + prev[0] + '" rel="prev">' +
       '<span class="pager-key" aria-hidden="true">←</span>' +
-      '<span class="pager-text"><span class="pager-hint">前のページ</span><span class="pager-name">' + prev[1] + '</span></span></a>' +
+      '<span class="pager-text"><span class="pager-hint">前のページ</span><span class="pager-name">' + prev[1] + '</span></span>' +
+      '<span class="pager-pv" aria-hidden="true"><iframe tabindex="-1" title="" data-src="' + prev[0] + '"></iframe></span></a>' +
     '<a class="pager-link pager-next" href="' + next[0] + '" rel="next">' +
       '<span class="pager-text"><span class="pager-hint">次のページ</span><span class="pager-name">' + next[1] + '</span></span>' +
-      '<span class="pager-key" aria-hidden="true">→</span></a>';
+      '<span class="pager-key" aria-hidden="true">→</span>' +
+      '<span class="pager-pv" aria-hidden="true"><iframe tabindex="-1" title="" data-src="' + next[0] + '"></iframe></span></a>';
   page.appendChild(nav);
+
+  /* hovering an arrow shows the page it leads to, open in a small window */
+  Array.prototype.forEach.call(nav.querySelectorAll('.pager-link'), function (a) {
+    function load() {
+      var f = a.querySelector('iframe');
+      if (f && !f.getAttribute('src')) { f.setAttribute('src', f.getAttribute('data-src')); }
+    }
+    a.addEventListener('mouseenter', load);
+    a.addEventListener('focus', load);
+  });
 
   document.addEventListener('keydown', function (e) {
     if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) { return; }

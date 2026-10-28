@@ -157,7 +157,7 @@ h4 { line-height: 1.4; letter-spacing: 0; }
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 15;
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
   height: 48px; padding: 0 clamp(14px, 2vw, 28px);
-  background: var(--bg);
+  background: rgba(255, 106, 19, 0.82); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
 }
 .pager-link { display: inline-flex; align-items: center; gap: 12px; color: var(--muted); transition: color 160ms ease; }
 .pager-link:hover, .pager-link:focus-visible { color: var(--text); }
@@ -167,8 +167,25 @@ h4 { line-height: 1.4; letter-spacing: 0; }
 .pager-name { font-size: 13px; font-weight: 600; color: var(--text); }
 .pager-key {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 30px; height: 26px; border: 1px solid var(--line); border-radius: 5px;
-  background: var(--card); color: var(--text); font-size: 14px; line-height: 1;
+  width: 42px; height: 42px; border: 0; border-radius: 50%;
+  background: var(--text); color: #fff6ea; font-size: 20px; font-weight: 700; line-height: 1;
+  box-shadow: 0 3px 0 rgba(43, 21, 17, 0.28); transition: transform 180ms cubic-bezier(.3, 1.6, .5, 1);
 }
+.pager-prev:hover .pager-key { transform: translateX(-4px); }
+.pager-next:hover .pager-key { transform: translateX(4px); }
+.pager-link { position: relative; }
+.pager-hint { font-size: 11px; }
+.pager-name { font-size: 15px; font-weight: 700; }
+/* the page behind the arrow, open in a small window */
+.pager-pv {
+  position: absolute; bottom: calc(100% + 12px); width: 288px; height: 180px; overflow: hidden; border-radius: 10px;
+  border: 4px solid #efe6d2; background: #fff; box-shadow: 0 10px 30px rgba(43, 21, 17, 0.35);
+  opacity: 0; transform: translateY(10px) scale(.96); pointer-events: none; transition: opacity 200ms ease, transform 240ms cubic-bezier(.3, 1.4, .5, 1);
+}
+.pager-prev .pager-pv { left: 0; transform-origin: 0 100%; }
+.pager-next .pager-pv { right: 0; transform-origin: 100% 100%; }
+.pager-link:hover .pager-pv, .pager-link:focus-visible .pager-pv { opacity: 1; transform: none; }
+.pager-pv iframe { width: 1440px; height: 900px; border: 0; transform: scale(.1944); transform-origin: 0 0; pointer-events: none; background: #ff6a13; }
+@media (hover: none) { .pager-pv { display: none; } }
 
 @media (max-aspect-ratio: 1/1) { .page { background-size: auto 100vh; } }
