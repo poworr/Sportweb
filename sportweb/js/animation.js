@@ -304,7 +304,7 @@
     setTimeout(function () { draw(poseAt(0)); shooter.classList.add('is-visible'); }, 120);
 
     // the second part: he catches the ball, shoots, it goes in
-    var TA = 280, FL = 720, DROP = 190;
+    var TA = 280, FL = 900, DROP = 190;
     var fired = { drop: false, swish: false };
     setTimeout(function () {
       shape.style.transition = 'none';
@@ -326,7 +326,7 @@
             var tf = (ts - REL) / FL;
             if (!P0) {
               P0 = ballAt(hd);
-              var apex = Math.max(40, rimY - Math.max(170, h * 0.24));   // top of the arc: well above the rim
+              var apex = Math.max(70, rimY - Math.max(300, h * 0.42));   // top of the arc: very high above the rim
               C = [rimX - 110, (4 * apex - P0[1] - rimY) / 2];
             }
             if (tf < 1) {                                          // flight along a curve
