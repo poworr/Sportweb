@@ -11,6 +11,7 @@
   --grid: rgba(255, 244, 224, 0.2);    /* thin cream grid lines */
   --grid-major: rgba(255, 244, 224, 0.34);
   --ball: #c42a1c;
+  --frame: clamp(6px, 0.9vw, 14px);
   --label: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue Condensed', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 .theme-record { --bg: #ff6a13; }
@@ -35,7 +36,7 @@ body { background: var(--paper); }
 /* cream frame around the window + film grain on top of everything */
 body::before {
   content: ''; position: fixed; inset: 0; z-index: 45; pointer-events: none;
-  border: clamp(6px, 0.9vw, 14px) solid var(--paper);
+  border: var(--frame) solid var(--paper);
 }
 body::after {
   content: ''; position: fixed; inset: 0; z-index: 46; pointer-events: none; opacity: 0.16;
@@ -43,8 +44,7 @@ body::after {
 }
 
 /* the sticky header lets the grid show through */
-.site-header { background: rgba(255, 106, 19, 0.82); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
-.p-home .site-header { background: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.site-header { position: relative; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
 
 /* type: heavy and tight for headlines, tiny condensed capitals for labels */
 h1, h2 { font-weight: 800; }
@@ -55,8 +55,19 @@ h1, h2 { font-weight: 800; }
 .eyebrow, .main-nav a, .logo { font-size: 14px; }
 
 /* home: three little credit lines across the top, like a poster header */
-.credits { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: clamp(14px, 2.4dvh, 24px) clamp(22px, 2.6vw, 40px) 0; font-size: clamp(11px, 1vw, 14px); color: var(--text); }
+.credits { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: clamp(14px, 2.4dvh, 24px) clamp(14px, 2vw, 28px) 0; font-size: clamp(11px, 1vw, 14px); color: var(--text); }
 .credits b { font-size: 1.9em; letter-spacing: 0.02em; font-weight: 800; }
 .credits i { display: inline-block; width: .55em; height: .55em; margin-right: .35em; border-radius: 50%; background: var(--ball); }
 
 /* thinner court lines on the home page, like the poster */
+
+/* alignment: header, content and pager share the same left and right edges */
+.header-inner { width: 100%; max-width: 1200px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+body:not(.p-home) .pager { bottom: var(--frame); padding: 0 max(24px, calc((100vw - 1200px) / 2 + 24px)); }
+body:not(.p-home) .page { padding-bottom: calc(48px + var(--frame)); }
+
+/* two-column pages: both columns start at the same line */
+@media (min-width: 960px) {
+  .p-arenas .us-map, .p-arenas .arena-card { align-self: flex-start; }
+  .p-record .story-steps { justify-content: flex-start; }
+}
