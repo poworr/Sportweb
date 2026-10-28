@@ -304,7 +304,7 @@
     setTimeout(function () { draw(poseAt(0)); shooter.classList.add('is-visible'); }, 120);
 
     // the second part: he catches the ball, shoots, it goes in
-    var TA = 280, FL = 900, DROP = 190;
+    var TA = 280, FL = 1000, DROP = 190;
     var fired = { drop: false, swish: false };
     setTimeout(function () {
       shape.style.transition = 'none';
@@ -326,12 +326,18 @@
             var tf = (ts - REL) / FL;
             if (!P0) {
               P0 = ballAt(hd);
-              var apex = Math.max(70, rimY - Math.max(300, h * 0.42));   // top of the arc: very high above the rim
-              C = [rimX - 110, (4 * apex - P0[1] - rimY) / 2];
+              // a parabola that leaves the hand at about 60 degrees and curves down into the rim
+              var Dx = rimX - P0[0], deg = 60, aa, bb;
+              for (; deg >= 40; deg -= 2) {
+                aa = Math.tan(deg * Math.PI / 180) * Dx;           // initial climb (px) over the whole flight
+                bb = rimY - P0[1] + aa;                             // curvature so that it ends at the rim
+                if (P0[1] - aa * aa / (4 * bb) >= 36) { break; }    // keep the top of the arc on screen
+              }
+              C = [aa, bb];
             }
             if (tf < 1) {                                          // flight along a curve
               var q = 1 - tf;
-              c = [q * q * P0[0] + 2 * q * tf * C[0] + tf * tf * rimX, q * q * P0[1] + 2 * q * tf * C[1] + tf * tf * rimY];
+              c = [P0[0] + (rimX - P0[0]) * tf, P0[1] - C[0] * tf + C[1] * tf * tf];
               put(c, D * (1 - 0.06 * tf), 420 + (ts - REL) * 0.5);
             } else {
               var td = Math.min(1, (tf - 1) * FL / DROP);          // drops through the net
