@@ -229,10 +229,10 @@
     function f(n) { return n.toFixed(1); }
     floor.style.height = H + 'px';
     floor.innerHTML = '<svg width="' + w + '" height="' + H + '" viewBox="0 0 ' + w + ' ' + H + '">' +
-      '<rect width="' + w + '" height="' + H + '" fill="#b9591a"/>' +
-      '<rect x="0" y="' + f(far) + '" width="' + f(base) + '" height="' + f(near - far) + '" fill="#cf6d24"/>' +
+      '<rect width="' + w + '" height="' + H + '" fill="#e0580d"/>' +
+      '<rect x="0" y="' + f(far) + '" width="' + f(base) + '" height="' + f(near - far) + '" fill="#ff7a1f"/>' +
       '<g stroke="#000" stroke-opacity=".06" stroke-width="1.5">' + planks + '</g>' +
-      '<rect x="' + f(ftX) + '" y="' + f(laneT) + '" width="' + f(base - ftX) + '" height="' + f(laneB - laneT) + '" fill="#a94d12" fill-opacity=".75"/>' +
+      '<rect x="' + f(ftX) + '" y="' + f(laneT) + '" width="' + f(base - ftX) + '" height="' + f(laneB - laneT) + '" fill="#d9500c" fill-opacity=".75"/>' +
       '<g fill="none" stroke="#fff6ea" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">' +
       '<path d="M0 ' + f(far) + 'H' + f(base) + 'V' + f(near) + 'H0"/>' +
       '<rect x="' + f(ftX) + '" y="' + f(laneT) + '" width="' + f(base - ftX) + '" height="' + f(laneB - laneT) + '"/>' +

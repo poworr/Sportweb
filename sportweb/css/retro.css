@@ -1,0 +1,62 @@
+/* ==========================================================
+   Retro poster theme (loaded last on every page)
+   Bright basketball orange, an 80s graph-paper grid, film grain,
+   a cream paper frame, heavy tight headlines and tiny condensed
+   capital labels, like a printed sports poster.
+   ========================================================== */
+
+:root {
+  --bg: #ff6a13;                       /* bright basketball orange */
+  --paper: #efe6d2;                    /* cream paper */
+  --grid: rgba(255, 244, 224, 0.2);    /* thin cream grid lines */
+  --grid-major: rgba(255, 244, 224, 0.34);
+  --ball: #c42a1c;
+  --label: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue Condensed', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.theme-record { --bg: #ff6a13; }
+
+/* paper behind everything, the orange sheet sits on it */
+body { background: var(--paper); }
+.page { position: relative; isolation: isolate; background-color: var(--bg); }
+
+/* the grid + a warm sunset wash, behind the content and over the court lines */
+.page::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image:
+    linear-gradient(180deg, rgba(255, 196, 64, 0.34), rgba(255, 196, 64, 0) 46%, rgba(190, 40, 0, 0.18)),
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 100% 100%, 128px 128px, 128px 128px, 32px 32px, 32px 32px;
+  background-position: 0 0, -1px -1px, -1px -1px, -1px -1px, -1px -1px;
+}
+
+/* cream frame around the window + film grain on top of everything */
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 45; pointer-events: none;
+  border: clamp(6px, 0.9vw, 14px) solid var(--paper);
+}
+body::after {
+  content: ''; position: fixed; inset: 0; z-index: 46; pointer-events: none; opacity: 0.16;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* the sticky header lets the grid show through */
+.site-header { background: rgba(255, 106, 19, 0.82); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.p-home .site-header { background: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+/* type: heavy and tight for headlines, tiny condensed capitals for labels */
+h1, h2 { font-weight: 800; }
+.wordmark { font-weight: 800; }
+.eyebrow, .logo, .main-nav a, .pager-name, .pager-link, .step-tab, .tagline-tag, .hint-pill b, .credits {
+  font-family: var(--label); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600;
+}
+.eyebrow, .main-nav a, .logo { font-size: 14px; }
+
+/* home: three little credit lines across the top, like a poster header */
+.credits { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: clamp(14px, 2.4dvh, 24px) clamp(22px, 2.6vw, 40px) 0; font-size: clamp(11px, 1vw, 14px); color: var(--text); }
+.credits b { font-size: 1.9em; letter-spacing: 0.02em; font-weight: 800; }
+.credits i { display: inline-block; width: .55em; height: .55em; margin-right: .35em; border-radius: 50%; background: var(--ball); }
+
+/* thinner court lines on the home page, like the poster */
