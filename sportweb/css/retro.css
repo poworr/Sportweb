@@ -71,3 +71,8 @@ body:not(.p-home) .page { padding-bottom: calc(48px + var(--frame)); }
   .p-arenas .us-map, .p-arenas .arena-card { align-self: flex-start; }
   .p-record .story-steps { justify-content: flex-start; }
 }
+
+/* breathing room between the cream frame and the menu / arrows (inner pages) */
+body:not(.p-home) .header-inner { padding-top: calc(var(--frame) + 16px); padding-bottom: 10px; }
+body:not(.p-home) .pager { bottom: calc(var(--frame) + 14px); }
+body:not(.p-home) .page { padding-bottom: calc(48px + var(--frame) + 14px); }
