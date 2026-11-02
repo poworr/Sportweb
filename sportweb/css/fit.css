@@ -161,3 +161,16 @@
   .p-player .steps > .card { padding: 14px 24px; }
   .p-player .focus-tip { display: none; }
 }
+
+/* step 4: target player card, centered */
+.p-player .player-file { justify-content: center; align-items: center; gap: clamp(28px, 5vw, 72px); }
+.p-player .player-file .file-fig { align-self: center; width: auto; height: min(52dvh, 380px); }
+.p-player .player-file .file-fig img { height: 100%; max-height: none; width: auto; max-width: 260px; object-fit: contain; object-position: center bottom; }
+.p-player .player-file .file-main { flex: 0 1 620px; display: flex; flex-direction: column; align-items: flex-start; }
+.p-player .player-file .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 36px; width: 100%; margin-top: 20px; }
+.p-player .player-file .fact:first-child { grid-column: 1 / -1; }
+.p-player .player-file .note { margin-top: 18px; }
+.p-player .player-file .file-cta { margin-top: 18px; }
+.p-player .player-file .file-cta .btn { padding-left: 18px; padding-right: 18px; }
+.p-player .player-file .file-cta { margin-left: 0; padding: 0; }
+.p-player .player-file .file-cta .btn { display: inline-flex; align-items: center; min-height: 42px; margin: 0; border: 2px solid var(--ink); border-radius: 6px; background: var(--card); box-shadow: 3px 3px 0 var(--ink); font-weight: 700; }
