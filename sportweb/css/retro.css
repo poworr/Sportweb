@@ -1,38 +1,43 @@
 /* ==========================================================
-   Retro poster theme (loaded last on every page)
-   Bright basketball orange, an 80s graph-paper grid, film grain,
-   a cream paper frame, heavy tight headlines and tiny condensed
-   capital labels, like a printed sports poster.
+   Poster theme (loaded last on every page)
+   Cream grainy paper, a flat court blue with white lines, ink-black
+   heavy headlines and tiny condensed capital labels, like a printed
+   basketball poster. Player art sits on top of it.
    ========================================================== */
 
 :root {
-  --bg: #ff6a13;                       /* bright basketball orange */
-  --paper: #efe6d2;                    /* cream paper */
-  --grid: rgba(255, 244, 224, 0.2);    /* thin cream grid lines */
-  --grid-major: rgba(255, 244, 224, 0.34);
-  --ball: #c42a1c;
+  --paper: #e9e4d3;                    /* cream paper */
+  --ink: #1b1a17;
+  --blue: #2860c0;                     /* court blue */
+  --blue-d: #1d4a98;
+  --bg: #e9e4d3;
+  --text: #1b1a17;
+  --soft: #34322c;
+  --muted: rgba(27, 26, 23, 0.64);
+  --line: rgba(27, 26, 23, 0.2);
+  --card: rgba(255, 255, 255, 0.5);
+  --card-2: rgba(255, 255, 255, 0.78);
+  --accent: #2860c0;                   /* active states, primary buttons */
+  --on-accent: #ffffff;
+  --ball: #e8590c;                     /* basketball orange: "you", dots */
+  --good: #1d7a3a;
   --frame: clamp(6px, 0.9vw, 14px);
   --label: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue Condensed', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --court: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-20 -20 1920 1040%22 fill=%22none%22 stroke=%22%232860c0%22 stroke-opacity=%220.13%22 stroke-width=%2210%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Crect x=%220%22 y=%220%22 width=%221880%22 height=%221000%22/%3E%3Cpath d=%22M940 0V1000%22/%3E%3Ccircle cx=%22940%22 cy=%22500%22 r=%22120%22/%3E%3Ccircle cx=%22940%22 cy=%22500%22 r=%2240%22/%3E%3Cg transform=%22translate%28940 0%29 scale%28-1 1%29%22%3E%3Crect x=%22560%22 y=%22340%22 width=%22380%22 height=%22320%22/%3E%3Cpath d=%22M560 380A120 120 0 0 0 560 620%22/%3E%3Cpath d=%22M940 60H656A475 475 0 0 0 656 940H940%22/%3E%3C/g%3E%3Cg transform=%22translate%28940 0%29%22%3E%3Crect x=%22560%22 y=%22340%22 width=%22380%22 height=%22320%22/%3E%3Cpath d=%22M560 380A120 120 0 0 0 560 620%22/%3E%3Cpath d=%22M940 60H656A475 475 0 0 0 656 940H940%22/%3E%3C/g%3E%3C/svg%3E");
 }
-.theme-record { --bg: #ff6a13; }
 
-/* paper behind everything, the orange sheet sits on it */
+/* cream paper with very faint blue court lines */
 body { background: var(--paper); }
-.page { position: relative; isolation: isolate; background-color: var(--bg); }
+.page { position: relative; isolation: isolate; background: var(--paper) var(--court) no-repeat center / contain; }
+.page::before { display: none; }
 
-/* the grid + a warm sunset wash, behind the content and over the court lines */
-.page::before {
-  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background-image: linear-gradient(180deg, rgba(255, 196, 64, 0.34), rgba(255, 196, 64, 0) 46%, rgba(190, 40, 0, 0.18));
-}
-
-/* cream frame around the window + film grain on top of everything */
+/* court-blue frame around the window + film grain on top of everything */
 body::before {
   content: ''; position: fixed; inset: 0; z-index: 45; pointer-events: none;
-  border: var(--frame) solid var(--paper);
+  border: var(--frame) solid var(--blue);
 }
 body::after {
-  content: ''; position: fixed; inset: 0; z-index: 46; pointer-events: none; opacity: 0.16;
+  content: ''; position: fixed; inset: 0; z-index: 46; pointer-events: none; opacity: 0.2; mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -79,14 +84,14 @@ body:not(.p-home) .page { padding-bottom: calc(48px + var(--frame) + 14px); }
 /* 日本語 / English switch, centred between the pager arrows */
 .pager .lang-switch {
   position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); display: flex; gap: 2px; padding: 3px;
-  border-radius: 999px; background: rgba(43, 21, 17, .14); pointer-events: auto;
+  border-radius: 999px; background: rgba(27, 26, 23, .1); pointer-events: auto;
 }
 .lang-switch button {
-  min-width: 46px; min-height: 28px; padding: 0 11px; border: 0; border-radius: 999px; background: transparent; color: #2b1511;
+  min-width: 46px; min-height: 28px; padding: 0 11px; border: 0; border-radius: 999px; background: transparent; color: #1b1a17;
   font: 700 12px/1 var(--label); letter-spacing: .06em; cursor: pointer;
 }
-.lang-switch button[aria-pressed="true"] { background: #2b1511; color: #fff6ea; }
-.lang-switch button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.lang-switch button[aria-pressed="true"] { background: #1b1a17; color: #f4f0e2; }
+.lang-switch button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
 .is-en .eyebrow { letter-spacing: .12em; }
 
 @media (max-width: 640px) { .pager .pager-text { display: none; } }

@@ -7,6 +7,8 @@
   'use strict';
 
   var $ = function (id) { return document.getElementById(id); };
+  var ART = ['jordan','lebron','curry','kobe','magic','shaq','jokic','giannis','luka'];
+  function art(id) { return ART.indexOf(id) >= 0 ? '<img src="images/players/' + id + '.webp" alt="">' : ''; }
   var current = Lab.find(Lab.param('p')) ? Lab.param('p') : 'curry';
 
   function buildList() {
@@ -55,7 +57,7 @@
       : '<h4>' + T('今シーズンの位置づけ', 'Where he stands now') + '</h4><p class="note">' + T('ESPNの2026年ランキングで', 'ESPN\'s 2026 ranking puts him at ') + '#' + p.rank + T('位。', '.') + '</p>';
 
     $('labProfile').innerHTML =
-      '<header class="prof-head"><div><span class="tag">' + st.name + '</span><h3>' + p.name + '</h3><p class="sub">' + Lab.sub(p) + '</p></div>' +
+      '<header class="prof-head"><div class="prof-fig">' + art(p.id) + '</div><div><span class="tag">' + st.name + '</span><h3>' + p.name + '</h3><p class="sub">' + Lab.sub(p) + '</p></div>' +
       '<div class="prof-score"><span>' + T('いちばんの強み', 'Top strength') + '</span><b>' + Lab.best(p).value + '</b><em>' + Lab.best(p).name + '</em></div></header>' +
       '<div class="prof-body">' +
         '<div class="prof-radar">' + Lab.radar([{ cls: 'you', vals: Lab.ratings(p) }]) + '</div>' +

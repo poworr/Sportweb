@@ -88,9 +88,8 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 
 .p-home .tile:not(.tile--photo) { background-color: rgba(255, 255, 255, 0.26) !important; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 
-/* home: thick white court lines, like the poster */
-.p-home .page { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-20 -20 1920 1040%22 fill=%22none%22 stroke=%22%23fff%22 stroke-opacity=%220.85%22 stroke-width=%2211%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Crect x=%220%22 y=%220%22 width=%221880%22 height=%221000%22/%3E%3Cpath d=%22M940 0V1000%22/%3E%3Ccircle cx=%22940%22 cy=%22500%22 r=%22120%22/%3E%3Ccircle cx=%22940%22 cy=%22500%22 r=%2240%22/%3E%3Cg transform=%22translate%28940 0%29 scale%28-1 1%29%22%3E%3Crect x=%22560%22 y=%22340%22 width=%22380%22 height=%22320%22/%3E%3Cpath d=%22M560 380A120 120 0 0 0 560 620%22/%3E%3Cpath d=%22M560 380A120 120 0 0 1 560 620%22 stroke-dasharray=%2214 12%22/%3E%3Cpath d=%22M940 60H656A475 475 0 0 0 656 940H940%22/%3E%3Cpath d=%22M835 420A80 80 0 0 0 835 580%22/%3E%3Cpath d=%22M860 440V560%22/%3E%3Cpath d=%22M850 500H860%22/%3E%3Ccircle cx=%22835%22 cy=%22500%22 r=%2215%22/%3E%3C/g%3E%3Cg transform=%22translate%28940 0%29%22%3E%3Crect x=%22560%22 y=%22340%22 width=%22380%22 height=%22320%22/%3E%3Cpath d=%22M560 380A120 120 0 0 0 560 620%22/%3E%3Cpath d=%22M560 380A120 120 0 0 1 560 620%22 stroke-dasharray=%2214 12%22/%3E%3Cpath d=%22M940 60H656A475 475 0 0 0 656 940H940%22/%3E%3Cpath d=%22M835 420A80 80 0 0 0 835 580%22/%3E%3Cpath d=%22M860 440V560%22/%3E%3Cpath d=%22M850 500H860%22/%3E%3Ccircle cx=%22835%22 cy=%22500%22 r=%2215%22/%3E%3C/g%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; background-size: contain; }
-@media (max-aspect-ratio: 1/1) { .p-home .page { background-size: auto 100vh; } }
+/* home: the court is a blue plate on the right (see .lineup), the page itself is cream paper */
+.p-home .page { background-image: none; }
 
 /* The basketball sits right next to the word RANGE; click it and four squares pop out */
 .brand { display: flex; flex: 0 0 auto; min-width: 0; flex-direction: row; align-items: flex-end; gap: clamp(6px, 1vw, 16px); }
@@ -117,7 +116,7 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 /* headline: why the site exists */
 .hero { display: flex; flex-direction: column; align-items: flex-start; gap: clamp(8px, 2dvh, 20px); min-width: 0; }
 .tagline { display: flex; flex-direction: column; align-items: flex-start; gap: .55em; margin: 0; max-width: 34vw; font-size: clamp(14px, 1.55vw, 24px); }
-.tagline-tag { padding: .3em .9em; border-radius: 999px; background: #fff6ea; color: var(--ball); font-family: Inter, sans-serif; font-size: .58em; font-weight: 700; letter-spacing: .16em; }
+.tagline-tag { padding: .3em .9em; border-radius: 999px; background: var(--ink); color: #f4f0e2; font-family: Inter, sans-serif; font-size: .58em; font-weight: 700; letter-spacing: .16em; }
 .tagline-text { font-weight: 700; line-height: 1.45; color: var(--text); }
 
 .hero { position: relative; }
@@ -182,4 +181,41 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
   .picks .po-sw { width: 24px; height: 5px; top: 6px; right: 6px; }
   .picks .po-sub { display: none; }
   .picks .po-tag { font-size: 12px; top: 4px; right: 6px; }
+}
+
+/* ---------- poster look: cards, lineup of players on a court-blue plate ---------- */
+.picks .tile.poster { border: 2px solid var(--ink); border-radius: 2px; background: #f4f0e2 !important; box-shadow: 6px 6px 0 var(--ink); }
+.po-art { background: var(--blue); }
+.po-art img.po-fig { position: absolute; inset: auto; width: auto; max-width: none; object-fit: contain; object-position: bottom; z-index: 1; filter: drop-shadow(0 3px 0 rgba(0, 0, 0, .18)); }
+.po-art svg { position: absolute; }
+
+.lineup {
+  position: absolute; z-index: 0; pointer-events: none;
+  right: calc(var(--frame) + clamp(14px, 2vw, 28px)); bottom: clamp(70px, 11dvh, 100px);
+  width: min(56vw, 150dvh); height: min(70dvh, 40vw);
+}
+.lineup-plate {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 46%; background: var(--blue);
+  box-shadow: 8px 8px 0 var(--ink);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1880 1000%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%2210%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Crect x=%2230%22 y=%2230%22 width=%221820%22 height=%22940%22/%3E%3Cpath d=%22M940 30V970%22/%3E%3Ccircle cx=%22940%22 cy=%22500%22 r=%22120%22/%3E%3Cg transform=%22translate%28940 0%29 scale%28-1 1%29%22%3E%3Crect x=%22520%22 y=%22340%22 width=%22420%22 height=%22320%22/%3E%3Cpath d=%22M940 90H656A420 420 0 0 0 656 910H940%22/%3E%3Cpath d=%22M520 380A120 120 0 0 0 520 620%22/%3E%3C/g%3E%3Cg transform=%22translate%28940 0%29%22%3E%3Crect x=%22520%22 y=%22340%22 width=%22420%22 height=%22320%22/%3E%3Cpath d=%22M940 90H656A420 420 0 0 0 656 910H940%22/%3E%3Cpath d=%22M520 380A120 120 0 0 0 520 620%22/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 100% auto; background-position: center;
+}
+.lineup-credit { position: absolute; left: 0; right: 0; bottom: 3%; z-index: 20; margin: 0; text-align: center; font: 700 clamp(9px, .8vw, 12px)/1 var(--label); letter-spacing: .16em; color: #fff; }
+.lu { position: absolute; bottom: 5%; left: var(--l); z-index: var(--z); margin: 0; height: calc(100% * var(--s) * .93); animation: lu-in 700ms cubic-bezier(.2, .9, .3, 1) both; }
+.lu img { display: block; height: 100%; width: auto; filter: drop-shadow(0 4px 0 rgba(0, 0, 0, .18)); }
+.lu:nth-of-type(1) { animation-delay: 60ms; } .lu:nth-of-type(2) { animation-delay: 140ms; } .lu:nth-of-type(3) { animation-delay: 220ms; }
+.lu:nth-of-type(4) { animation-delay: 300ms; } .lu:nth-of-type(5) { animation-delay: 380ms; } .lu:nth-of-type(6) { animation-delay: 460ms; } .lu:nth-of-type(7) { animation-delay: 540ms; }
+@keyframes lu-in { from { opacity: 0; translate: 0 36px; } to { opacity: 1; translate: 0 0; } }
+@media (prefers-reduced-motion: reduce) { .lu { animation: none; } }
+
+@media (max-aspect-ratio: 1/1), (max-width: 760px) {
+  .lineup { right: calc(var(--frame) + 10px); left: calc(var(--frame) + 10px); width: auto; height: min(36dvh, 62vw); bottom: clamp(52px, 8dvh, 72px); }
+  .lu-luka, .lu-giannis, .lu-magic { display: none; }
+  .lu-kobe { --l: 0%; } .lu-jordan { --l: 20%; } .lu-lebron { --l: 44%; } .lu-curry { --l: 66%; }
+}
+
+/* landscape: the tip-off tag sits to the left of the ball so the players stay clear */
+@media (min-aspect-ratio: 1/1) and (min-width: 761px) {
+  .ball-hint { left: auto; right: 0; align-items: flex-end; }
+  .hint-arrow { margin: 2px calc(var(--ballsz) * .41 - var(--aw) * .65) 0 0; transform: scaleX(-1); }
 }

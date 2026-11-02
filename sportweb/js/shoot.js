@@ -130,11 +130,11 @@
     for (y = far + 9; y < H; y += 9) { planks += '<line x1="0" y1="' + y + '" x2="' + w + '" y2="' + y + '"/>'; }
     floorEl.style.height = H + 'px';
     floorEl.innerHTML = '<svg width="' + w + '" height="' + H + '" viewBox="0 0 ' + w + ' ' + H + '">' +
-      '<rect width="' + w + '" height="' + H + '" fill="#e0580d"/>' +
-      '<rect x="0" y="' + f1(far) + '" width="' + f1(base) + '" height="' + f1(near - far) + '" fill="#ff7a1f"/>' +
+      '<rect width="' + w + '" height="' + H + '" fill="#1f4fa8"/>' +
+      '<rect x="0" y="' + f1(far) + '" width="' + f1(base) + '" height="' + f1(near - far) + '" fill="#2d6bd0"/>' +
       '<g stroke="#000" stroke-opacity=".06" stroke-width="1.5">' + planks + '</g>' +
-      '<rect x="' + f1(ftX) + '" y="' + f1(laneT) + '" width="' + f1(base - ftX) + '" height="' + f1(laneB - laneT) + '" fill="#d9500c" fill-opacity=".75"/>' +
-      '<g fill="none" stroke="#fff6ea" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">' +
+      '<rect x="' + f1(ftX) + '" y="' + f1(laneT) + '" width="' + f1(base - ftX) + '" height="' + f1(laneB - laneT) + '" fill="#1a4590" fill-opacity=".8"/>' +
+      '<g fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">' +
       '<path d="M0 ' + f1(far) + 'H' + f1(base) + 'V' + f1(near) + 'H0"/>' +
       '<rect x="' + f1(ftX) + '" y="' + f1(laneT) + '" width="' + f1(base - ftX) + '" height="' + f1(laneB - laneT) + '"/>' +
       '<path d="M' + f1(ftX) + ' ' + f1(cy - 6 * sy) + 'A' + f1(6 * sx) + ' ' + f1(6 * sy) + ' 0 0 0 ' + f1(ftX) + ' ' + f1(cy + 6 * sy) + '"/>' +

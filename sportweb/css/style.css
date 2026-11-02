@@ -185,7 +185,7 @@ h4 { line-height: 1.4; letter-spacing: 0; }
 .pager-prev .pager-pv { left: 0; transform-origin: 0 100%; }
 .pager-next .pager-pv { right: 0; transform-origin: 100% 100%; }
 .pager-link:hover .pager-pv, .pager-link:focus-visible .pager-pv { opacity: 1; transform: none; }
-.pager-pv iframe { width: 1440px; height: 900px; border: 0; transform: scale(.1944); transform-origin: 0 0; pointer-events: none; background: #ff6a13; }
+.pager-pv iframe { width: 1440px; height: 900px; border: 0; transform: scale(.1944); transform-origin: 0 0; pointer-events: none; background: #e9e4d3; }
 @media (hover: none) { .pager-pv { display: none; } }
 
 @media (max-aspect-ratio: 1/1) { .page { background-size: auto 100vh; } }

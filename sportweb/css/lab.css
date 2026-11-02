@@ -105,3 +105,10 @@
 }
 
 .file-cta, .plan-cta { margin-top: 16px; }
+
+/* player cutout on a blue plate */
+.prof-fig { position: relative; flex: 0 0 auto; width: clamp(70px, 9vw, 110px); height: clamp(90px, 11vw, 130px); background: var(--blue); border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--ink); overflow: hidden; }
+.prof-fig:empty { display: none; }
+.prof-fig img { position: absolute; left: 50%; bottom: -2%; height: 108%; width: auto; transform: translateX(-50%); }
+.prof-head { justify-content: flex-start; }
+.prof-score { margin-left: auto; }

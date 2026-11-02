@@ -8,7 +8,7 @@
 .stage {
   position: relative; overflow: hidden; margin-top: 16px; min-height: 420px; height: min(70dvh, 640px);
   border-radius: 14px; background: #fafafa;
-  box-shadow: 0 0 0 4px #efe6d2, 0 12px 30px rgba(43, 21, 17, 0.28);
+  box-shadow: 0 0 0 4px #2860c0, 0 12px 30px rgba(27, 26, 23, 0.25);
   user-select: none; -webkit-user-select: none; touch-action: manipulation;
 }
 
@@ -123,8 +123,8 @@
   display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 0 14px 0 8px; border: 0; border-radius: 999px;
   background: rgba(43, 21, 17, 0.9); color: #fff6ea; font: 700 13px/1 var(--label, inherit); cursor: pointer;
 }
-.help-btn i { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #ff6a13; color: #2b1511; font-style: normal; font-weight: 800; }
-.help.is-pinned .help-btn { background: #ff6a13; color: #2b1511; }
+.help-btn i { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: #e8590c; color: #fff; font-style: normal; font-weight: 800; }
+.help.is-pinned .help-btn { background: #2860c0; color: #fff; }
 .help-panel {
   position: absolute; left: 0; bottom: 46px; width: min(420px, calc(100vw - 72px)); padding: 16px 18px 18px; border-radius: 14px;
   background: #fff6ea; color: #2b1511; box-shadow: 0 0 0 3px #2b1511, 0 14px 30px rgba(43, 21, 17, 0.3);
