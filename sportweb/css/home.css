@@ -89,7 +89,7 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 .p-home .tile:not(.tile--photo) { background-color: rgba(255, 255, 255, 0.26) !important; -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 
 /* home: the court is a blue plate on the right (see .lineup), the page itself is cream paper */
-.p-home .page { background-image: none; }
+.p-home .page { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%22-20 -20 1920 1040%22 fill=%22none%22 stroke=%22%232860c0%22 stroke-opacity=%220.22%22 stroke-width=%2210%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Crect x=%220%22 y=%220%22 width=%221880%22 height=%221000%22/%3E%3Cpath d=%22M940 0V1000%22/%3E%3Ccircle cx=%22940%22 cy=%22500%22 r=%22120%22/%3E%3Ccircle cx=%22940%22 cy=%22500%22 r=%2240%22/%3E%3Cg transform=%22translate%28940 0%29 scale%28-1 1%29%22%3E%3Crect x=%22560%22 y=%22340%22 width=%22380%22 height=%22320%22/%3E%3Cpath d=%22M560 380A120 120 0 0 0 560 620%22/%3E%3Cpath d=%22M940 60H656A475 475 0 0 0 656 940H940%22/%3E%3C/g%3E%3Cg transform=%22translate%28940 0%29%22%3E%3Crect x=%22560%22 y=%22340%22 width=%22380%22 height=%22320%22/%3E%3Cpath d=%22M560 380A120 120 0 0 0 560 620%22/%3E%3Cpath d=%22M940 60H656A475 475 0 0 0 656 940H940%22/%3E%3C/g%3E%3C/svg%3E"); }
 
 /* The basketball sits right next to the word RANGE; click it and four squares pop out */
 .brand { display: flex; flex: 0 0 auto; min-width: 0; flex-direction: row; align-items: flex-end; gap: clamp(6px, 1vw, 16px); }
@@ -218,4 +218,12 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 @media (min-aspect-ratio: 1/1) and (min-width: 761px) {
   .ball-hint { left: auto; right: 0; align-items: flex-end; }
   .hint-arrow { margin: 2px calc(var(--ballsz) * .41 - var(--aw) * .65) 0 0; transform: scaleX(-1); }
+}
+
+/* simple cards: title + one line, no pictures */
+.picks .tile.poster { --ink: #1b1a17; }
+@media (min-aspect-ratio: 1/1) and (min-width: 761px) {
+  .picks .tile.poster { height: auto; padding-bottom: clamp(14px, 1.4vw, 22px); padding-top: clamp(20px, 2vw, 30px); }
+  .picks .po-title { margin-top: 0; font-size: clamp(20px, 2.1vw, 32px); }
+  .picks .po-sub { font-size: clamp(11px, 1vw, 15px); }
 }
