@@ -7,7 +7,7 @@
   'use strict';
 
   var $ = function (id) { return document.getElementById(id); };
-  var ART = ['jordan','lebron','curry','kobe','magic','shaq','jokic','giannis','luka','sga','wemby','brunson','edwards','mitchell'];
+  var ART = ['jordan','lebron','curry','kobe','magic','shaq','jokic','giannis','luka','sga','wemby','brunson','edwards','mitchell','tatum','cade','bird','duncan','kareem','hakeem','kyrie','durant'];
   function art(id) { return ART.indexOf(id) >= 0 ? '<img src="images/players/' + id + '.webp" alt="">' : ''; }
   var current = Lab.find(Lab.param('p')) ? Lab.param('p') : 'curry';
 

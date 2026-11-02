@@ -27,6 +27,10 @@ var Lab = (function () {
               en: ['5 NBA titles', '2 MVP awards', '3 Finals MVPs', '15 All-Star selections'] },
     shaq: { ja: ['NBA優勝4回', 'シーズンMVP 1回（2000年）', 'ファイナルMVP 3回', 'オールスター15回'],
             en: ['4 NBA titles', '2000 MVP', '3 Finals MVPs', '15 All-Star selections'] },
+    durant: { ja: ['NBA優勝2回（ファイナルMVP 2回）', 'シーズンMVP（2014年）', '得点王4回'],
+              en: ['2 NBA titles (2 Finals MVPs)', '2014 MVP', '4 scoring titles'] },
+    kyrie: { ja: ['NBA優勝（2016年）', '新人王（2012年）', '2016年ファイナル第7戦の決勝3ポイントで有名'],
+             en: ['2016 NBA champion', '2012 Rookie of the Year', 'Hit the go-ahead three in Game 7 of the 2016 Finals'] },
     hakeem: { ja: ['NBA優勝2回', 'シーズンMVP 1回（1994年）', '守備年間最優秀選手 2回', '通算ブロック3,830本'],
               en: ['2 NBA titles', '1994 MVP', '2 Defensive Player of the Year awards', '3,830 career blocks'] }
   };
