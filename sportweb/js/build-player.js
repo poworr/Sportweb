@@ -34,8 +34,8 @@
   ];
 
 
-  // which drills (STATS keys) belong to each play style, in Lab.STYLES order
-  var STYLE_DRILLS = [['pts', 'fg'], ['tp', 'ft'], ['ast'], ['reb'], ['stl', 'blk'], ['fg', 'ft']];
+  // which drills (STATS keys) belong to each play style, in Lab.STYLES order (positions)
+  var STYLE_DRILLS = [['ast', 'stl'], ['tp', 'ft'], ['pts', 'fg'], ['reb', 'fg'], ['reb', 'blk']];
 
   /* ---------- 1a. play style picker ---------- */
   function examples(i) {
@@ -235,8 +235,8 @@
       .sort(function (a, b) { return b.pct - a.pct; }).slice(0, 3);
 
     $('resultTitle').textContent = you + ' vs ' + fav.name;
-    $('resultLine').textContent = T('あなたが好きなスタイルは「' + Lab.STYLES[state.style].ja + '」。体格とスタイルがいちばん近いのは' + matches[0].p.name + '（' + matches[0].pct + '%）です。',
-      'The style you like is ' + Lab.STYLES[state.style].en + '. The closest to you in body and style is ' + matches[0].p.name + ' (' + matches[0].pct + '%).');
+    $('resultLine').textContent = T('あなたがやりたいポジションは「' + Lab.STYLES[state.style].ja + '」。体格とポジションがいちばん近いのは' + matches[0].p.name + '（' + matches[0].pct + '%）です。',
+      'The position you want to play is ' + Lab.STYLES[state.style].en + '. The closest to you in body and position is ' + matches[0].p.name + ' (' + matches[0].pct + '%).');
 
     var rows = $('compareRows');
     rows.innerHTML = '';
@@ -255,12 +255,12 @@
     });
 
     var same = favStyle.index === state.style;
-    $('styleCompare').innerHTML = '<h4>' + T('プレースタイル', 'Play style') + '</h4>' +
+    $('styleCompare').innerHTML = '<h4>' + T('ポジション', 'Position') + '</h4>' +
       '<p><b>' + T('あなた：', 'You: ') + '</b>' + T(Lab.STYLES[state.style].ja, Lab.STYLES[state.style].en) + '</p>' +
       '<p><b>' + fav.name + '：</b>' + favStyle.name + '</p>' +
       '<p class="note">' + (same
-        ? T('同じスタイルです。体の違いをどう活かすかがカギです。', 'Same style. The key is how you use the differences in your body.')
-        : T('スタイルがちがいます。この選手のように近づくには、プランの練習を取り入れましょう。', 'Different styles. To get closer to him, add the drills in the plan.')) + '</p>';
+        ? T('同じポジションです。体の違いをどう活かすかがカギです。', 'Same position. The key is how you use the differences in your body.')
+        : T('ポジションがちがいます。この選手に近づくには、プランの練習を取り入れましょう。', 'Different positions. To get closer to him, add the drills in the plan.')) + '</p>';
 
     var box = $('matches');
     box.innerHTML = '';
@@ -290,7 +290,7 @@
   /* ---------- 4. plan: body notes, drills for your style, your words ---------- */
   function renderPlan() {
     var fav = findPlayer(state.fav), y = state.body, t = fav.body;
-    $('gapsTitle').textContent = T('「' + Lab.STYLES[state.style].ja + '」におすすめの練習', 'Drills for the ' + Lab.STYLES[state.style].en + ' style');
+    $('gapsTitle').textContent = T('「' + Lab.STYLES[state.style].ja + '」におすすめの練習', 'Drills for a ' + Lab.STYLES[state.style].en.toLowerCase());
 
     var notes = [], dh = y.h - t.h, dw = y.w - t.w, ds = y.s - t.s;
     notes.push(Math.abs(dh) <= 3 ? T('身長は' + fav.name + 'とほぼ同じです。', 'Your height is about the same as ' + fav.name + '.')

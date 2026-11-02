@@ -35,28 +35,24 @@ var Lab = (function () {
               en: ['2 NBA titles', '1994 MVP', '2 Defensive Player of the Year awards', '3,830 career blocks'] }
   };
 
-  /* play style = the highest of the six ratings */
+  /* play style = the position ESPN lists for the player */
   var STYLES = [
-    { ja: 'スコアラー型', en: 'Scorer', jaD: 'とにかく点を取る。得点力がいちばんの武器。', enD: 'Puts the ball in the basket. Scoring is the biggest weapon.' },
-    { ja: 'シャープシューター型', en: 'Sharpshooter', jaD: 'シュートの精度がいちばんの武器。外からも決める。', enD: 'Shooting accuracy is the biggest weapon, from the outside too.' },
-    { ja: 'プレーメーカー型', en: 'Playmaker', jaD: 'パスで味方を活かす司令塔。', enD: 'A floor general who makes teammates better with passes.' },
-    { ja: 'リバウンダー型', en: 'Rebounder', jaD: 'ゴール下を支配する。', enD: 'Controls the paint and the boards.' },
-    { ja: 'ディフェンダー型', en: 'Defender', jaD: 'スティールとブロックで試合を変える。', enD: 'Changes games with steals and blocks.' },
-    { ja: 'フィニッシャー型', en: 'Finisher', jaD: '高い成功率で確実に決める、効率型。', enD: 'An efficient scorer who finishes at a very high percentage.' }
+    { ja: 'ポイントガード', en: 'Point guard', jaD: 'チームを動かす司令塔。ドリブルとパスで味方を活かす。', enD: 'The floor general who runs the team with dribbling and passing.' },
+    { ja: 'シューティングガード', en: 'Shooting guard', jaD: '外から決める、点を取るガード。', enD: 'A guard who scores, especially from the outside.' },
+    { ja: 'スモールフォワード', en: 'Small forward', jaD: 'ドライブもシュートもできる万能のウイング。', enD: 'An all-round wing who can drive and shoot.' },
+    { ja: 'パワーフォワード', en: 'Power forward', jaD: 'ゴール下とミドルレンジで体を張るフォワード。', enD: 'A forward who battles inside and from mid-range.' },
+    { ja: 'センター', en: 'Center', jaD: 'ゴール下を守り、リバウンドとブロックで支配する。', enD: 'Protects the rim and dominates with rebounds and blocks.' }
   ];
+  /* ESPN position of each player: 0 PG, 1 SG, 2 SF, 3 PF, 4 C */
+  var POS = { jokic: 4, wemby: 4, sga: 0, luka: 0, giannis: 3, brunson: 0, edwards: 1, cade: 0, tatum: 2, mitchell: 1,
+              jordan: 1, lebron: 2, kareem: 4, magic: 0, bird: 2, kobe: 1, duncan: 3, shaq: 4, hakeem: 4, curry: 0, durant: 2, kyrie: 0 };
 
   function cap(v) { return Math.max(0, Math.min(99, v)); }
   function ratings(p) { return rate(p.s).map(cap); }
   function overall(p) { var r = ratings(p), s = 0; r.forEach(function (v) { s += v; }); return s / r.length; }
 
-  /* each player's well-known role (0 scorer, 1 sharpshooter, 2 playmaker, 3 rebounder, 4 defender, 5 finisher).
-     Used instead of the highest rating, which misleads when a season sample is small. */
-  var ROLE = { jokic: 2, wemby: 4, sga: 0, luka: 0, giannis: 5, brunson: 0, edwards: 0, cade: 2, tatum: 0, mitchell: 0,
-               jordan: 0, lebron: 2, kareem: 0, magic: 2, bird: 1, kobe: 0, duncan: 3, shaq: 5, hakeem: 4, curry: 1, durant: 0, kyrie: 0 };
   function style(p) {
-    var r = ratings(p), hi = 0;
-    r.forEach(function (v, i) { if (v > r[hi]) { hi = i; } });
-    if (ROLE[p.id] !== undefined) { hi = ROLE[p.id]; }
+    var hi = POS[p.id] !== undefined ? POS[p.id] : 2;
     return { index: hi, name: T(STYLES[hi].ja, STYLES[hi].en), text: T(STYLES[hi].jaD, STYLES[hi].enD) };
   }
 
