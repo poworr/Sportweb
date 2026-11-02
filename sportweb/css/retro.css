@@ -100,5 +100,5 @@ body:not(.p-home) .page { padding-bottom: calc(48px + var(--frame) + 14px); }
 .pager, body:not(.p-home) .pager { margin-bottom: 8px; }
 .site-foot { position: fixed; right: clamp(14px, 2vw, 28px); bottom: calc(var(--frame) + 3px); transform: none; margin: 0; display: block; text-align: right; font: 700 9px/1 var(--label, inherit); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); opacity: .75; white-space: nowrap; pointer-events: none; z-index: 16; }
 body:not(.p-home) .site-foot { right: max(24px, calc((100vw - 1200px) / 2 + 24px)); }
-.site-foot .foot-extra { display: none; }
-@media (max-width: 640px) { .site-foot { padding: 3px 6px; border-radius: 3px; background: rgba(233, 228, 211, .95); font-size: 8px; } }
+footer.site-foot small { font: inherit; letter-spacing: inherit; }
+@media (max-width: 640px) { .site-foot { padding: 3px 6px; border-radius: 3px; background: #e9e4d3; font-size: 8px; z-index: 30; } }
