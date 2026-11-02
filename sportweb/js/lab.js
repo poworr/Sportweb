@@ -49,9 +49,14 @@ var Lab = (function () {
   function ratings(p) { return rate(p.s).map(cap); }
   function overall(p) { var r = ratings(p), s = 0; r.forEach(function (v) { s += v; }); return s / r.length; }
 
+  /* each player's well-known role (0 scorer, 1 sharpshooter, 2 playmaker, 3 rebounder, 4 defender, 5 finisher).
+     Used instead of the highest rating, which misleads when a season sample is small. */
+  var ROLE = { jokic: 2, wemby: 4, sga: 0, luka: 0, giannis: 5, brunson: 0, edwards: 0, cade: 2, tatum: 0, mitchell: 0,
+               jordan: 0, lebron: 2, kareem: 0, magic: 2, bird: 1, kobe: 0, duncan: 3, shaq: 5, hakeem: 4, curry: 1, durant: 0, kyrie: 0 };
   function style(p) {
     var r = ratings(p), hi = 0;
     r.forEach(function (v, i) { if (v > r[hi]) { hi = i; } });
+    if (ROLE[p.id] !== undefined) { hi = ROLE[p.id]; }
     return { index: hi, name: T(STYLES[hi].ja, STYLES[hi].en), text: T(STYLES[hi].jaD, STYLES[hi].enD) };
   }
 
