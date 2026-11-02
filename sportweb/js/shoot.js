@@ -74,6 +74,7 @@
     { t: 1300, h: 53, j: 0,  lean: 5,  u1: 16,  f1: 38,  u2: 145, f2: 100, wr: 108 },   // absorb the landing
     { t: 1700, h: 58, j: 0,  lean: 3,  u1: 18,  f1: 40,  u2: 150, f2: 105, wr: 105 }    // stand tall, hold the follow-through
   ];
+  var SP = 1;                                      // bar speed: 1 = normal, below 1 = faster bar (hard mode)
   var REL = 540;                                   // the perfect release moment (ms after pressing)
   var METER_T = 700;                               // the meter is full after this long (and he lets go by himself)
   var FIELDS = ['h', 'j', 'lean', 'u1', 'f1', 'u2', 'f2', 'wr'];
@@ -220,7 +221,7 @@
 
   /* ---------- the shot ---------- */
   var state = 'ready';                               // ready -> charging -> flight -> settle -> returning -> ready
-  var tPress = 0, tRelease = 0, tReturn = 0, tSettled = 0, lastPose = KEYS[0];
+  var relPose = 0, tPress = 0, tRelease = 0, tReturn = 0, tSettled = 0, lastPose = KEYS[0];
   var shot = null, b = null, raf = 0, markMs = 0;
 
   function press() {
@@ -255,7 +256,8 @@
       case 'board': T = [rx + 58 * kx, ry - 22 * ky]; break;
       default: T = [rx + 62 * kx, ry - 70 * ky];
     }
-    var hd = draw(poseAt(ts)), P0 = ballAt(hd);
+    relPose = ts / SP;
+    var hd = draw(poseAt(relPose)), P0 = ballAt(hd);
     // a parabola that leaves the hand at about 60 degrees and curves down to the target
     var Dx = T[0] - P0[0], deg = 60, aa, bb;
     for (; deg >= 40; deg -= 2) {
@@ -358,11 +360,11 @@
       else { setMeter(ts); }
     }
     if (state === 'charging') {
-      var hd = draw(poseAt(ts)), c = ballAt(hd);
+      var hd = draw(poseAt(ts / SP)), c = ballAt(hd);
       putBall(c[0], c[1], 20 + ts * 0.05);
-      lastPose = poseAt(ts);
+      lastPose = poseAt(ts / SP);
     } else if (state === 'flight' || state === 'settle') {
-      lastPose = poseAt(Math.min(ts, KEYS[KEYS.length - 1].t));
+      lastPose = poseAt(Math.min(relPose + (now - tRelease), KEYS[KEYS.length - 1].t));
       draw(lastPose);
       if (state === 'flight') { step(now, dt); }
       if (state === 'settle' && now - tSettled > 900) { state = 'returning'; tReturn = now; }
@@ -418,6 +420,8 @@
       var bt = e.target.closest ? e.target.closest('button[data-win]') : null;
       if (!bt) { return; }
       win = parseInt(bt.getAttribute('data-win'), 10);
+      SP = parseFloat(bt.getAttribute('data-speed') || '1');
+      REL = 540 * SP; METER_T = 700 * SP;
       Array.prototype.forEach.call($('levels').children, function (c) { c.classList.toggle('is-active', c === bt); });
       paintMeter();
     });
