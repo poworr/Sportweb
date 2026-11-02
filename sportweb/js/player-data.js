@@ -69,3 +69,13 @@ var PLAYERS = [
   player('durant', 'ケビン・デュラント', 'all', 0, '', 1123, 50.2, 39.0, 88.2, 7.0, 4.4, 1.0, 1.1, 27.2, 'キャリア通算のレギュラーシーズン1試合平均（1,123試合）。'),
   player('kyrie', 'カイリー・アービング', 'all', 0, '', 784, 47.4, 39.4, 88.8, 4.1, 5.6, 1.3, 0.4, 23.6, 'キャリア通算のレギュラーシーズン1試合平均（784試合）。')
 ];
+
+// Body size: [height cm, weight kg, wingspan cm]. Rounded numbers from official listings; wingspans are approximate.
+var BODY = {
+  jokic: [211, 129, 215], wemby: [224, 98, 244], sga: [198, 90, 211], luka: [201, 104, 206], giannis: [211, 110, 221],
+  brunson: [188, 86, 193], edwards: [193, 102, 206], cade: [198, 100, 208], tatum: [203, 95, 211], mitchell: [185, 98, 208],
+  jordan: [198, 98, 208], lebron: [206, 113, 214], kareem: [218, 100, 224], magic: [206, 100, 211], bird: [206, 99, 211],
+  kobe: [198, 96, 211], duncan: [211, 113, 216], shaq: [216, 147, 231], hakeem: [213, 115, 224], curry: [188, 84, 190],
+  durant: [208, 109, 226], kyrie: [188, 88, 193]
+};
+PLAYERS.forEach(function (p) { var b = BODY[p.id] || [200, 100, 205]; p.body = { h: b[0], w: b[1], s: b[2] }; });

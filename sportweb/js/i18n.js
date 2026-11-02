@@ -19,6 +19,14 @@
   if (lang !== 'en') { lang = 'ja'; }
 
   var EN = {
+    /* ----- build yourself: body + style version ----- */
+    '体格とプレースタイルを選んで、目標にしたい選手（レジェンドでも今のスターでも）を選ぶと、体の違いと、そこに近づく練習プランが見えます。': 'Set your body and the style you like to play, then pick a target (a legend or a current star) to see how your body differs and a practice plan to get closer.',
+    '1 あなたの体とスタイル': '1 Your body and style', '1. あなたの体とスタイル': '1. Your body and style',
+    '身長・体重・ウイングスパンを動かすと、左のスティックマンが変わります。そして、どんなプレーが好きかを選んでください。': 'Move height, weight and wingspan and the stick figure on the left changes. Then choose how you like to play.',
+    'どんなプレーをしたい？': 'How do you like to play?',
+    '近さは、体格とプレースタイルから出した目安です。': 'Closeness is a rough guide based on body size and play style.',
+    '体格': 'Body', 'プレースタイル': 'Play style', '主な強み': 'Main strengths',
+    'プレースタイルと体の違いから、まず取り組む練習を選びました。弱点と目標も書いてください。': 'Based on your play style and how your body differs, here are the drills to start with. Write your weakness and goal too.',
     /* ----- menu, pager ----- */
     'ホーム': 'Home', 'ショットマップ': 'Shot Map', 'アリーナ': 'Arenas', '記録の夜': 'Record Night',
     '選手を作る': 'Build a Player', 'シュート練習': 'Shoot Practice',

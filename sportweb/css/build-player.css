@@ -147,3 +147,20 @@
 .build-fields .card-head { margin-bottom: 6px; }
 .build-layout { margin-top: 0; }
 .build-fields .sliders { margin-top: 20px; }
+
+/* ---- play style picker, body notes, target file ---- */
+.style-title { margin-top: 18px; font-size: 15px; }
+.style-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 10px; }
+.style-btn { padding: 10px 8px; border: 2px solid var(--ink); border-radius: 6px; background: var(--card); color: var(--text); font: 700 14px/1.2 inherit; font-family: inherit; cursor: pointer; transition: transform .12s, background .12s; }
+.style-btn:hover { transform: translateY(-2px); }
+.style-btn.is-active { background: var(--accent); color: var(--on-accent); box-shadow: 3px 3px 0 var(--ink); }
+.style-desc { margin-top: 10px; }
+.style-compare { flex: 1 1 260px; min-width: 0; padding: 16px 20px; border: 2px solid var(--ink); border-radius: 6px; background: var(--card); }
+.style-compare h4 { margin-bottom: 8px; }
+.style-compare p { margin-top: 6px; }
+.body-notes { margin: 14px 0 22px; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; }
+.player-file { display: flex; gap: 28px; align-items: flex-end; }
+.file-fig { flex: 0 0 auto; width: clamp(90px, 14vw, 180px); align-self: stretch; display: flex; align-items: flex-end; }
+.file-fig img { display: block; max-width: 100%; max-height: min(50dvh, 360px); width: auto; height: auto; }
+.file-main { flex: 1 1 0; min-width: 0; }
+@media (max-width: 640px) { .player-file { flex-direction: column; align-items: flex-start; } .file-fig { width: 90px; } .style-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

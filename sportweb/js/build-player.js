@@ -1,27 +1,26 @@
 /* ==========================================================
    Build your player page
-   You enter eight numbers, pick a player to compare with, and
-   the page shows the gaps, your closest matches and a 12-week plan.
-   Needs player-data.js (STATS, PLAYERS, RATING_NAMES, rate).
+   You set height, weight and wingspan, choose the play style you
+   like, pick a target player, and the page shows how your body
+   differs and which drills to start with.
+   Needs player-data.js (STATS, PLAYERS, BODY) and lab.js.
    ========================================================== */
 (function () {
   'use strict';
 
   var state = {
-    stats: { pts: 12, fg: 42, tp: 30, ft: 70, reb: 4, ast: 3, stl: 0.8, blk: 0.3 },
     tab: 'all',        // 'now' (ESPN top 10) or 'all' (all-time greats)
     fav: 'curry',      // id of the player we compare with
-    body: { h: 178, w: 72, s: 183 }   // height (cm) and weight (kg) of the stick man
+    style: 1,          // index into Lab.STYLES (the play style you like)
+    body: { h: 178, w: 72, s: 183 }   // height (cm), weight (kg), wingspan (cm)
   };
 
   var $ = function (id) { return document.getElementById(id); };
 
-  /* ---------- small helpers ---------- */
-  function fmt(stat, value) { return value.toFixed(1) + (stat.percent ? '%' : ''); }
-
   function findPlayer(id) {
     return PLAYERS.filter(function (p) { return p.id === id; })[0] || PLAYERS[0];
   }
+  function statByKey(key) { return STATS.filter(function (s) { return s.key === key; })[0]; }
 
   // Words you write in the weakness / goal boxes -> a matching drill
   var KEYWORDS = [
@@ -34,32 +33,32 @@
     [/finish|layup|paint|scor|efficien|フィニッシュ|レイアップ|ペイント|得点|決定力|効率/, 'fg']
   ];
 
-  function statByKey(key) { return STATS.filter(function (s) { return s.key === key; })[0]; }
 
-  /* ---------- 1. sliders (built once) ---------- */
-  function buildSliders() {
-    var box = $('sliders');
-    STATS.forEach(function (stat) {
-      var wrap = document.createElement('div');
-      wrap.className = 'slider';
-      wrap.innerHTML =
-        '<div class="slider-head"><label for="in-' + stat.key + '">' + stat.label + '</label>' +
-        '<span class="slider-value" id="val-' + stat.key + '"></span></div>' +
-        '<input id="in-' + stat.key + '" type="range" min="' + stat.min + '" max="' + stat.max + '" step="' + stat.step + '">';
-      var input = wrap.querySelector('input');
-      input.value = state.stats[stat.key];
-      input.addEventListener('input', function () {
-        state.stats[stat.key] = parseFloat(input.value);
-        showSliderValue(stat);
-        renderResults();
-        renderPlan();
-      });
-      box.appendChild(wrap);
-      showSliderValue(stat);
-    });
+  // which drills (STATS keys) belong to each play style, in Lab.STYLES order
+  var STYLE_DRILLS = [['pts', 'fg'], ['tp', 'ft'], ['ast'], ['reb'], ['stl', 'blk'], ['fg', 'ft']];
+
+  /* ---------- 1a. play style picker ---------- */
+  function examples(i) {
+    return PLAYERS.filter(function (p) { return Lab.style(p).index === i; })
+      .sort(function (a, b) { return Lab.best(b).value - Lab.best(a).value; })
+      .slice(0, 3).map(function (p) { return p.name; }).join(' · ');
   }
-  function showSliderValue(stat) {
-    $('val-' + stat.key).textContent = fmt(stat, state.stats[stat.key]);
+  function buildStyles() {
+    var grid = $('styleGrid');
+    Lab.STYLES.forEach(function (st, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'style-btn';
+      b.textContent = T(st.ja, st.en);
+      b.addEventListener('click', function () { state.style = i; renderStyle(); renderResults(); renderPlan(); });
+      grid.appendChild(b);
+    });
+    renderStyle();
+  }
+  function renderStyle() {
+    var st = Lab.STYLES[state.style];
+    Array.prototype.forEach.call($('styleGrid').children, function (b, i) { b.classList.toggle('is-active', i === state.style); });
+    $('styleDesc').textContent = T(st.jaD, st.enD) + T(' たとえば：', ' For example: ') + examples(state.style);
   }
 
   /* ---------- 1b. height / weight and the stick man ---------- */
@@ -176,7 +175,7 @@
       function show() { $('val-body-' + b.key).textContent = state.body[b.key] + b.unit; }
       input.addEventListener('input', function () {
         state.body[b.key] = parseFloat(input.value);
-        show(); bodyText(); easeBody();
+        show(); bodyText(); easeBody(); renderResults(); renderPlan();
       });
       box.appendChild(wrap);
       show();
@@ -201,7 +200,7 @@
       btn.className = 'player-btn' + (p.id === state.fav ? ' is-active' : '');
       var sub = p.group === 'now' ? '#' + p.rank + ' · ' + p.team : T('キャリア ', 'Career · ') + p.games.toLocaleString('en-US') + T('試合', ' games');
       btn.innerHTML = '<span class="name">' + p.name + '</span><span class="meta">' + sub + '</span>' +
-                      '<span class="meta">' + p.s.pts.toFixed(1) + T('得点/試合', ' pts/game') + '</span>';
+                      '<span class="meta">' + p.body.h + 'cm · ' + Lab.style(p).name + '</span>';
       btn.addEventListener('click', function () { state.fav = p.id; update(); });
       pool.appendChild(btn);
     });
@@ -213,77 +212,56 @@
     update();
   }
 
-  /* ---------- 3. results: radar, bars, matches, player file ---------- */
-  var AXES = [-90, -30, 30, 90, 150, 210].map(function (deg) { return deg * Math.PI / 180; });
 
-  function ringPoints(f) {
-    return AXES.map(function (a) { return (200 + 140 * f * Math.cos(a)).toFixed(1) + ',' + (200 + 140 * f * Math.sin(a)).toFixed(1); }).join(' ');
-  }
-  function shapePoints(ratings) {
-    return AXES.map(function (a, i) {
-      var f = Math.max(0.03, ratings[i] / 100);
-      return (200 + 140 * f * Math.cos(a)).toFixed(1) + ',' + (200 + 140 * f * Math.sin(a)).toFixed(1);
-    }).join(' ');
-  }
-  function extremes(ratings) {
-    var hi = 0, lo = 0;
-    ratings.forEach(function (v, i) { if (v > ratings[hi]) { hi = i; } if (v < ratings[lo]) { lo = i; } });
-    return { hi: hi, lo: lo };
+  /* ---------- 3. results: body comparison, style, closest players ---------- */
+  var UNITS = [
+    { key: 'h', label: tr('身長'), unit: 'cm' },
+    { key: 'w', label: tr('体重'), unit: 'kg' },
+    { key: 's', label: tr('ウイングスパン'), unit: 'cm' }
+  ];
+  function youName() { return ($('playerName').value || '').trim() || T('あなた', 'You'); }
+
+  function closeness(p) {
+    var b = p.body, y = state.body;
+    var d = Math.sqrt(Math.pow((b.h - y.h) / 10, 2) + Math.pow((b.w - y.w) / 12, 2) + Math.pow((b.s - y.s) / 10, 2));
+    if (Lab.style(p).index !== state.style) { d += 1.2; }
+    return Math.max(0, Math.round(100 - d * 14));
   }
 
   function renderResults() {
-    var fav = findPlayer(state.fav);
-    var you = ($('playerName').value || '').trim() || T('あなた', 'You');
-    var yourRatings = rate(state.stats);
-    var favRatings = rate(fav.s);
+    var fav = findPlayer(state.fav), you = youName();
+    var favStyle = Lab.style(fav);
+    var matches = PLAYERS.map(function (p) { return { p: p, pct: closeness(p) }; })
+      .sort(function (a, b) { return b.pct - a.pct; }).slice(0, 3);
 
-    // heading + sentence
     $('resultTitle').textContent = you + ' vs ' + fav.name;
-    var mine = extremes(yourRatings);
-    var matches = PLAYERS.map(function (p) {
-      var r = rate(p.s), sum = 0;
-      r.forEach(function (v, i) { sum += (v - yourRatings[i]) * (v - yourRatings[i]); });
-      return { p: p, pct: Math.max(0, Math.round(100 - Math.sqrt(sum / 6))) };
-    }).sort(function (a, b) { return b.pct - a.pct; }).slice(0, 3);
-    $('resultLine').textContent = T('あなたの一番の強みは「' + RATING_NAMES[mine.hi] + '」、一番低いのは「' + RATING_NAMES[mine.lo] + '」です。この' +
-      PLAYERS.length + '人の中で一番近いのは' + matches[0].p.name + '（' + matches[0].pct + '%）です。',
-      'Your biggest strength is ' + RATING_NAMES[mine.hi] + ' and your lowest is ' + RATING_NAMES[mine.lo] + '. Of these ' +
-      PLAYERS.length + ' players, the closest to you is ' + matches[0].p.name + ' (' + matches[0].pct + '%).');
+    $('resultLine').textContent = T('あなたが好きなスタイルは「' + Lab.STYLES[state.style].ja + '」。体格とスタイルがいちばん近いのは' + matches[0].p.name + '（' + matches[0].pct + '%）です。',
+      'The style you like is ' + Lab.STYLES[state.style].en + '. The closest to you in body and style is ' + matches[0].p.name + ' (' + matches[0].pct + '%).');
 
-    // radar chart
-    $('radarR1').setAttribute('points', ringPoints(0.25));
-    $('radarR2').setAttribute('points', ringPoints(0.5));
-    $('radarR3').setAttribute('points', ringPoints(0.75));
-    $('radarR4').setAttribute('points', ringPoints(1));
-    $('radarAxes').setAttribute('d', AXES.map(function (a) {
-      return 'M200 200L' + (200 + 140 * Math.cos(a)).toFixed(1) + ' ' + (200 + 140 * Math.sin(a)).toFixed(1);
-    }).join(''));
-    $('radarYou').setAttribute('points', shapePoints(yourRatings));
-    $('radarThem').setAttribute('points', shapePoints(favRatings));
-    $('legendYou').textContent = you;
-    $('legendThem').textContent = fav.name;
-
-    // bar comparison
     var rows = $('compareRows');
     rows.innerHTML = '';
-    STATS.forEach(function (stat) {
-      var y = state.stats[stat.key];
-      var t = fav.s[stat.key];
-      var max = Math.max(y, t, 0.1);
-      var ahead = y >= t;
+    UNITS.forEach(function (u) {
+      var y = state.body[u.key], t = fav.body[u.key], d = y - t, max = Math.max(y, t);
+      var diff = d === 0 ? T('同じ', 'Same') : Math.abs(d) + u.unit + ' ' + (d > 0 ? T('上', 'more') : T('下', 'less'));
       var row = document.createElement('div');
       row.className = 'compare-row';
       row.innerHTML =
-        '<div class="compare-top"><span class="compare-label">' + stat.label + '</span>' +
-        '<span class="compare-verdict' + (ahead ? ' is-ahead' : '') + '">' + (ahead ? T('上回る', 'Ahead') : T('下回る', 'Behind')) + '</span></div>' +
+        '<div class="compare-top"><span class="compare-label">' + u.label + '</span><span class="compare-verdict">' + diff + '</span></div>' +
         '<div class="compare-body"><div class="compare-bars">' +
         '<div class="track"><i class="you" style="width:' + (y / max * 100).toFixed(1) + '%"></i></div>' +
         '<div class="track"><i class="them" style="width:' + (t / max * 100).toFixed(1) + '%"></i></div></div>' +
-        '<div class="compare-nums"><span class="you">' + T('あなた ', 'You ') + fmt(stat, y) + '</span><span>' + T('相手 ', 'Them ') + fmt(stat, t) + '</span></div></div>';
+        '<div class="compare-nums"><span class="you">' + T('あなた ', 'You ') + y + u.unit + '</span><span>' + fav.name + ' ' + t + u.unit + '</span></div></div>';
       rows.appendChild(row);
     });
 
-    // closest matches
+    var same = favStyle.index === state.style;
+    $('styleCompare').innerHTML = '<h4>' + T('プレースタイル', 'Play style') + '</h4>' +
+      '<p><b>' + T('あなた：', 'You: ') + '</b>' + T(Lab.STYLES[state.style].ja, Lab.STYLES[state.style].en) + '</p>' +
+      '<p><b>' + fav.name + '：</b>' + favStyle.name + '</p>' +
+      '<p class="note">' + (same
+        ? T('同じスタイルです。体の違いをどう活かすかがカギです。', 'Same style. The key is how you use the differences in your body.')
+        : T('スタイルがちがいます。この選手のように近づくには、プランの練習を取り入れましょう。', 'Different styles. To get closer to him, add the drills in the plan.')) + '</p>';
+
     var box = $('matches');
     box.innerHTML = '';
     matches.forEach(function (m) {
@@ -291,66 +269,56 @@
       btn.type = 'button';
       btn.className = 'match';
       btn.innerHTML = '<span class="match-pct">' + m.pct + '%</span><span class="match-name">' + m.p.name + '</span>' +
-        '<span class="match-sub">' + (m.p.group === 'now' ? T('ランキング' + m.p.rank + '位 · ', 'Ranked #' + m.p.rank + ' · ') + m.p.team : T('歴代の名選手', 'All-time great')) + '</span>' +
+        '<span class="match-sub">' + Lab.style(m.p).name + ' · ' + m.p.body.h + 'cm</span>' +
         '<span class="match-hint">' + T('タップして比べる', 'Tap to compare') + '</span>';
       btn.addEventListener('click', function () { state.tab = m.p.group; state.fav = m.p.id; update(); });
       box.appendChild(btn);
     });
 
-    // player file
-    var ex = extremes(favRatings);
+    // target player file
+    var art = $('fileArt');
+    art.src = 'images/players/' + fav.id + '.webp';
     $('fileName').textContent = fav.name;
     $('fileSub').textContent = fav.group === 'now' ? T('ESPNランキング' + fav.rank + '位 · ', 'ESPN rank #' + fav.rank + ' · ') + fav.team : T('NBA 75周年記念チーム', 'NBA 75th Anniversary Team');
-    $('fileLine').textContent = fav.s.pts.toFixed(1) + T('得点、', ' pts, ') + fav.s.reb.toFixed(1) + T('リバウンド、', ' reb, ') + fav.s.ast.toFixed(1) +
-      T('アシスト、', ' ast, ') + fav.s.stl.toFixed(1) + T('スティール、', ' stl, ') + fav.s.blk.toFixed(1) + T('ブロック', ' blk');
-    $('fileSplits').textContent = 'FG ' + fav.s.fg.toFixed(1) + '% · 3P ' + fav.s.tp.toFixed(1) + '% · FT ' + fav.s.ft.toFixed(1) + '%';
-    $('fileBest').textContent = RATING_NAMES[ex.hi] + ' (' + Math.min(99, Math.round(favRatings[ex.hi])) + ')';
-    $('fileWorst').textContent = RATING_NAMES[ex.lo] + ' (' + Math.round(favRatings[ex.lo]) + ')';
-    $('fileNote').textContent = fav.note;
+    $('fileBody').textContent = fav.body.h + 'cm · ' + fav.body.w + 'kg · ' + T('ウイングスパン ', 'wingspan ') + fav.body.s + 'cm';
+    $('fileStyle').textContent = favStyle.name;
+    $('fileStrong').textContent = Lab.strengths(fav, 2).map(function (s) { return s.stat.label; }).join(' / ');
+    $('fileNote').textContent = (Lab.honors(fav)[0] || '') ;
     $('fileLink').href = 'players.html?p=' + fav.id;
   }
 
-  /* ---------- 4. plan: gaps, 12-week table, your words ---------- */
+  /* ---------- 4. plan: body notes, drills for your style, your words ---------- */
   function renderPlan() {
-    var fav = findPlayer(state.fav);
-    $('gapsTitle').textContent = T(fav.name + 'との差が大きい項目', 'Biggest gaps vs ' + fav.name);
+    var fav = findPlayer(state.fav), y = state.body, t = fav.body;
+    $('gapsTitle').textContent = T('「' + Lab.STYLES[state.style].ja + '」におすすめの練習', 'Drills for the ' + Lab.STYLES[state.style].en + ' style');
 
-    // the three biggest relative gaps
-    var gaps = STATS.map(function (stat) {
-      var y = state.stats[stat.key], t = fav.s[stat.key];
-      return { stat: stat, y: y, t: t, rel: t >= 0.5 ? (t - y) / t : 0 };
-    }).filter(function (g) { return g.rel > 0; })
-      .sort(function (a, b) { return b.rel - a.rel; })
-      .slice(0, 3);
-
-    $('noGaps').hidden = gaps.length > 0;
-    $('noGaps').textContent = T('あなたはすべての項目で' + fav.name + 'を上回っています。もっと強い相手と比べて、次の課題を見つけましょう。', 'You beat ' + fav.name + ' in every category. Compare with a tougher opponent to find your next challenge.');
+    var notes = [], dh = y.h - t.h, dw = y.w - t.w, ds = y.s - t.s;
+    notes.push(Math.abs(dh) <= 3 ? T('身長は' + fav.name + 'とほぼ同じです。', 'Your height is about the same as ' + fav.name + '.')
+      : dh < 0 ? T(fav.name + 'より身長が' + (-dh) + 'cm低いので、スピードとボールを守るドリブルを武器にしましょう。', 'You are ' + (-dh) + ' cm shorter than ' + fav.name + ', so make speed and ball protection your weapons.')
+      : T(fav.name + 'より身長が' + dh + 'cm高いので、ゴール近くの高さを活かしましょう。', 'You are ' + dh + ' cm taller than ' + fav.name + ', so use that height near the basket.'));
+    notes.push(Math.abs(ds) <= 3 ? T('ウイングスパンもほぼ同じです。', 'Your wingspan is about the same too.')
+      : ds < 0 ? T('腕が' + (-ds) + 'cm短い分、足の運びと先読みでカバーしましょう。', 'Your arms are ' + (-ds) + ' cm shorter, so cover it with footwork and anticipation.')
+      : T('腕が' + ds + 'cm長いので、パスコースを消したりブロックしたりするのに活かせます。', 'Your arms are ' + ds + ' cm longer, which helps in the passing lanes and on blocks.'));
+    if (Math.abs(dw) > 8) {
+      notes.push(dw < 0 ? T('体重が' + (-dw) + 'kg軽いので、当たり負けしないよう筋トレも取り入れましょう。', 'You are ' + (-dw) + ' kg lighter, so add strength training to handle contact.')
+        : T('体重が' + dw + 'kg重いので、持久力とステップの軽さを意識しましょう。', 'You are ' + dw + ' kg heavier, so work on stamina and light footwork.'));
+    }
+    $('bodyNotes').innerHTML = '';
+    notes.forEach(function (n) { var li = document.createElement('li'); li.textContent = n; $('bodyNotes').appendChild(li); });
 
     var focus = $('focusList');
     focus.innerHTML = '';
-    gaps.forEach(function (g, i) {
+    STYLE_DRILLS[state.style].forEach(function (key, i) {
+      var st = statByKey(key);
       var card = document.createElement('div');
       card.className = 'focus';
       card.innerHTML = '<span class="focus-rank">' + T('フォーカス ', 'Focus ') + (i + 1) + '</span>' +
-        '<span class="focus-title">' + g.stat.label + '</span>' +
-        '<span class="focus-line">' + T('あなた ', 'You ') + fmt(g.stat, g.y) + T('。', '. ') + fav.name + ' ' + fmt(g.stat, g.t) + T('。', '.') + '</span>' +
-        '<span class="focus-tip">' + g.stat.tip + '</span>';
+        '<span class="focus-title"></span><span class="focus-tip"></span>';
+      card.querySelector('.focus-title').textContent = st.label;
+      card.querySelector('.focus-tip').textContent = st.tip;
       focus.appendChild(card);
     });
 
-    // 12-week pacing: close a quarter of the gap every three weeks
-    $('planBlock').hidden = gaps.length === 0;
-    var body = $('planBody');
-    body.innerHTML = '';
-    gaps.forEach(function (g) {
-      var at = function (f) { return fmt(g.stat, g.y + (g.t - g.y) * f); };
-      var tr = document.createElement('tr');
-      tr.innerHTML = '<td>' + g.stat.label + '</td><td>' + fmt(g.stat, g.y) + '</td><td>' + at(0.25) +
-                     '</td><td>' + at(0.5) + '</td><td>' + at(0.75) + '</td><td>' + fmt(g.stat, g.t) + '</td>';
-      body.appendChild(tr);
-    });
-
-    // your own words (textContent keeps anything you type safe)
     var weak = $('weak').value.trim();
     var goal = $('goal').value.trim();
     $('words').hidden = !weak && !goal;
@@ -359,7 +327,6 @@
     $('wordsWeakText').textContent = weak;
     $('wordsGoalText').textContent = goal;
 
-    // a drill that matches what you wrote
     var text = (weak + ' ' + goal).toLowerCase();
     var hit = null;
     for (var i = 0; i < KEYWORDS.length && !hit; i++) {
@@ -392,7 +359,6 @@
   nextBtn.addEventListener('click', function () { goStep(step + 1, true); });
 
   /* ---------- start ---------- */
-  // ?target=jordan (from the Player Lab / Head-to-Head pages) preselects the player you want to become
   (function () {
     var m = /[?&]target=([a-z0-9-]+)/.exec(window.location.search);
     if (m) { var p = findPlayer(m[1]); if (p.id === m[1]) { state.fav = p.id; state.tab = p.group; } }
@@ -400,7 +366,7 @@
   function update() { renderPool(); renderResults(); renderPlan(); }
 
   buildBodySliders();
-  buildSliders();
+  buildStyles();
   $('tabNow').addEventListener('click', function () { pickTab('now', 'jokic'); });
   $('tabAll').addEventListener('click', function () { pickTab('all', 'curry'); });
   ['playerName', 'weak', 'goal'].forEach(function (id) {

@@ -121,6 +121,6 @@ var Lab = (function () {
     return m ? m[1] : '';
   }
 
-  return { ratings: ratings, best: best, style: style, rank: rank, maxOf: maxOf, find: find,
+  return { STYLES: STYLES, ratings: ratings, best: best, style: style, rank: rank, maxOf: maxOf, find: find,
            fmt: fmt, rankText: rankText, honors: honors, sub: sub, strengths: strengths, weakest: weakest, radar: radar, param: param };
 })();
