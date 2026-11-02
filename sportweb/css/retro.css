@@ -82,3 +82,18 @@ body:not(.p-home) .page { padding-bottom: calc(48px + var(--frame) + 14px); }
   .header-inner { flex-wrap: wrap; justify-content: center; gap: 2px 16px; }
   .logo, .main-nav a { white-space: nowrap; }
 }
+
+/* 日本語 / English switch, centred between the pager arrows */
+.pager .lang-switch {
+  position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); display: flex; gap: 2px; padding: 3px;
+  border-radius: 999px; background: rgba(43, 21, 17, .14); pointer-events: auto;
+}
+.lang-switch button {
+  min-width: 46px; min-height: 28px; padding: 0 11px; border: 0; border-radius: 999px; background: transparent; color: #2b1511;
+  font: 700 12px/1 var(--label); letter-spacing: .06em; cursor: pointer;
+}
+.lang-switch button[aria-pressed="true"] { background: #2b1511; color: #fff6ea; }
+.lang-switch button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+.is-en .eyebrow { letter-spacing: .12em; }
+
+@media (max-width: 640px) { .pager .pager-text { display: none; } }

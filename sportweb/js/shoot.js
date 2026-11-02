@@ -213,8 +213,8 @@
   function say(big, small, tone) {
     callout.className = 'callout is-on is-' + tone;
     callout.innerHTML = '<b></b><span></span>';
-    callout.firstChild.textContent = big;
-    callout.lastChild.textContent = small || '';
+    callout.firstChild.textContent = tr(big);
+    callout.lastChild.textContent = tr(small || '');
   }
   function hideSay() { callout.className = 'callout'; }
 
@@ -271,8 +271,8 @@
     state = 'flight';
     tRelease = now;
     var ms = (err > 0 ? '+' : err < 0 ? '−' : '±') + Math.round(a) + 'ms';
-    if (o === 'swish') { say('グリーン！', 'パーフェクト ' + ms, 'green'); stats.green++; }
-    else if (o === 'rimin' || o === 'rimout') { say(err < 0 ? 'ちょっと早い' : 'ちょっと遅い', 'あと少し ' + ms, 'yellow'); }
+    if (o === 'swish') { say('グリーン！', T('パーフェクト ', 'Perfect ') + ms, 'green'); stats.green++; }
+    else if (o === 'rimin' || o === 'rimout') { say(err < 0 ? 'ちょっと早い' : 'ちょっと遅い', T('あと少し ', 'So close ') + ms, 'yellow'); }
     else { say(err < 0 ? '早すぎ！' : '遅すぎ！', ms, 'red'); }
     paintStats();
   }

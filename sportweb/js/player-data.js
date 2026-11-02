@@ -15,7 +15,10 @@ var STATS = [
 ];
 
 // The six rating axes on the radar chart (clockwise from the top)
-var RATING_NAMES = ['得点', 'シュート', 'プレーメイク', 'リバウンド', 'ディフェンス', '効率'];
+var RATING_NAMES = ['得点', 'シュート', 'プレーメイク', 'リバウンド', 'ディフェンス', '効率'].map(tr);
+
+// English versions of the labels and drill tips come from tr() in i18n.js
+STATS.forEach(function (s) { s.label = tr(s.label); s.tip = tr(s.tip); });
 
 function clamp100(x) { return Math.max(0, Math.min(100, x)); }
 
@@ -33,23 +36,24 @@ function rate(s) {
 
 // [id, name, group, rank, team, games, FG%, 3P%, FT%, REB, AST, STL, BLK, PTS, note]
 function player(id, name, group, rank, team, games, fg, tp, ft, reb, ast, stl, blk, pts, note) {
-  return { id: id, name: name, group: group, rank: rank, team: team, games: games,
-           s: { fg: fg, tp: tp, ft: ft, reb: reb, ast: ast, stl: stl, blk: blk, pts: pts }, note: note };
+  return { id: id, name: tr(name), group: group, rank: rank, team: tr(team), games: games,
+           s: { fg: fg, tp: tp, ft: ft, reb: reb, ast: ast, stl: stl, blk: blk, pts: pts }, note: tr(note) };
 }
 
-var NOW_NOTE = '2025-26レギュラーシーズンの1試合平均。';
+var NOW_NOTE = tr('2025-26レギュラーシーズンの1試合平均。') + T('', ' ');
+function GM(n) { return T(n + '試合。', n + ' games.'); }
 var PLAYERS = [
   // ESPN NBA Rank 2026 top 10 (group "now")
-  player('jokic', 'ニコラ・ヨキッチ', 'now', 1, 'デンバー・ナゲッツ', 65, 56.9, 38.0, 83.1, 12.9, 10.7, 1.4, 0.8, 27.7, NOW_NOTE + '65試合。'),
-  player('wemby', 'ビクター・ウェンバンヤマ', 'now', 2, 'サンアントニオ・スパーズ', 64, 51.2, 34.9, 82.7, 11.5, 3.1, 1.0, 3.1, 25.0, NOW_NOTE + '64試合。'),
-  player('sga', 'シェイ・ギルジャス＝アレクサンダー', 'now', 3, 'オクラホマシティ・サンダー', 68, 55.3, 38.6, 87.9, 4.3, 6.6, 1.4, 0.8, 31.1, NOW_NOTE + '68試合。'),
-  player('luka', 'ルカ・ドンチッチ', 'now', 4, 'ロサンゼルス・レイカーズ', 64, 47.6, 36.6, 78.0, 7.7, 8.3, 1.6, 0.5, 33.5, NOW_NOTE + '64試合。'),
-  player('giannis', 'ヤニス・アデトクンボ', 'now', 5, 'マイアミ・ヒート', 36, 62.4, 33.3, 65.0, 9.8, 5.4, 0.9, 0.7, 27.6, NOW_NOTE + '36試合のみ。このシーズンはミルウォーキーでプレーした。'),
-  player('brunson', 'ジェイレン・ブランソン', 'now', 6, 'ニューヨーク・ニックス', 74, 46.7, 36.9, 84.1, 3.3, 6.8, 0.8, 0.1, 26.0, NOW_NOTE + '74試合。'),
-  player('edwards', 'アンソニー・エドワーズ', 'now', 7, 'ミネソタ・ティンバーウルブズ', 61, 48.9, 39.9, 79.6, 5.0, 3.7, 1.4, 0.8, 28.8, NOW_NOTE + '61試合。'),
-  player('cade', 'ケイド・カニングハム', 'now', 8, 'デトロイト・ピストンズ', 64, 46.1, 34.2, 81.2, 5.5, 9.9, 1.4, 0.8, 23.9, NOW_NOTE + '64試合。'),
-  player('tatum', 'ジェイソン・テイタム', 'now', 9, 'ボストン・セルティックス', 16, 41.1, 32.9, 82.3, 10.0, 5.3, 1.4, 0.2, 21.8, NOW_NOTE + '16試合のみのため、サンプルは小さめ。'),
-  player('mitchell', 'ドノバン・ミッチェル', 'now', 10, 'クリーブランド・キャバリアーズ', 70, 48.3, 36.4, 86.5, 4.5, 5.7, 1.5, 0.3, 27.9, NOW_NOTE + '70試合。'),
+  player('jokic', 'ニコラ・ヨキッチ', 'now', 1, 'デンバー・ナゲッツ', 65, 56.9, 38.0, 83.1, 12.9, 10.7, 1.4, 0.8, 27.7, NOW_NOTE + GM(65)),
+  player('wemby', 'ビクター・ウェンバンヤマ', 'now', 2, 'サンアントニオ・スパーズ', 64, 51.2, 34.9, 82.7, 11.5, 3.1, 1.0, 3.1, 25.0, NOW_NOTE + GM(64)),
+  player('sga', 'シェイ・ギルジャス＝アレクサンダー', 'now', 3, 'オクラホマシティ・サンダー', 68, 55.3, 38.6, 87.9, 4.3, 6.6, 1.4, 0.8, 31.1, NOW_NOTE + GM(68)),
+  player('luka', 'ルカ・ドンチッチ', 'now', 4, 'ロサンゼルス・レイカーズ', 64, 47.6, 36.6, 78.0, 7.7, 8.3, 1.6, 0.5, 33.5, NOW_NOTE + GM(64)),
+  player('giannis', 'ヤニス・アデトクンボ', 'now', 5, 'マイアミ・ヒート', 36, 62.4, 33.3, 65.0, 9.8, 5.4, 0.9, 0.7, 27.6, NOW_NOTE + tr('36試合のみ。このシーズンはミルウォーキーでプレーした。')),
+  player('brunson', 'ジェイレン・ブランソン', 'now', 6, 'ニューヨーク・ニックス', 74, 46.7, 36.9, 84.1, 3.3, 6.8, 0.8, 0.1, 26.0, NOW_NOTE + GM(74)),
+  player('edwards', 'アンソニー・エドワーズ', 'now', 7, 'ミネソタ・ティンバーウルブズ', 61, 48.9, 39.9, 79.6, 5.0, 3.7, 1.4, 0.8, 28.8, NOW_NOTE + GM(61)),
+  player('cade', 'ケイド・カニングハム', 'now', 8, 'デトロイト・ピストンズ', 64, 46.1, 34.2, 81.2, 5.5, 9.9, 1.4, 0.8, 23.9, NOW_NOTE + GM(64)),
+  player('tatum', 'ジェイソン・テイタム', 'now', 9, 'ボストン・セルティックス', 16, 41.1, 32.9, 82.3, 10.0, 5.3, 1.4, 0.2, 21.8, NOW_NOTE + tr('16試合のみのため、サンプルは小さめ。')),
+  player('mitchell', 'ドノバン・ミッチェル', 'now', 10, 'クリーブランド・キャバリアーズ', 70, 48.3, 36.4, 86.5, 4.5, 5.7, 1.5, 0.3, 27.9, NOW_NOTE + GM(70)),
 
   // All-time greats from the NBA 75th Anniversary Team (group "all"), career averages
   player('jordan', 'マイケル・ジョーダン', 'all', 0, '', 1072, 49.7, 32.7, 83.5, 6.2, 5.3, 2.3, 0.8, 30.1, 'キャリア通算のレギュラーシーズン1試合平均（1,072試合）。'),

@@ -24,7 +24,7 @@
     count.textContent = step.count;
     shot.hidden = !step.showShot;
     tag.hidden = !step.showShot;
-    caption.textContent = step.caption;
+    caption.textContent = tr(step.caption);
     buttons.forEach(function (b, n) { b.classList.toggle('is-active', n === i); });
   }
 

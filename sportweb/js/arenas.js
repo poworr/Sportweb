@@ -58,7 +58,7 @@
     btn.type = 'button';
     btn.className = 'stop ' + (GAMES[t[0]] ? 'stop--game' : 'stop--plain');
     btn.dataset.team = t[0];
-    btn.setAttribute('aria-label', t[1]);
+    btn.setAttribute('aria-label', tr(t[1]));
     btn.style.left = (xy[0] / MAP_W * 100).toFixed(2) + '%';
     btn.style.top = (xy[1] / MAP_H * 100).toFixed(2) + '%';
     btn.addEventListener('click', function () { select(t[0]); });
@@ -71,16 +71,16 @@
     var team = TEAMS.filter(function (t) { return t[0] === id; })[0];
     var game = GAMES[id];
 
-    $('arenaTag').textContent = game ? '記録された試合あり' : 'データ待ち';
-    $('arenaName').textContent = team[1];
-    $('arenaWhere').textContent = team[2];
+    $('arenaTag').textContent = game ? tr('記録された試合あり') : tr('データ待ち');
+    $('arenaName').textContent = tr(team[1]);
+    $('arenaWhere').textContent = tr(team[2]);
     $('arenaGame').hidden = !game;
     $('arenaEmpty').hidden = !!game;
     if (game) {
-      $('arenaDate').textContent = game.date;
-      $('arenaResult').textContent = game.result;
-      $('arenaLine').textContent = game.line;
-      $('arenaNote').textContent = game.note;
+      $('arenaDate').textContent = tr(game.date);
+      $('arenaResult').textContent = tr(game.result);
+      $('arenaLine').textContent = tr(game.line);
+      $('arenaNote').textContent = tr(game.note);
     }
 
     stopsBox.querySelectorAll('.stop').forEach(function (b) {

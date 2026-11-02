@@ -48,12 +48,14 @@
 
   /* ---------- caption ---------- */
   function captionFor(i) {
-    if (SPECIAL[i]) { return SPECIAL[i]; }
+    if (SPECIAL[i]) { return tr(SPECIAL[i]); }
     var prev = i - 1;
     if (prev >= 0 && SEASONS[prev][1] < 30) { prev = i - 2; }   // skip very short seasons
     var diff = SEASONS[i][3] - SEASONS[prev][3];
-    return '1試合' + SEASONS[i][3].toFixed(1) + '本の試投。' + SEASONS[prev][0] + 'から' +
-           Math.abs(diff).toFixed(1) + '本' + (diff >= 0 ? '増加' : '減少') + '。';
+    return T('1試合' + SEASONS[i][3].toFixed(1) + '本の試投。' + SEASONS[prev][0] + 'から' +
+             Math.abs(diff).toFixed(1) + '本' + (diff >= 0 ? '増加' : '減少') + '。',
+             SEASONS[i][3].toFixed(1) + ' attempts per game. ' + (diff >= 0 ? 'Up ' : 'Down ') +
+             Math.abs(diff).toFixed(1) + ' from ' + SEASONS[prev][0] + '.');
   }
 
   /* ---------- dots on the court ---------- */
@@ -84,7 +86,7 @@
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'bar';
-      btn.setAttribute('aria-label', s[0] + '：1試合あたり試投' + s[3].toFixed(1) + '本、成功' + s[2].toFixed(1) + '本');
+      btn.setAttribute('aria-label', T(s[0] + '：1試合あたり試投' + s[3].toFixed(1) + '本、成功' + s[2].toFixed(1) + '本', s[0] + ': ' + s[3].toFixed(1) + ' attempts, ' + s[2].toFixed(1) + ' makes per game'));
       btn.innerHTML = '<span class="bar-attempts" style="height:' + (s[3] / BAR_SCALE * 87).toFixed(1) + '%">' +
                       '<span class="bar-made" style="height:' + (s[2] / s[3] * 100).toFixed(1) + '%"></span></span>';
       btn.addEventListener('click', function () { stop(); show(i); });
@@ -109,7 +111,7 @@
     els.att.textContent = s[3].toFixed(1);
     els.pct.textContent = s[4].toFixed(1) + '%';
     els.ppg.textContent = s[5].toFixed(1);
-    els.games.textContent = s[1] + '試合に出場';
+    els.games.textContent = T(s[1] + '試合に出場', s[1] + ' games played');
     renderDots(s);
     els.bars.querySelectorAll('.bar').forEach(function (b, n) { b.classList.toggle('is-active', n === i); });
   }
@@ -117,11 +119,11 @@
   /* ---------- play / pause ---------- */
   function stop() {
     if (timer) { clearInterval(timer); timer = null; }
-    els.play.textContent = 'シーズンを順に再生';
+    els.play.textContent = tr('シーズンを順に再生');
   }
   function togglePlay() {
     if (timer) { stop(); return; }
-    els.play.textContent = '一時停止';
+    els.play.textContent = tr('一時停止');
     timer = setInterval(function () { show((current + 1) % SEASONS.length); }, 1100);
   }
 
