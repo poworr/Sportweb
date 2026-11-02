@@ -95,3 +95,8 @@ body:not(.p-home) .page { padding-bottom: calc(48px + var(--frame) + 14px); }
 .is-en .eyebrow { letter-spacing: .12em; }
 
 @media (max-width: 640px) { .pager .pager-text { display: none; } }
+
+/* footer in the middle of the pager bar */
+.site-foot { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); margin: 0; display: flex; flex-direction: column; align-items: center; gap: 3px; text-align: center; font: 700 12px/1.2 var(--label, inherit); letter-spacing: .14em; text-transform: uppercase; color: var(--ink); opacity: .8; white-space: nowrap; pointer-events: none; }
+.site-foot .foot-extra { font-weight: 600; font-size: 10px; letter-spacing: .12em; opacity: .7; }
+@media (max-width: 640px) { .site-foot { font-size: 10px; letter-spacing: .08em; } .site-foot .foot-extra { display: none; } }

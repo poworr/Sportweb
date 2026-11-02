@@ -36,6 +36,11 @@
       '<span class="pager-text"><span class="pager-hint">' + tr('次のページ') + '</span><span class="pager-name">' + tr(next[1]) + '</span></span>' +
       '<span class="pager-key" aria-hidden="true">→</span>' +
       '<span class="pager-pv" aria-hidden="true"><iframe tabindex="-1" title="" data-src="' + next[0] + '"></iframe></span></a>';
+  /* footer: name and copyright, between the two arrows */
+  var foot = document.createElement('p');
+  foot.className = 'site-foot';
+  foot.innerHTML = '<span>© 2026 WORASAKNUKUL PIPOP</span><span class="foot-extra">All rights reserved.</span>';
+  nav.appendChild(foot);
   page.appendChild(nav);
 
   /* hovering an arrow shows the page it leads to, open in a small window */
