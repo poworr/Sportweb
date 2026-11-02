@@ -10,13 +10,9 @@
 (function () {
   'use strict';
 
+  /* the site is Japanese only: the English dictionary below is kept but never used */
   var lang = 'ja';
-  try {
-    var q = /[?&]lang=(ja|en)\b/.exec(window.location.search);
-    if (q) { window.localStorage.setItem('range-lang', q[1]); }
-    lang = window.localStorage.getItem('range-lang') || 'ja';
-  } catch (e) { /* no storage: stay in Japanese */ }
-  if (lang !== 'en') { lang = 'ja'; }
+  try { window.localStorage.removeItem('range-lang'); } catch (e) { /* ignore */ }
 
   var EN = {
     /* ----- build yourself: body + style version ----- */

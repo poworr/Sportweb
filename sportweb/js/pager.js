@@ -36,21 +36,6 @@
       '<span class="pager-text"><span class="pager-hint">' + tr('次のページ') + '</span><span class="pager-name">' + tr(next[1]) + '</span></span>' +
       '<span class="pager-key" aria-hidden="true">→</span>' +
       '<span class="pager-pv" aria-hidden="true"><iframe tabindex="-1" title="" data-src="' + next[0] + '"></iframe></span></a>';
-  /* 日本語 / English switch, between the two arrows */
-  var sw = document.createElement('div');
-  sw.className = 'lang-switch';
-  sw.setAttribute('role', 'group');
-  sw.setAttribute('aria-label', 'Language');
-  [['ja', '日本語'], ['en', 'EN']].forEach(function (l) {
-    var b = document.createElement('button');
-    b.type = 'button';
-    b.textContent = l[1];
-    b.lang = l[0];
-    b.setAttribute('aria-pressed', window.RANGE_LANG === l[0] ? 'true' : 'false');
-    b.addEventListener('click', function () { if (window.RANGE_LANG !== l[0]) { window.setLang(l[0]); } });
-    sw.appendChild(b);
-  });
-  nav.appendChild(sw);
   page.appendChild(nav);
 
   /* hovering an arrow shows the page it leads to, open in a small window */
