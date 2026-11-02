@@ -122,7 +122,7 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 
 .hero { position: relative; }
 /* the four photos pop up big, above the word RANGE */
-.picks { position: absolute; left: 0; bottom: calc(100% + clamp(10px, 2.2dvh, 24px)); width: calc(100vw - 2 * clamp(14px, 2vw, 28px)); display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(10px, 1.2vw, 20px); pointer-events: none; }
+.picks { position: absolute; left: 0; bottom: calc(100% + clamp(10px, 2.2dvh, 24px)); width: calc(100vw - 2 * clamp(14px, 2vw, 28px)); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(10px, 1.2vw, 20px); pointer-events: none; }
 .is-open .picks { pointer-events: auto; }
 .picks .tile {
   width: auto; height: min(36dvh, 19vw);
@@ -176,9 +176,9 @@ a.tile--photo:hover::after, a.tile--photo:focus-visible::after { opacity: 1; }
 .po-sub { display: block; margin-top: clamp(4px, .5vw, 8px); font: 600 clamp(10px, .9vw, 13px)/1.25 Inter, 'Noto Sans JP', sans-serif; opacity: .75; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 @media (max-aspect-ratio: 1/1), (max-width: 760px) {
   .picks .tile.poster { padding: 8px 8px 6px; }
-  .picks { grid-template-columns: repeat(3, 29vw); gap: 8px; }
-  .picks .tile.poster { width: 29vw; height: 30vw; padding: 6px 6px 5px; }
-  .picks .po-title { font-size: 11px; margin-top: 9px; letter-spacing: -.05em; }
+  .picks { grid-template-columns: repeat(2, 42vw); gap: 10px; }
+  .picks .tile.poster { width: 42vw; height: min(40vw, 20dvh); padding: 7px 7px 5px; }
+  .picks .po-title { font-size: 14px; margin-top: 10px; letter-spacing: -.04em; }
   .picks .po-sw { width: 24px; height: 5px; top: 6px; right: 6px; }
   .picks .po-sub { display: none; }
   .picks .po-tag { font-size: 12px; top: 4px; right: 6px; }

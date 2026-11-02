@@ -12,8 +12,7 @@
     ['players.html', '選手を知る'],
     ['compare.html', '選手を比べる'],
     ['build-player.html', '自分を作る'],
-    ['shoot.html', 'シュート練習'],
-    ['shot-map.html', 'ショットマップ']
+    ['shoot.html', 'シュート練習']
   ];
 
   var file = window.location.pathname.split('/').pop();
