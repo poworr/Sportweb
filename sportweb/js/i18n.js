@@ -25,6 +25,28 @@
     'ページ移動': 'Page navigation', '前のページ': 'Previous', '次のページ': 'Next',
     'スポーツウェブサイト | バスケットボール | Range': 'Sports Website | Basketball | Range',
 
+    /* ----- rebuilt site: player lab, head to head, build yourself ----- */
+    '選手を知る': 'Player Lab', '選手を比べる': 'Head to Head', '自分を作る': 'Build Yourself',
+    'NBA選手研究': 'NBA PLAYER STUDY',
+    'レジェンドと今のスターの強み': "Strengths of legends and today's stars",
+    '2人を重ねて、どこが違うか': 'Overlay two players, see the difference',
+    'なりたい選手への道と練習プラン': 'Your path to the player you want to be',
+    'カリーの3ポイントの歴史': "The history of Curry's threes",
+    'NBAのレジェンドと今のスターを分析して、自分がなりたい選手への道を見つけよう。': "Analyze NBA legends and today's stars, then find your path to the player you want to be.",
+    'レジェンドと今のスターは、どれだけすごい？': "How good are the legends and today's stars?",
+    '選手を選ぶと、何が強くて、どれだけすごいのかが一目でわかります。まずはジョーダン、レブロン、カリーなどの名選手から。': 'Pick a player and see at a glance what he is best at and how good he is. Start with greats like Jordan, LeBron and Curry.',
+    '選手': 'Players',
+    'この2人、どっちがすごい？': 'Which of these two is better?',
+    '2人を選ぶと、6つの評価と8つの成績を重ねて比べられます。どこで勝っていて、どこで負けているのかを見てみましょう。': 'Pick two players to overlay their six ratings and eight stats. See where each one wins and where each one falls behind.',
+    '選手A': 'Player A', '選手B': 'Player B', '入れ替える': 'Swap',
+    '選手Bを目標にして練習プランを作る →': 'Make Player B my target and build a practice plan →',
+    'なりたい選手への道を作る。': 'Build your path to the player you want to be.',
+    '自分の数字を入れて、目標にしたい選手（レジェンドでも今のスターでも）を選ぶと、いまの差と、そこに近づく練習プランが見えます。': 'Enter your numbers and choose the player you want to become, a legend or a current star, to see the gap today and a practice plan to close it.',
+    '2 なりたい選手': '2 Your target', '4 目標の選手': '4 Target player',
+    '2. なりたい選手を選ぶ': '2. Choose the player you want to become', '目標の選手': 'Target player',
+    'この選手のくわしい強みを見る →': 'See his strengths in detail →',
+    'シュート練習で試す →': 'Try it in Shoot Practice →',
+
     /* ----- home ----- */
     'シュート研究': 'A SHOOTING STUDY',
     'シーズン別の3ポイント': 'Three-pointers by season',

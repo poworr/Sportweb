@@ -9,11 +9,11 @@
 
   var PAGES = [
     ['index.html', 'ホーム'],
-    ['shot-map.html', 'ショットマップ'],
-    ['arenas.html', 'アリーナ'],
-    ['record-night.html', '記録の夜'],
-    ['build-player.html', '選手を作る'],
-    ['shoot.html', 'シュート練習']
+    ['players.html', '選手を知る'],
+    ['compare.html', '選手を比べる'],
+    ['build-player.html', '自分を作る'],
+    ['shoot.html', 'シュート練習'],
+    ['shot-map.html', 'ショットマップ']
   ];
 
   var file = window.location.pathname.split('/').pop();

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>選手を知る | Range</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/build-player.css">
+<link rel="stylesheet" href="css/lab.css">
+<link rel="stylesheet" href="css/fit.css">
+<link rel="stylesheet" href="css/retro.css">
+</head>
+<body class="p-lab p-players">
+  <div class="page">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="logo" href="index.html">ホーム</a>
+        <nav class="main-nav" aria-label="Main">
+          <a href="players.html" aria-current="page">選手を知る</a>
+          <a href="compare.html">選手を比べる</a>
+          <a href="build-player.html">自分を作る</a>
+          <a href="shoot.html">シュート練習</a>
+          <a href="shot-map.html">ショットマップ</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="container">
+          <p class="eyebrow">選手を知る</p>
+          <h2>レジェンドと今のスターは、どれだけすごい？</h2>
+          <p class="lede">選手を選ぶと、何が強くて、どれだけすごいのかが一目でわかります。まずはジョーダン、レブロン、カリーなどの名選手から。</p>
+
+          <div class="lab">
+            <nav class="lab-list" id="labList" aria-label="選手"></nav>
+            <article class="lab-profile card" id="labProfile" aria-live="polite"></article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+<script src="js/i18n.js"></script>
+<script src="js/player-data.js"></script>
+<script src="js/lab.js"></script>
+<script src="js/players.js"></script>
+<script src="js/pager.js"></script>
+</body>
+</html>

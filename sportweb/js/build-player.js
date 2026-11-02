@@ -307,6 +307,7 @@
     $('fileBest').textContent = RATING_NAMES[ex.hi] + ' (' + Math.min(99, Math.round(favRatings[ex.hi])) + ')';
     $('fileWorst').textContent = RATING_NAMES[ex.lo] + ' (' + Math.round(favRatings[ex.lo]) + ')';
     $('fileNote').textContent = fav.note;
+    $('fileLink').href = 'players.html?p=' + fav.id;
   }
 
   /* ---------- 4. plan: gaps, 12-week table, your words ---------- */
@@ -391,6 +392,11 @@
   nextBtn.addEventListener('click', function () { goStep(step + 1, true); });
 
   /* ---------- start ---------- */
+  // ?target=jordan (from the Player Lab / Head-to-Head pages) preselects the player you want to become
+  (function () {
+    var m = /[?&]target=([a-z0-9-]+)/.exec(window.location.search);
+    if (m) { var p = findPlayer(m[1]); if (p.id === m[1]) { state.fav = p.id; state.tab = p.group; } }
+  })();
   function update() { renderPool(); renderResults(); renderPlan(); }
 
   buildBodySliders();

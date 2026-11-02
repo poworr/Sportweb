@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>選手を作る | Range</title>
+<title>自分を作る | Range</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
@@ -18,11 +18,11 @@
       <div class="header-inner">
         <a class="logo" href="index.html">ホーム</a>
         <nav class="main-nav" aria-label="Main">
-          <a href="shot-map.html">ショットマップ</a>
-          <a href="arenas.html">アリーナ</a>
-          <a href="record-night.html">記録の夜</a>
-          <a href="build-player.html" aria-current="page">選手を作る</a>
+          <a href="players.html">選手を知る</a>
+          <a href="compare.html">選手を比べる</a>
+          <a href="build-player.html" aria-current="page">自分を作る</a>
           <a href="shoot.html">シュート練習</a>
+          <a href="shot-map.html">ショットマップ</a>
         </nav>
       </div>
     </header>
@@ -30,16 +30,16 @@
     <main>
       <section class="section">
         <div class="container">
-          <p class="eyebrow">選手を作る</p>
-          <h2>あなたはどのNBA選手に近い？</h2>
-          <p class="lede">自分の数字を入力して、今のトップ10や歴代の名選手と比べましょう。差がどこにあるかを確認して、練習のペース配分も作れます。</p>
+          <p class="eyebrow">自分を作る</p>
+          <h2>なりたい選手への道を作る。</h2>
+          <p class="lede">自分の数字を入れて、目標にしたい選手（レジェンドでも今のスターでも）を選ぶと、いまの差と、そこに近づく練習プランが見えます。</p>
 
           <nav class="steps-nav" aria-label="ステップ">
             <div class="steps-tabs" id="stepsTabs">
               <button type="button" class="step-tab" data-go="1">1 あなたの数字</button>
-              <button type="button" class="step-tab" data-go="2">2 比べる相手</button>
+              <button type="button" class="step-tab" data-go="2">2 なりたい選手</button>
               <button type="button" class="step-tab" data-go="3">3 結果</button>
-              <button type="button" class="step-tab" data-go="4">4 選手ファイル</button>
+              <button type="button" class="step-tab" data-go="4">4 目標の選手</button>
               <button type="button" class="step-tab" data-go="5">5 プラン</button>
             </div>
             <div class="steps-move">
@@ -73,7 +73,7 @@
           </div>
 
           <div class="card card--soft" data-step="2">
-            <h3>2. 比べる相手</h3>
+            <h3>2. なりたい選手を選ぶ</h3>
             <div class="tabs">
               <button class="pill" id="tabNow" type="button">今：ESPNトップ10</button>
               <button class="pill" id="tabAll" type="button">歴代の名選手</button>
@@ -118,7 +118,7 @@
           </div>
 
           <div class="card player-file" data-step="4">
-            <div class="tag">選手ファイル</div>
+            <div class="tag">目標の選手</div>
             <h3 id="fileName"></h3>
             <p class="sub" id="fileSub"></p>
             <div class="facts">
@@ -128,6 +128,7 @@
               <div class="fact"><span class="fact-label">6つの評価の最低</span><span class="fact-value" id="fileWorst"></span></div>
             </div>
             <p class="note" id="fileNote"></p>
+            <p class="file-cta"><a class="btn" id="fileLink" href="players.html">この選手のくわしい強みを見る →</a></p>
           </div>
 
           <div class="card card--plan" data-step="5">
@@ -171,6 +172,7 @@
                 </table>
               </div>
             </div>
+            <p class="plan-cta"><a class="btn btn--primary" href="shoot.html">シュート練習で試す →</a></p>
 
             </div></div>
           </div>
